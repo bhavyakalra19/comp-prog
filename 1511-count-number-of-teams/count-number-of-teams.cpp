@@ -1,23 +1,36 @@
 class Solution {
 public:
     int numTeams(vector<int>& rating) {
-        int total = 0;
-
-        for ( int i = 0 ; i < rating.size() ; i ++ ){
-            int right_less = 0 , right_more = 0 , left_less = 0 , left_more = 0;
-
-            for ( int j = i + 1 ; j < rating.size() ; j ++ ){
-                if ( rating[j] < rating[i] ) right_less++;
-                else if ( rating[i] < rating[j] ) right_more++;
+        int n = rating.size();
+        int ans = 0;
+        int lI;
+        int rD;
+        int lD;
+        int rI;
+        for(int i = 1; i < n-1; i++){
+            lI = 0;
+            rD = 0;
+            lD = 0;
+            rI = 0;
+            for(int j = i-1; j >= 0; j--){
+                //Decreasing
+                if(rating[j] < rating[i]){
+                    lD += 1;
+                }else{
+                    lI += 1;
+                }
             }
-            for ( int j = 0 ; j < i ; j ++ ){
-                if ( rating[j] < rating[i] ) left_less++;
-                else if ( rating[i] < rating[j] ) left_more ++;
-            }
 
-            total += right_less*left_more + right_more*left_less;
+            for(int j = i+1; j < n; j++){
+                if(rating[j] > rating[i]){
+                    rI += 1;
+                }else{
+                    rD += 1;
+                }
+            }
+            ans += lI*rD;
+            ans += lD*rI;
         }
-
-        return total;
+        return ans;
     }
 };
