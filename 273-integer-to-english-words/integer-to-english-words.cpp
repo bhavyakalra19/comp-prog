@@ -173,42 +173,6 @@ public:
                 return ans;
             }        
         }
-        // for(int i = 0;)
-        // string check;
-        // ans = getNum(num%1000);
-        // num /= 1000;
-        // if(num == 0){
-        //     return ans;
-        // }
-        // if(ans != ""){
-        //     ans = " " + ans;
-        // }
-        // check = getNum(num%1000);
-        // if(check != ""){
-        //     ans = check + " Thousand" + ans;
-        // }
-        // num /= 1000;
-        // if(num == 0){
-        //     return ans;
-        // }
-        // if(ans != ""){
-        //     ans = " " + ans;
-        // }
-        // check = getNum(num%1000);
-        // if(check != ""){
-        //     ans = check + " Million" + ans;
-        // }
-        // num /= 1000;
-        // if(num == 0){
-        //     return ans;
-        // }
-        // if(ans != ""){
-        //     ans = " " + ans;
-        // }
-        // check = getNum(num%1000);
-        // if(check != ""){
-        //     ans = check + " Billion" + ans;
-        // }
         return ans;
     }
 };
