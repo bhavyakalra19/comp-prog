@@ -1,32 +1,32 @@
 class Solution {
 public:
+    vector<vector<int>> ans;
 
-   void combination(vector<int> nums, int t, int index, vector<vector<int>> &v, vector<int> s){
-        if(t == 0){
-            v.push_back(s);
+    void getAns(vector<int> candidates, int idx, int target, vector<int> check){
+        if(target == 0){
+            ans.push_back(check);
             return;
         }
-        if(t < 0){
+        if(idx == candidates.size()){
             return;
         }
-        for(int i = index; i < nums.size(); i++){
-            if(nums[i] > t){
+        for(int i = idx; i < candidates.size(); i++){
+            if(candidates[i] > target){
                 break;
             }
-            if(i > index && nums[i] == nums[i-1]){
+            if(i > idx && candidates[i] == candidates[i-1]){
                 continue;
             }
-            s.push_back(nums[i]);
-            combination(nums,t - nums[i], i+1, v, s);
-            s.pop_back();
+            check.push_back(candidates[i]);
+            getAns(candidates,i+1,target-candidates[i],check);
+            check.pop_back();
         }
     }
 
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        vector<vector<int>> v;
-        vector<int> s;
         sort(candidates.begin(),candidates.end());
-        combination(candidates,target,0,v,s);
-        return v;
+        vector<int> check;
+        getAns(candidates,0,target,check);
+        return ans;
     }
 };
