@@ -7,9 +7,6 @@ public:
             ans.push_back(check);
             return;
         }
-        if(idx == candidates.size()){
-            return;
-        }
         for(int i = idx; i < candidates.size(); i++){
             if(candidates[i] > target){
                 break;
