@@ -7,7 +7,7 @@ public:
         int md = 0;
         for(int i = 1; i < n; i++){
             int sm = arrays[i][0];
-            int lg = arrays[i][arrays[i].size() - 1];
+            int lg = arrays[i].back();
             md = max(md, abs(lg - a));
             md = max(md,abs(b - sm));
             a = min(a,sm);
