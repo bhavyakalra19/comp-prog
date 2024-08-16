@@ -12,7 +12,7 @@ public:
                 mx = md;
             }
         }
-        return mn;
+        return mx;
     }
 
     int countCheck(vector<int> nums, int md){
