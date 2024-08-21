@@ -1,25 +1,34 @@
 class Solution {
 public:
-    int stoneGameII(vector<int>& piles) {
-        int n = piles.size();
-        vector<vector<int>> dp(n,vector<int>(n+1,0));
-        vector<int> ss(n, 0);
-        ss[n-1] = piles[n-1];
-        for(int i = n - 2; i >= 0; i--){
-            ss[i] = ss[i+1] + piles[i];
+    int getAns(int alice, vector<int> piles, vector<vector<vector<int>>> &dp, int m, int idx, int n){
+        if(idx == piles.size()){
+            return 0;
         }
-
-        for(int i = n - 1; i >= 0; i--){
-            for(int m = 1; m <= n; m++){
-                if(i + 2*m >= n){
-                    dp[i][m] = ss[i];
-                }else{
-                    for(int x = 1; x <= 2 * m; x++){
-                        dp[i][m] = max(dp[i][m], ss[i] - dp[i+x][max(m,x)]);
-                    }
-                }
+        if(dp[alice][idx][m] != -1){
+            return dp[alice][idx][m];
+        }
+        int sum = 0;
+        int stones = (alice == 1 ? 0 : INT_MAX);
+        for(int x = 1; x <= 2*m; x++){
+            if(idx + x > n){
+                break;
+            }
+            sum += piles[idx + x - 1];
+            if(alice == 1){
+                stones = max(stones, sum + getAns(0,piles,dp,max(x,m), idx + x, n));
+            }else{
+                stones = min(stones, getAns(1,piles,dp,max(x,m), idx + x, n));
             }
         }
-        return dp[0][1];
+        return dp[alice][idx][m] = stones;
+    }
+
+    int stoneGameII(vector<int>& piles) {
+        int n = piles.size();
+        if(n == 1){
+            return piles[0];
+        }
+        vector<vector<vector<int>>> dp(2,vector(n+1, vector<int>(n+1, -1)));
+        return getAns(1,piles,dp,1,0,n);    
     }
 };
