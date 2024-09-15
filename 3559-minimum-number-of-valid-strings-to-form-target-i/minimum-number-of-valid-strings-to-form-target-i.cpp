@@ -1,66 +1,67 @@
-class Node {
+class TrieNode {
 public:
-    Node* lists[26];
-    bool flag = false;
-
+    TrieNode* childs[26];
+    TrieNode() {
+        for (int i = 0; i < 26; ++i) {
+            childs[i] = nullptr;
+        }
+    }
 };
 
 class Trie {
 public:
-    Node* root;
-
+    TrieNode* root;
     Trie() {
-        root = new Node();
+        root = new TrieNode();
     }
 
-    void insert(const string& word) {
-        Node* node = root;
+    void insert(string word) {
+        TrieNode* temp = root;
         for (char c : word) {
-            int ch = c - 'a';
-            if (!node->lists[ch]) {
-                node->lists[ch] = new Node();
+            int idx = c - 'a';
+            if (temp->childs[idx] == nullptr) {
+                temp->childs[idx] = new TrieNode();
             }
-            node = node->lists[ch];
-            node->flag = true;
+            temp = temp->childs[idx];
         }
-    }
-
-   
-    vector<int> search(const string& target, int start) {
-        vector<int> valid_lengths;
-        Node* node = root;
-        for (int i = start; i < target.length(); i++) {
-            if (!node->lists[target[i] - 'a']) break;
-            node = node->lists[target[i] - 'a'];
-            if (node->flag) {
-                valid_lengths.push_back(i - start + 1);
-            }
-        }
-        return valid_lengths;
     }
 };
 
 class Solution {
 public:
-    int minValidStrings(vector<string>& words, string target) {
-        Trie trie;
+    int n;
+    string target;
+    vector<int> dp;
 
-        for (const string& word : words) {
-            trie.insert(word);
-        }
+    int solve(int i, TrieNode* root) {
+        if (i == n) return 0;
+        if (dp[i] != -1) return dp[i];
 
-        int n = target.length();
-        vector<int> dp(n + 1, INT_MAX);
-        dp[0] = 0;  
-        for (int i = 0; i < n; i++) {
-            if (dp[i] == INT_MAX) continue;
+        TrieNode* temp = root;
+        int res = INT_MAX;
 
-            vector<int> lengths = trie.search(target, i);
-            for (int len : lengths) {
-                dp[i + len] = min(dp[i + len], dp[i] + 1);
+        for (int j = i; j < n; ++j) {
+            int idx = target[j] - 'a';
+            if (temp->childs[idx] == nullptr) break;
+            temp = temp->childs[idx];
+            int t = solve(j + 1, root);
+            if (t != INT_MAX) {
+                res = min(res, t + 1);
             }
         }
+        return dp[i] = res;
+    }
 
-        return dp[n] == INT_MAX ? -1 : dp[n];
+    int minValidStrings(vector<string>& words, string target) {
+        Trie trie;
+        for (string word : words) {
+            trie.insert(word);
+        }
+        n = target.size();
+        this->target = target;
+        dp = vector<int>(n, -1);
+
+        int res = solve(0, trie.root);
+        return res == INT_MAX ? -1 : res;
     }
 };
