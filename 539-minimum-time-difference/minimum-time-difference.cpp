@@ -4,7 +4,6 @@ public:
         return time[0] * 10 + time[1];
     }
 
-
     int findMinDifference(vector<string>& timePoints) {
         sort(timePoints.begin(),timePoints.end());
         int n = timePoints.size();
