@@ -15,7 +15,7 @@ class Solution {
             int n = b.size();
             dp = vector<vector<long long>>(5,vector<long long>(n+1,LONG_MIN));
             for(int i = 0; i < 5; i++){
-                dp[i][0] = -1e11;
+                dp[i][0] = INT_MIN;
             }
             for(int i = 0; i <= n; i++){
                 dp[0][i] = 0;
