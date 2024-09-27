@@ -49,7 +49,6 @@ public:
             if(c.first < end && start < c.second){
                 int overlapMin = max(c.first, start);
                 int overlapMax = min(c.second, end);
-                cout << overlapMin << " " << overlapMax << endl;
                 dfs(overlapMin,overlapMax,root,0);
             }
         }
