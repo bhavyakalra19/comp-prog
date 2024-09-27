@@ -1,33 +1,38 @@
+class Node{
+    public:
+        int s;
+        int t;
+        Node *left;
+        Node *right;
+
+        Node(int s, int t){
+            this->s = s;
+            this->t = t;
+            left = NULL;
+            right = NULL;
+        }
+};
+
+
 class MyCalendar {
 public:
-    map<int,int> mp;
-    // MyCalendar() {
-        
-    // }
+    Node *root;
+
+    bool dfs(int s, int e, Node* &curr){
+        if(!curr){
+            curr = new Node(s,e);
+            return 1;
+        }
+        if(curr && e <= curr->s){
+            return dfs(s,e,curr->left);
+        }else if(curr && s >= curr->t){
+            return dfs(s,e,curr->right);
+        }
+        return 0;
+    }
     
     bool book(int start, int end) {
-        int k = INT_MAX;
-        int s = INT_MAX;
-        int nx = INT_MAX;
-        for(auto m : mp){
-            if(m.first < start){
-                s = m.first;
-                k = m.second;
-            }else if(m.first == start){
-                return false;
-            }else{
-                nx = m.first;
-                break;
-            }
-        }
-        if(nx != INT_MAX && end > nx){
-            return false;
-        }
-        if(k != INT_MAX && start < k){
-            return false;
-        }
-        mp[start] = end;
-        return true;
+        return dfs(start, end, root);
     }
 };
 
