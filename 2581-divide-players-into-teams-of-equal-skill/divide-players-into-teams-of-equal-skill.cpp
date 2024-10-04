@@ -27,7 +27,7 @@ public:
             }
             ans += (i * j * fi);
         }
-        ans += (i==j && i*2 == check) ? freq[i] * i * i / 2LL : 0LL;
+        ans += (i==j) ? freq[i] * i * i / 2LL : 0LL;
         return ans;
     }
 };
