@@ -15,7 +15,7 @@ public:
             i++;
         }
         if(i == m && i == n){
-            ci = i;
+            return true;
         }
         if(i == m && s2[i] == ' '){
             ci = i;
