@@ -1,42 +1,49 @@
 class Solution {
 public:
     bool areSentencesSimilar(string s1, string s2) {
-        s1.push_back(' ');
-        s2.push_back(' ');
-        vector<string> check1;
-        vector<string> check2;
-        string ans = "";
-        for(int i = 0; i < s1.size(); i++){
-            if(s1[i] == ' '){
-                check1.push_back(ans);
-                ans = "";
-            }else{
-                ans += s1[i];
+        int m = s1.size();
+        int n = s2.size();
+        int ci = 0;
+        int i = 0;
+        while(i < m && i < n){
+            if(s1[i] == ' ' && s2[i] == ' '){
+                ci = i;
             }
-        }
-
-        for(int i = 0; i < s2.size(); i++){
-            if(s2[i] == ' '){
-                check2.push_back(ans);
-                ans = "";
-            }else{
-                ans += s2[i];
-            }
-        }
-        int m1 = 0, m2 = 0;
-        int n1 = check1.size() - 1;
-        int n2 = check2.size() - 1;
-        while(m1 <= n1 && m2 <= n2){
-            if(check1[m1] == check2[m2]){
-                m1++;
-                m2++;
-            }else if(check1[n1] == check2[n2]){
-                n1--;
-                n2--;
-            }else{
+            if(s1[i] != s2[i]){
                 break;
             }
+            i++;
         }
-        return (n1 + 1 == m1 || n2 + 1 == m2) ? true : false;
+        if(i == m && i == n){
+            ci = i;
+        }
+        if(i == m){
+            if(s2[i] == ' '){
+                ci = i;
+            }
+        }
+        if(i == n){
+            if(s1[i] == ' '){
+                ci = i;
+            }
+        }
+        cout << ci << endl;
+        int j1 = m - 1;
+        int j2 = n - 1;
+        while(j1 >= ci && j2 >= ci && s1[j1] == s2[j2]){
+            j1--;
+            j2--;
+        }
+        if(j1 == -1){
+            if(s2[j2] != ' '){
+                return false;
+            }
+        }
+        if(j2 == -1){
+            if(s1[j1] != ' '){
+                return false;
+            }
+        }
+        return (j1 + 1 == ci || j2 + 1 == ci) ? true : false;
     }
 };
