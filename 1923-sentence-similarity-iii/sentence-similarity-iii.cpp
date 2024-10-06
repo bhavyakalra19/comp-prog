@@ -17,15 +17,11 @@ public:
         if(i == m && i == n){
             ci = i;
         }
-        if(i == m){
-            if(s2[i] == ' '){
-                ci = i;
-            }
+        if(i == m && s2[i] == ' '){
+            ci = i;
         }
-        if(i == n){
-            if(s1[i] == ' '){
-                ci = i;
-            }
+        if(i == n && s1[i] == ' '){
+            ci = i;
         }
         cout << ci << endl;
         int j1 = m - 1;
@@ -34,15 +30,8 @@ public:
             j1--;
             j2--;
         }
-        if(j1 == -1){
-            if(s2[j2] != ' '){
-                return false;
-            }
-        }
-        if(j2 == -1){
-            if(s1[j1] != ' '){
-                return false;
-            }
+        if((j1 == -1 && s2[j2] != ' ') || (j2 == -1 && s1[j1] != ' ')){
+            return false;
         }
         return (j1 + 1 == ci || j2 + 1 == ci) ? true : false;
     }
