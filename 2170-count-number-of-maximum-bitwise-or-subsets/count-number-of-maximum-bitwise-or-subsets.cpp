@@ -2,7 +2,7 @@ class Solution {
 public:
     void getAns(int check, vector<int> nums, int idx, int curr, int &ans){
         if(curr == check){
-            ans += 1;
+            ans++;
         }
 
         for(int i = idx; i < nums.size(); i++){
