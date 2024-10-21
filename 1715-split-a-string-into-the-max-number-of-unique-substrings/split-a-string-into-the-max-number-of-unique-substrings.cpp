@@ -2,7 +2,7 @@ class Solution {
 public:
     int ans;
     int n;
-    void getAns(string s, int idx, unordered_map<string,bool> mp, int num){
+    void getAns(string s, int idx, unordered_map<string,bool> &mp, int num){
         if(idx >= n){
             ans = max(ans,num);
             return;
