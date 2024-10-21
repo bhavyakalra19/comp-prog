@@ -10,7 +10,7 @@ public:
         string curr = "";
         for(int i = idx; i < n; i++){
             curr += s[i];
-            if(mp.find(curr) == mp.end() || mp[curr] == false){
+            if(mp[curr] == false){
                 mp[curr] = true;
                 getAns(s,i+1,mp,num+1);
                 mp[curr] = false;
