@@ -2,7 +2,7 @@ class Solution {
 public:
     int ans;
     int n;
-    void getAns(string s, int idx, unordered_map<string,bool> &mp, int num){
+    void getAns(string s, int idx, unordered_map<string,bool> mp, int num){
         if(idx >= n){
             ans = max(ans,num);
             return;
@@ -22,6 +22,7 @@ public:
         ans = 0;
         n = s.size();
         string curr = "";
+
         for(int i = 0; i < n; i++){
             unordered_map<string,bool> mp;
             string sub = s.substr(0,i+1);
