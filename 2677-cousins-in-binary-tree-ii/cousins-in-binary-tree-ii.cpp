@@ -12,41 +12,35 @@
 class Solution {
 public:
     TreeNode* replaceValueInTree(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-
-        while(!q.empty()){
-            int s = q.size();
-            int s_ = s;
-            map<TreeNode*, int> mp;
-            int sum=0;
-            queue<TreeNode*> temp;
-            while(s--){
-                auto it = q.front();
-                temp.push(it);
-                q.pop();
-                
-                if(it->left) {
-                    mp[it]+=it->left->val;
-                    sum+=it->left->val;
-                    q.push(it->left);
-                }
-                if(it->right) {
-                    mp[it]+=it->right->val;
-                    sum+=it->right->val;
-                    q.push(it->right);
-                }
-            }
-            while(s_--){
-                auto it = temp.front();
-                temp.pop();
-
+        queue<TreeNode*> qt;
+        qt.push(root);
+        while(!qt.empty()){
+            unordered_map<TreeNode*,int> mp;
+            int totalSum = 0;
+            qt.push(NULL);
+            while(qt.front() != NULL){
+                auto it = qt.front();
+                qt.pop();
+                int localSum = 0;
                 if(it->left){
-                    it->left->val = sum-mp[it];
+                    qt.push(it->left);
+                    localSum += it->left->val;
                 }
                 if(it->right){
-                    it->right->val = sum-mp[it];
+                    qt.push(it->right);
+                    localSum += it->right->val;
                 }
+                totalSum += localSum;
+                if(it->left){
+                    mp[it->left] = localSum;
+                }
+                if(it->right){
+                    mp[it->right] = localSum;
+                }
+            }
+            qt.pop();
+            for(auto m : mp){
+                m.first->val = totalSum - mp[m.first];
             }
         }
         root->val = 0;
