@@ -41,13 +41,6 @@ public:
     vector<int> treeQueries(TreeNode* root, vector<int>& queries) {
         vector<int> ans;
         dfs(root,0);
-        for(auto m : mp){
-            cout << m.first << "->" << m.second[0];
-            if(m.second.size() > 1){
-                cout << " " << m.second[1];
-            }
-            cout << endl;
-        }
         for(auto q : queries){
             if(mp[curr[q]].size() == 1){
                 ans.push_back(curr[q] - 1);
