@@ -54,8 +54,6 @@ public:
             }else{
                 if(pos[q] == mp[curr[q]][0]){
                     ans.push_back(curr[q] + mp[curr[q]][1]);
-                }else if(pos[q] == mp[curr[q]][1]){
-                    ans.push_back(curr[q] + mp[curr[q]][0]);
                 }else{
                     ans.push_back(curr[q] + max(mp[curr[q]][0], mp[curr[q]][1]));
                 }
