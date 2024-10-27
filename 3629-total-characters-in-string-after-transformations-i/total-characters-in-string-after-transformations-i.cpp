@@ -6,17 +6,6 @@ public:
         for(auto a : s){
             count[a - 'a']++;
         }
-        // while(t > 25){
-        //     for(int i = 0; i < 26; i++){
-        //         if(i == 25){
-        //             count[0] = (count[0] + count[i])%mod;
-        //             count[1] = (count[1] + count[i])%mod;
-        //         }else{
-        //             count[i+1] = (count[i+1] + count[i])%mod;
-        //         }
-        //     }
-        //     t -= 26;
-        // }
         while(t > 0){
             vector<int> tmp(26,0);
             for(int i = 0; i < 26; i++){
