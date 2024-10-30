@@ -25,13 +25,6 @@ public:
             ans += 1;
             right[i] = ans;
         }
-        for(auto a : left){
-            cout << a << " ";
-        }
-        cout << endl;
-        for(int a : right){
-            cout << a << " ";
-        }
         for(int i = 1; i < n - 1; i++){
             if(left[i] > 1 && right[i] > 1){
                 ans = max(ans, left[i] + right[i] - 1);
