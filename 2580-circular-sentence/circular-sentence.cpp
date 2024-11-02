@@ -11,12 +11,8 @@ public:
                 i++;
             }
             i++;
-            if(i >= n){
-                break;
-            }else{
-                if(curr != sentence[i]){
-                    return false;
-                }
+            if(i < n && curr != sentence[i]){
+                return false;
             }
         }
         return start == curr;
