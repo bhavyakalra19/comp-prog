@@ -5,6 +5,9 @@ public:
         if(n != goal.size()){
             return false;
         }
+        if(s == goal){
+            return true;
+        }
         for(int i = 0; i < n; i++){
             string s1 = s.substr(i);
             string s2 = s.substr(0,i);
