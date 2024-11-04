@@ -25,9 +25,6 @@ public:
                     continue;
                 }
                 int nw = max(cw, moveTime[nx][ny]) + cp;
-                if(nx == m - 1 && ny == n - 1){
-                    cout << cx << " " << cy << " " << cp << " " << cw << endl;
-                }
                 if(nw < check[nx][ny]){
                     check[nx][ny] = nw;
                     if(cp == 1){
