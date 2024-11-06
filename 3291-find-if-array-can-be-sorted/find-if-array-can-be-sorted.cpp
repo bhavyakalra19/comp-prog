@@ -9,60 +9,27 @@ public:
         return ans;
     }
 
-    void merge(vector<int> &arr, int s, int mid, int e){
-        int i = s;
-        int j = mid+1;
-        vector<int> check;
-        while(i <= mid && j <= e){
-            if(arr[i] < arr[j]){
-                check.push_back(arr[i]);
-                i++;
-            }else{
-                check.push_back(arr[j]);
-                j++;
-            }
-        }
-        while(i <= mid){
-            check.push_back(arr[i]);
-            i++;
-        }
-
-        while(j <= e){
-            check.push_back(arr[j]);
-            j++;
-        }
-
-        for(int i = s; i <= e; i++){
-            arr[i] = check[i-s];
-        }
-    }
-
-
-    void mergeSort(vector<int> &arr, int s, int e){
-        if(s < e){
-            int mid = (s + e)/2;
-            mergeSort(arr,s,mid);
-            mergeSort(arr,mid+1,e);
-            merge(arr,s,mid,e);
-        }
-    }
-
     bool canSortArray(vector<int>& nums) {
         int n = nums.size();
         vector<int> check;
+        vector<pair<int,int>> ans;
         for(int i = 0; i < n; i++){
             check.push_back(getSet(nums[i]));
         }
         int i = 0;
         while(i < n){
             int s = i;
+            int mn = nums[i];
+            int mx = nums[i];
             while(i < n && check[i] == check[s]){
+                mn = min(mn, nums[i]);
+                mx = max(mx, nums[i]);
                 i++;
             }
-            mergeSort(nums,s,i-1);
+            ans.push_back({mn,mx});
         }
-        for(int i = 1; i < n; i++){
-            if(nums[i] < nums[i-1]){
+        for(int i = 1; i < ans.size(); i++){
+            if(ans[i].first < ans[i-1].second){
                 return false;
             }
         }
