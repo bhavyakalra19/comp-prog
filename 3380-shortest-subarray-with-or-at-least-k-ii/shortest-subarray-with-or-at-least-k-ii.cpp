@@ -26,14 +26,13 @@ public:
     int minimumSubarrayLength(vector<int>& nums, int k) {
         int n = nums.size();
         int check[32] = {0};
-        int i = 0;
         int j = 0;
         int ans = INT_MAX;
         int t = 0;
-        while(i < n){
-            updateBits(check,nums[i++],1);
-            while(j < i && getNum(check) >= k){
-                ans = min(ans,i-j);
+        for(int i = 0; i < n; i++){
+            updateBits(check,nums[i],1);
+            while(j <= i && getNum(check) >= k){
+                ans = min(ans,i-j+1);
                 updateBits(check,nums[j++],-1);
             }
         }
