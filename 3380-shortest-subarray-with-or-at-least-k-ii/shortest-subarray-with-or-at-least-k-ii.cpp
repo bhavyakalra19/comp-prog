@@ -14,10 +14,12 @@ public:
 
     int getNum(vector<int> check){
         int ans = 0;
+        int t = 1;
         for(int i = 0; i < 32; i++){
             if(check[i] > 0){
-                ans += (1 << i);
+                ans += t;
             }
+            t <<= 1;
         }
         return ans;
     }
