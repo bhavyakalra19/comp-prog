@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void updateBits(vector<int> &check, int num, int val){
+    void updateBits(int *check, int num, int val){
         int i = 0;
         while(num > 0){
             if(num & 1){
@@ -11,7 +11,7 @@ public:
         }
     }
 
-    int getNum(vector<int> check){
+    int getNum(int *check){
         int ans = 0;
         int t = 1;
         for(int i = 0; i < 32; i++){
@@ -25,7 +25,7 @@ public:
 
     int minimumSubarrayLength(vector<int>& nums, int k) {
         int n = nums.size();
-        vector<int> check(32,0);
+        int check[32] = {0};
         int i = 0;
         int j = 0;
         int ans = INT_MAX;
