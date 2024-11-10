@@ -1,14 +1,13 @@
 class Solution {
 public:
     void updateBits(vector<int> &check, int num, int val){
-        int nm = num;
         int i = 0;
-        while(nm > 0){
-            if((nm & 1) == 1){
+        while(num > 0){
+            if(num & 1){
                 check[i] += val;
             }
             i++;
-            nm >>= 1;
+            num >>= 1;
         }
     }
 
