@@ -11,28 +11,18 @@ public:
         sort(check.begin(),check.end());
         vector<int> ans(m,0);
         int mx = 0;
-        for(int i = 0; i < n; i++){
-            mx = max(mx,items[i][1]);
-            cout << items[i][0] << " " << mx << endl;
-            items[i][1] = mx;
-        }
-        int j = -1;
-        // while(!pq.empty()){
-        //     auto it = pq.top();
-        //     pq.pop();
-        //     while(j + 1 < n && it.first >= items[j+1][0]){
-        //         j++;
-        //     }
-        //     if(j != -1){
-        //         ans[it.second] = items[j][1];
-        //     }
+        // for(int i = 0; i < n; i++){
+        //     mx = max(mx,items[i][1]);
+        //     items[i][1] = mx;
         // }
+        int j = -1;
         for(int i = 0; i < m; i++ ){
             while(j + 1 < n && check[i].first >= items[j+1][0]){
                 j++;
+                mx = max(mx,items[j][1]);
             }
             if(j != -1){
-                ans[check[i].second] = items[j][1];
+                ans[check[i].second] = mx;
             }
         }
         return ans;
