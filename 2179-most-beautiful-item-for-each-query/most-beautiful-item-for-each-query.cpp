@@ -4,12 +4,9 @@ public:
         int n = items.size();
         sort(items.begin(), items.end());
         vector<pair<int,int>> check;
-
-        priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
         int m = queries.size();
         for(int i = 0; i < m; i++){
             check.push_back({queries[i],i});
-            pq.push({queries[i],i});
         }
         sort(check.begin(),check.end());
         vector<int> ans(m,0);
