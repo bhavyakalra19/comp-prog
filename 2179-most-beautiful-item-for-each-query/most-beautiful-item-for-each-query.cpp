@@ -11,10 +11,6 @@ public:
         sort(check.begin(),check.end());
         vector<int> ans(m,0);
         int mx = 0;
-        // for(int i = 0; i < n; i++){
-        //     mx = max(mx,items[i][1]);
-        //     items[i][1] = mx;
-        // }
         int j = -1;
         for(int i = 0; i < m; i++ ){
             while(j + 1 < n && check[i].first >= items[j+1][0]){
