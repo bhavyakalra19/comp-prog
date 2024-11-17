@@ -8,11 +8,14 @@ public:
         int ans = INT_MAX;
         for(int i = 0; i < n; i++){
             sum += nums[i];
-            while(!pq.empty() && pq.top().first <= (sum - k)){
+            pq.push({sum,i});
+            while(pq.top().first <= (sum - k)){
                 ans = min(ans, i - pq.top().second);
                 pq.pop();
             }
-            pq.push({sum,i});
+            if(ans == 1){
+                return ans;
+            }
         }
         return ans == INT_MAX ? -1 : ans;
     }
