@@ -10,7 +10,7 @@ public:
         if(k == 0){
             return 0;
         }
-        for(int i = 0; i < main, j <= n; i++){
+        for(int i = 0; i < main, j < n; i++){
             int ct = s[i%n] - 'a';
             check[ct] += 1;
             if(check[ct] == k){
