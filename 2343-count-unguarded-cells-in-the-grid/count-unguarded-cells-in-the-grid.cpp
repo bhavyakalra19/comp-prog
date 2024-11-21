@@ -1,6 +1,9 @@
 class Solution {
 public:
-    void getAns(vector<vector<int>> &check, int m, int n, int x, int y, int &ans){
+    int ans;
+    int m;
+    int n;
+    void getAns(vector<vector<int>> &check, int x, int y){
         int dx[4] = {-1,0,1,0};
         int dy[4] = {0,1,0,-1};
         for(int i = 0; i < 4; i++){
@@ -21,8 +24,10 @@ public:
     }
 
     int countUnguarded(int m, int n, vector<vector<int>>& guards, vector<vector<int>>& walls) {
+        this->m = m;
+        this->n = n;
         vector<vector<int>> check(m,vector<int>(n,0));
-        int ans = 0;
+        ans = 0;
         for(auto g : guards){
             ans += 1;
             check[g[0]][g[1]] = 1;
@@ -32,7 +37,7 @@ public:
             check[w[0]][w[1]] = 1;
         }
         for(auto g : guards){
-            getAns(check,m,n,g[0],g[1],ans);
+            getAns(check,g[0],g[1]);
         }
         return m*n - ans;
     }
