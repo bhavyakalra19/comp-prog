@@ -3,7 +3,8 @@ public:
     int ans;
     int m;
     int n;
-    void getAns(vector<vector<int>> &check, int x, int y){
+    vector<vector<int>> check;
+    void getAns(int x, int y){
         int dx[4] = {-1,0,1,0};
         int dy[4] = {0,1,0,-1};
         for(int i = 0; i < 4; i++){
@@ -26,7 +27,7 @@ public:
     int countUnguarded(int m, int n, vector<vector<int>>& guards, vector<vector<int>>& walls) {
         this->m = m;
         this->n = n;
-        vector<vector<int>> check(m,vector<int>(n,0));
+        check.resize(m,vector<int>(n,0));
         ans = 0;
         for(auto g : guards){
             ans += 1;
@@ -37,7 +38,7 @@ public:
             check[w[0]][w[1]] = 1;
         }
         for(auto g : guards){
-            getAns(check,g[0],g[1]);
+            getAns(g[0],g[1]);
         }
         return m*n - ans;
     }
