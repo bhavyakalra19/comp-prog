@@ -10,6 +10,9 @@ public:
             if(i == near){
                 near = far;
                 jump++;
+                if(near >= n - 1){
+                    break;
+                }
             }
         }
         return jump;
