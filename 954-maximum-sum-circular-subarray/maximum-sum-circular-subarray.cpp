@@ -9,10 +9,11 @@ public:
         int n = nums.size();
         for(int i = 0; i < n; i++){
             cmn += nums[i];
-            mn = min(mn,cmn);
             if(cmn > 0){
                 cmn = 0;
             }
+            mn = min(mn,cmn);
+
             cmx += nums[i];
             mx = max(mx,cmx);
             if(cmx < 0){
