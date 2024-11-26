@@ -13,7 +13,6 @@ public:
             if(cmn > 0){
                 cmn = 0;
             }
-            
             cmx += nums[i];
             mx = max(mx,cmx);
             if(cmx < 0){
