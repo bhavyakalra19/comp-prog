@@ -5,16 +5,13 @@ public:
         int mx = 0;
         int n = nums.size();
         int far = 0;
-        if(n == 1){
-            return true;
-        }
         for(int i = 0; i < n; i++){
             far = max(far, nums[i] + i);
-            if(i == far){
-                return false;
-            }
             if(far >= n-1){
                 break;
+            }
+            if(i == far){
+                return false;
             }
         }
         return true;
