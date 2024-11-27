@@ -10,16 +10,13 @@ public:
         }
         for(int i = 0; i < n; i++){
             far = max(far, nums[i] + i);
-            if(i == near){
-                if(near == far){
-                    return false;
-                }
-                near = far;
-                if(near >= n-1){
-                    return true;
-                }
+            if(i == far){
+                return false;
+            }
+            if(far >= n-1){
+                break;
             }
         }
-        return false;
+        return true;
     }
 };
