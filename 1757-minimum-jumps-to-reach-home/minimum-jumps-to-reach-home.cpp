@@ -16,7 +16,6 @@ public:
             while(size--){
                 auto it = q.front();
                 q.pop();
-                cout << it.first << endl;
                 if(it.first == x){
                     return step;
                 }
