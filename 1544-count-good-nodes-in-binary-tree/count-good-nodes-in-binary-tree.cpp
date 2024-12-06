@@ -11,20 +11,16 @@
  */
 class Solution {
 public:
-    void getAns(TreeNode *root, int &ans, int ch){
+    int getAns(TreeNode *root, int ch){
         if(!root){
-            return;
+            return 0;
         }
-        if(root->val >= ch){
-            ans += 1;
-        }
-        getAns(root->left, ans, max(ch,root->val));
-        getAns(root->right, ans, max(ch,root->val));
+        int a = getAns(root->left, max(ch,root->val));
+        int b = getAns(root->right, max(ch,root->val));
+        return a + b + (root->val >= ch ? 1 : 0);
     }
 
     int goodNodes(TreeNode* root) {
-        int ans = 0;
-        getAns(root,ans,INT_MIN);
-        return ans;
+        return getAns(root,INT_MIN);
     }
 };
