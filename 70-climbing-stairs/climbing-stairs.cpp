@@ -1,9 +1,6 @@
 class Solution {
 public:
     int climbStairs(int num) {
-        // vector<int> dp(num+1, -1);
-        // dp[0] = 1;
-        // dp[1] = 1;
         int prev1 = 1;
         int prev2 = 1;
         int curr = 1;
