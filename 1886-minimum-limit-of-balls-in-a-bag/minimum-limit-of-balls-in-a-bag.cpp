@@ -1,16 +1,5 @@
 class Solution {
 public:
-    bool checkNums(vector<int> nums, int ch, int mx){
-        int ans = 0;
-        for(auto a : nums){
-            ans += (a - 1)/ch;
-            if(ans > mx){
-                return false;
-            }
-        }
-        return true;
-    }
-
     int minimumSize(vector<int>& nums, int maxOperations) {
         int n = nums.size();
         int st = 1;
@@ -20,7 +9,11 @@ public:
         }
         while(st < mx){
             int mid = (mx + st)/2;
-            if(checkNums(nums, mid, maxOperations)){
+            int k = 0;
+            for(auto a : nums){
+                k += (a - 1)/mid;
+            }
+            if(k <= maxOperations){
                 mx = mid;
             }else{
                 st = mid + 1;
