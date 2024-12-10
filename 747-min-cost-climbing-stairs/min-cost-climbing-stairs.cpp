@@ -1,13 +1,12 @@
 class Solution {
 public:
-    // int getAns(vector<int> &cost, int n){
-    //     if(n < 0){
-    //         return 0;
+    // int getAns(vector<int> &cost, int idx){
+    //     if(idx <= 1){
+    //         return cost[idx];
     //     }
-    //     if(n == 0 || n == 1){
-    //         return cost[n];
-    //     }
-    //     return cost[n] + min(getAns(cost, n-1), getAns(cost, n-2));
+    //     int a = getAns(cost, idx - 1);
+    //     int b = getAns(cost, idx - 2);
+    //     return min(a,b);
     // }
 
     int minCostClimbingStairs(vector<int>& cost) {
