@@ -17,7 +17,7 @@ public:
         int ans = -1;
         for(auto m : mp){
             string str = m.first;
-            int cnt = m.second;
+            int cnt = m.second; 
             if(cnt > 2){
                 ans = max(ans, (int) str.size());
             }else if(str.size() > 2){
