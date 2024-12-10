@@ -12,7 +12,6 @@ public:
 
     int minCostClimbingStairs(vector<int>& cost) {
         int n = cost.size();
-        vector<int> dp(n, -1);
         int prev1 = cost[1];
         int prev2 = cost[0];
         int curr;
