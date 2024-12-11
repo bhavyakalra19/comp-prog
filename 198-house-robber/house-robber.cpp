@@ -16,14 +16,17 @@ public:
     // }
 
     int rob(vector<int>& nums) {
-        int n = nums.size();  
-        vector<int> dp(n+1, -1);
+        int n = nums.size();
+        // vector<int> dp(n+1, -1);
         // return getAns(nums, n-1, n, dp);
-        dp[1] = nums[0];
-        dp[0] = 0;
+        int prev1 = nums[0];
+        int prev2 = 0;
+        int curr = nums[0];
         for(int i = 1; i < n; i++){
-            dp[i+1] = max(nums[i] + dp[i-1],dp[i]);
+            curr = max(nums[i] + prev2,prev1);
+            prev2 = prev1;
+            prev1 = curr;
         }
-        return dp[n];  
+        return curr;  
     }
 };
