@@ -6,7 +6,6 @@ public:
         int prev = 0;
         int ans = 0;
         for(int i = 0; i < n; i++){
-    
             while(prev < i && nums[prev] + 2*k < nums[i]){
                 prev++;
             }
