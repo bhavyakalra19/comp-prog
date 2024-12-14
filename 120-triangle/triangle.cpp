@@ -1,6 +1,5 @@
 class Solution {
 public:
-
     int minimumTotal(vector<vector<int>>& triangle) {
         int n = triangle.size();
         // Why we need dp array if we can use current triangle
