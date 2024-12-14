@@ -12,9 +12,6 @@ public:
         }
         int a = getAns(grid,m-1,n,dp);
         int b = getAns(grid,m,n-1,dp);
-        if(a == INT_MAX && b == INT_MAX){
-            return INT_MAX;
-        }
         return dp[m][n] = grid[m][n] + min(a,b);
     }
 
