@@ -26,19 +26,22 @@ public:
     int cherryPickup(vector<vector<int>>& grid) {
         int n = grid.size();
         int m = grid[0].size();
-        vector<vector<vector<int>>> dp(n,vector<vector<int>>(m,vector<int>(m,-1)));
+        // vector<vector<vector<int>>> dp(n,vector<vector<int>>(m,vector<int>(m,-1)));
         // return getAns(grid,0,0,m-1,n,m,dp);
+
+        vector<vector<int>> front(m,vector<int>(m,-1));
         for(int j1 = 0; j1 < m; j1++){
             for(int j2 = 0; j2 < m; j2++){
                 if(j1 == j2){
-                    dp[n-1][j1][j2] = grid[n-1][j1];
+                    front[j1][j2] = grid[n-1][j1];
                 }else{
-                    dp[n-1][j1][j2] = grid[n-1][j1] + grid[n-1][j2];
+                    front[j1][j2] = grid[n-1][j1] + grid[n-1][j2];
                 }
             }
         }
 
         for(int i = n-2; i >= 0; i--){
+            vector<vector<int>> curr(m,vector<int>(m,0));
             for(int j1 = 0; j1 < m; j1++){
                 for(int j2 = 0; j2 < m; j2++){
                     int val = (j1 == j2) ? grid[i][j1] : grid[i][j1] + grid[i][j2];
@@ -46,14 +49,15 @@ public:
                     for(int i1 = -1; i1 <= 1; i1++){
                         for(int i2 = -1; i2 <= 1; i2++){
                             if((j1 + i1 >= 0) && (j1 + i1 < m) && (j2 + i2 >= 0) && (j2 + i2 < m)){
-                                mx = max(mx, dp[i+1][j1 + i1][i2 + j2]);
+                                mx = max(mx, front[j1 + i1][i2 + j2]);
                             }
                         }
                     }
-                    dp[i][j1][j2] = val + mx;
+                    curr[j1][j2] = val + mx;
                 }
             }
+            front = curr;
         }
-        return dp[0][0][m-1];
+        return front[0][m-1];
     }
 };
