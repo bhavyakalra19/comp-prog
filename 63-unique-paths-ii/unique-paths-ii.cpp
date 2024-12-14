@@ -17,7 +17,6 @@ public:
         int m = obstacleGrid.size();
         int n = obstacleGrid[0].size();
         vector<vector<int>> dp(m,vector<int>(n,-1));
-
         return getAns(obstacleGrid, m - 1, n - 1, dp);
     }
 };
