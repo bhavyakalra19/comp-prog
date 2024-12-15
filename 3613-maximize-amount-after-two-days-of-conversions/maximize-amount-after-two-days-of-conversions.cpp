@@ -37,18 +37,9 @@ public:
             int s2 = mp[pairs2[i][1]];
             g2[s1].push_back({s2,rates2[i]});
             g2[s2].push_back({s1, (double) 1 / rates2[i]});
-        }
-
-        for(int i = 0; i < n; i++){
-            cout << i << "-> ";
-            for(auto g : g1[i]){
-                cout << g.first << " " << g.second << "; ";
-            }
-            cout << endl;
-        }  
+        } 
 
         vector<double> dist1(n,-1);
-        // dist1[0] = INT_MAX;
         queue<pair<int,double>> q;
         q.push({0,1});
         while(!q.empty()){
@@ -56,19 +47,13 @@ public:
             q.pop();
             int u = it.first;
             double w = it.second;
-            // cout << u << "-> ";
             for(auto a : g1[u]){
-                // cout << a.first << " " << a.second << "; ";
                 if(a.second * w > dist1[a.first]){
                     dist1[a.first] = w * a.second;
                     q.push({a.first,dist1[a.first]});
                 }
             }
-            // cout << endl;
         }
-        // for(int i = 0; i < n; i++){
-        //     cout << dist1[i] << " ";
-        // }
         double ans = 1;
         for(int i = 1; i < n; i++){
             vector<double> dist2(n,-1);
