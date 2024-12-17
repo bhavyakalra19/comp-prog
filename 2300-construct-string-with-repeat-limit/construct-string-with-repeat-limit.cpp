@@ -19,7 +19,6 @@ public:
                 }
                 j--;
             }
-            cout << j << " " << prev << endl;
             if(j < 0){
                 break;
             }
