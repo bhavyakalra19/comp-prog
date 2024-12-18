@@ -5,7 +5,7 @@ public:
         vector<int> check(n);
         check[0] = 0;
         for(int i = 1; i < n; i++){
-            if((nums[i] - nums[i-1] )% 2 == 0){
+            if((nums[i] - nums[i-1]) % 2 == 0){
                 check[i] = 0;
             }else{
                 check[i] = check[i-1] + 1;
