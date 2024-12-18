@@ -3,17 +3,21 @@ public:
     vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
         int n = nums.size();
         vector<int> check(n);
+        check[0] = 0;
         for(int i = 1; i < n; i++){
-            if((nums[i] - nums[i-1]) % 2 == 0){
+            if(nums[i] % 2 == nums[i-1] % 2){
                 check[i] = 0;
-            }else{
-                check[i] = check[i-1] + 1;
+                continue;
             }
+            check[i] = check[i-1] + 1;
         }
-        n = queries.size();
-        vector<bool> ans(n);
-        for(int i = 0; i < n; i++){
-            ans[i] = ((check[queries[i][1]] - check[queries[i][0]]) == (queries[i][1] - queries[i][0]));
+        vector<bool> ans;
+        for(auto q : queries){
+            if(check[q[1]] - check[q[0]] != (q[1] - q[0])){
+                ans.push_back(false);
+            }else{
+                ans.push_back(true);
+            }
         }
         return ans;
     }
