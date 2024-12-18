@@ -26,7 +26,7 @@ public:
             return root->val;
         }
 
-        return (long long)root->val + mx > 0 ? ((long long)root->val + mx ): 0;
+        return ((long long)root->val + mx > 0) ? ((long long)root->val + mx ): 0;
     }
 
     int maxPathSum(TreeNode* root) {
