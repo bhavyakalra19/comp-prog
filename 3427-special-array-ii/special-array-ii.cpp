@@ -7,9 +7,9 @@ public:
         for(int i = 1; i < n; i++){
             if(nums[i] % 2 == nums[i-1] % 2){
                 check[i] = 0;
-                continue;
+            }else{
+                check[i] = check[i-1] + 1;
             }
-            check[i] = check[i-1] + 1;
         }
         vector<bool> ans;
         for(auto q : queries){
