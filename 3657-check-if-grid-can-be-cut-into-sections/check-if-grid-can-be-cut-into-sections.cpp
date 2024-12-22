@@ -1,32 +1,25 @@
 class Solution {
+private:
+    int merge(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end());
+        int start = intervals[0][0], end = intervals[0][1];
+        int count=0;
+        for (int i = 1; i < intervals.size(); i++) {
+            if (end <= intervals[i][0]){
+                count++;
+            }
+            end = max(end,intervals[i][1]);
+        }
+        return count;
+    }
+    
 public:
     bool checkValidCuts(int n, vector<vector<int>>& rectangles) {
-        map<double, int> xline;
-        map<double, int> yline;
-        for(auto r : rectangles){
-            xline[r[0]] -= 1;
-            xline[r[2] - 0.1] += 1;
-            yline[r[1]] -= 1;
-            yline[r[3] - 0.1] += 1;
+        vector<vector<int>> horizontal, vertical;
+        for (auto& rect : rectangles) {
+            horizontal.push_back({rect[1], rect[3]});
+            vertical.push_back({rect[0], rect[2]});
         }
-        int sum = 0;
-        int cnt = 0;
-        for(auto m : xline){
-            sum += m.second;
-            if(sum == 0){
-                cnt++;
-                if(cnt > 2) return true;
-            }
-        }
-        sum = 0;
-        cnt = 0;
-        for(auto m : yline){
-            sum += m.second;
-            if(sum == 0){
-                cnt++;
-                if(cnt > 2) return true;
-            }
-        }
-        return false;
+        return  merge(horizontal)>=2 || merge(vertical)>=2;
     }
 };
