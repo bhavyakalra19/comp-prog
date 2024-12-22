@@ -1,35 +1,32 @@
 class Solution {
 public:
     bool checkValidCuts(int n, vector<vector<int>>& rectangles) {
-        map<double, int> horizontal_area, vertical_area;
-        for (auto& rect : rectangles) {
-            double sx = rect[0];
-            double sy = rect[1];
-            double ex = rect[2];
-            double ey = rect[3];
-            vertical_area[sx + 0.1] += 1;
-            vertical_area[ex] -= 1;
-            horizontal_area[sy + 0.1] += 1;
-            horizontal_area[ey] -= 1;
+        map<double, int> xline;
+        map<double, int> yline;
+        for(auto r : rectangles){
+            xline[r[0]] -= 1;
+            xline[r[2] - 0.1] += 1;
+            yline[r[1]] -= 1;
+            yline[r[3] - 0.1] += 1;
         }
-
-        auto helper = [&](map<double, int>& areas) {
-            vector<pair<double, int>> sorted_areas;
-            for(auto const& [key, val] : areas){
-                sorted_areas.emplace_back(key, val);
+        int sum = 0;
+        int cnt = 0;
+        for(auto m : xline){
+            sum += m.second;
+            if(sum == 0){
+                cnt++;
+                if(cnt > 2) return true;
             }
-            
-            sort(sorted_areas.begin(), sorted_areas.end());
-            int area_acc = 0, prev_area_acc = 0, cnt = 0;
-            for (auto& [k, v] : sorted_areas) {
-                area_acc += v;
-                if (area_acc == 0) {
-                    cnt++;
-                }
+        }
+        sum = 0;
+        cnt = 0;
+        for(auto m : yline){
+            sum += m.second;
+            if(sum == 0){
+                cnt++;
+                if(cnt > 2) return true;
             }
-            return cnt > 2;
-        };
-
-        return helper(horizontal_area) || helper(vertical_area);
+        }
+        return false;
     }
 };
