@@ -12,10 +12,6 @@
 class Solution {
 public:
     int getAns(vector<int> nums){
-        for(auto a : nums){
-            cout << a << " ";
-        }
-        cout << endl;
         int n = nums.size();
         vector<pair<int,int>> check;
         for(int i = 0; i < n; i++){
