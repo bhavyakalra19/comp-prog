@@ -6,13 +6,11 @@ public:
         int ans = 0;
         if(c == 1){
             int need0 = 0;
-            // case - '010101...'
             for(int i=0;i<n;i++){
                 if(i%2==0) {if(s[i]=='1') need0++;}
                 else {if(s[i]=='0') need0++;}
             }
             int need1 = 0;
-            // case - '101010...'
             for(int i=0;i<n;i++){
                 if(i%2==1) {if(s[i]=='1') need1++;}
                 else {if(s[i]=='0') need1++;}
@@ -27,9 +25,7 @@ public:
                 i++;
                 cnt++;
             }
-            if(cnt > c){
-                ans += (cnt/(c+1));
-            }
+            ans += (cnt/(c+1));
         }
         return ans <= numOps;
     }
