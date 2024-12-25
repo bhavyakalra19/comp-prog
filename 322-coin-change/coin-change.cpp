@@ -26,11 +26,29 @@ public:
 
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
-        // for(int i = 0; i <= amount; i++){
-        //     if()
-        // }
-        int a = getAns(coins, amount, n-1,dp);
-        return a == INT_MAX ? -1 : a;
+        vector<vector<int>> dp(n,vector<int>(amount+1,INT_MAX));
+        for(int i = 0; i <= amount; i++){
+            if(i % coins[0] == 0){
+                dp[0][i] = i / coins[0];
+            }
+        }
+        dp[0][0] = 0;
+        for(int i = 1; i < n; i++){
+            dp[i][0] = 0;
+            for(int j = 1; j <= amount; j++){
+                int nt = dp[i-1][j];
+                int tk = INT_MAX;
+                if(coins[i] <= j){
+                    tk = min(dp[i-1][j-coins[i]], dp[i][j-coins[i]]);
+                }
+                if(tk != INT_MAX){
+                    tk++;
+                }
+                dp[i][j] = min(nt, tk);
+            }
+        }
+        return dp[n-1][amount] == INT_MAX ? -1 : dp[n-1][amount];
+        // int a = getAns(coins, amount, n-1,dp);
+        // return a == INT_MAX ? -1 : a;
     }
 };
