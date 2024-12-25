@@ -1,6 +1,9 @@
 class Solution {
 public:
     int getAns(vector<int> &coins, int amount, int idx, vector<vector<int>> &dp){
+        if(amount == 0){
+            return 0;
+        }
         if(idx == 0){
             if(amount % coins[0] == 0){
                 return amount / coins[0];
@@ -24,6 +27,9 @@ public:
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
         vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        // for(int i = 0; i <= amount; i++){
+        //     if()
+        // }
         int a = getAns(coins, amount, n-1,dp);
         return a == INT_MAX ? -1 : a;
     }
