@@ -31,7 +31,22 @@ public:
         }
         target = (sum - target)/2;
         vector<vector<int>> dp(n,vector<int>(target+1,-1));
-        return getAns(nums,n-1,target,dp);
+        vector<int> prev(target+1,0);
+        prev[0] = 1;
+        if(nums[0] <= target){
+            prev[nums[0]] = 1;
+        }
+        if(nums[0] == 0) prev[0] = 2;
+        for(int i = 1; i < n; i++){
+            for(int j = target; j >= 0; j--){
+                int nt = prev[j];
+                int tk =  0;
+                if(j >= nums[i]) tk = prev[j - nums[i]];
+                prev[j] = nt + tk;
+            }
+        }
+        return prev[target];
+        // return getAns(nums,n-1,target,dp);
     }
 
 };
