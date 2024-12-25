@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int getAns(vector<int> &coins, int amount, int idx, vector<vector<int>> &dp){
+    int getAns(vector<int> &coins, int idx, int amount, vector<vector<int>> &dp){
         if(amount == 0){
             return 0;
         }
@@ -13,42 +13,21 @@ public:
         if(dp[idx][amount] != -1){
             return dp[idx][amount];
         }
-        int nt = getAns(coins, amount, idx - 1, dp);
+
+        int nt = getAns(coins, idx-1, amount, dp);
         int tk = INT_MAX;
-        if(coins[idx] <= amount){
-            tk = getAns(coins, amount - coins[idx], idx, dp);
-        }
-        if(tk != INT_MAX){
-            tk++;
-        }
-        return dp[idx][amount] = min(nt,tk);
+        if(coins[idx] <= amount) tk = getAns(coins,idx,amount - coins[idx],dp);
+        if(tk != INT_MAX) tk += 1;
+        return dp[idx][amount] = min(nt, tk);
     }
 
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
-        // for(int i = 0; i <= amount; i++){
-        //     if(i % coins[0] == 0){
-        //         dp[0][i] = i / coins[0];
-        //     }
-        // }
-        // dp[0][0] = 0;
-        // for(int i = 1; i < n; i++){
-        //     dp[i][0] = 0;
-        //     for(int j = 1; j <= amount; j++){
-        //         int nt = dp[i-1][j];
-        //         int tk = INT_MAX;
-        //         if(coins[i] <= j){
-        //             tk = min(dp[i-1][j-coins[i]], dp[i][j-coins[i]]);
-        //         }
-        //         if(tk != INT_MAX){
-        //             tk++;
-        //         }
-        //         dp[i][j] = min(nt, tk);
-        //     }
-        // }
-        // return dp[n-1][amount] == INT_MAX ? -1 : dp[n-1][amount];
-        int a = getAns(coins, amount, n-1,dp);
-        return a == INT_MAX ? -1 : a;
+        vector<vector<int>> dp(n, vector<int>(amount+1,-1));
+        int a = getAns(coins, n-1, amount, dp);
+        if(a == INT_MAX){
+            return -1;
+        }
+        return a;
     }
 };
