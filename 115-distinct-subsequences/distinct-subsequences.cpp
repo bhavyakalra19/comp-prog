@@ -10,10 +10,12 @@ public:
         if(dp[i][j] != -1){
             return dp[i][j];
         }
+        int a = getAns(s1,s2,i-1,j,dp);
+        int b = 0;
         if(s1[i] == s2[j]){
-            return dp[i][j] = getAns(s1,s2,i-1,j-1,dp) + getAns(s1,s2,i-1,j,dp);
+            b = getAns(s1,s2,i-1,j-1,dp);
         }
-        return dp[i][j] = getAns(s1,s2,i-1,j,dp);
+        return dp[i][j] = a + b;
     }
 
     int numDistinct(string s1, string s2) {
