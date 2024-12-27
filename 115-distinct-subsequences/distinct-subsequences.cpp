@@ -21,20 +21,19 @@ public:
     int numDistinct(string s1, string s2) {
         int n = s1.size();
         int m = s2.size();
-        vector<vector<long long>> dp(n+1,vector<long long>(m+1,0));
+        // vector<vector<long long>> dp(n+1,vector<long long>(m+1,0));
+        vector<long long> prev(m+1,0);
+        prev[0] = 1;
         for(int i = 0; i < n; i++){
-            dp[i][0] = 1;
-        }
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
-                int a = dp[i][j+1];
+            for(int j = m - 1; j >= 0; j--){
+                int a = prev[j+1];
                 int b = 0;
                 if(s1[i] == s2[j]){
-                    b = dp[i][j];
+                    b = prev[j];
                 }
-                dp[i+1][j+1] = (long long)a + (long long)b;
+                prev[j+1] = (long long)a + (long long)b;
             }
         }
-        return dp[n][m];
+        return prev[m];
     }
 };
