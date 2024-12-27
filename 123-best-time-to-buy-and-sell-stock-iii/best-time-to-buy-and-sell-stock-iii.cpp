@@ -15,17 +15,19 @@ public:
 
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<int>> dp(n+1, vector<int>(5,0));
+        vector<int> dp(5,0);
         for(int i = n-1; i >= 0; i--){
+            vector<int> curr(5,0);
             for(int j = 0; j < 4; j++){
                 if(j == 0 || j == 2){
-                    dp[i][j] = max(dp[i+1][j], -prices[i] + dp[i+1][j+1]);
+                    curr[j] = max(dp[j], -prices[i] + dp[j+1]);
                 }else{
-                    dp[i][j] = max(dp[i+1][j], prices[i] + dp[i+1][j+1]);
+                    curr[j] = max(dp[j], prices[i] + dp[j+1]);
                 }
             }
+            dp = curr;
         }
-        return dp[0][0];
+        return dp[0];
         // return getAns(prices,0,0,dp);
     }
 };
