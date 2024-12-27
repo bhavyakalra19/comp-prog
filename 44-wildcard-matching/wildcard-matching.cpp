@@ -20,7 +20,7 @@ public:
         if(s1[i] == s2[j] || s2[j] == '?'){
             return dp[i][j] = getAns(s1,s2,i-1,j-1,dp);
         }else if(s2[j] == '*'){
-            return dp[i][j] = getAns(s1,s2,i-1,j,dp) | getAns(s1,s2,i-1,j-1,dp) | getAns(s1,s2,i,j-1,dp);
+            return dp[i][j] = getAns(s1,s2,i-1,j,dp) | getAns(s1,s2,i,j-1,dp);
         }
         return dp[i][j] = false;
     }
