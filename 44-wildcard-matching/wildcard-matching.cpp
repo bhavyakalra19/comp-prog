@@ -28,25 +28,25 @@ public:
     bool isMatch(string s, string p) {
         int n = s.size();
         int m = p.size();
-        vector<vector<bool>> dp(n+1,vector<bool>(m+1,false));
-        dp[0][0] = true;
-        for(int i = 0; i < m; i++){
-            if(p[i] == '*'){
-                dp[0][i+1] = true;
-            }else{
-                break;
-            }
+        vector<int> prev(m+1,false);
+        prev[0] = true;
+        int i = 0;
+        while(i < m && p[i] == '*'){
+            prev[i+1] = true;
+            i++;
         }
         for(int i = 0; i < n; i++){
+            vector<int> curr(m+1,false);
             for(int j = 0; j < m; j++){
                 if(s[i] == p[j] || p[j] == '?'){
-                    dp[i+1][j+1] = dp[i][j];
+                    curr[j+1] = prev[j];
                 }else if(p[j] == '*'){
-                    dp[i+1][j+1] = dp[i+1][j] | dp[i][j+1];
+                    curr[j+1] = curr[j] | prev[j+1];
                 }
             }
+            prev = curr;
         }
         // return getAns(s,p,n-1,m-1,dp);
-        return dp[n][m];
+        return prev[m];
     }
 };
