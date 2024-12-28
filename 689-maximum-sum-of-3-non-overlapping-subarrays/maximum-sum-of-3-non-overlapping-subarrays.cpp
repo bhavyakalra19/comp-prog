@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int getAns(vector<int> &nums, int k, int idx, int n, vector<vector<int>> &dp){
+    int getAns(vector<int> &nums, int &k, int idx, int n, vector<vector<int>> &dp){
         if(n == 3){
             return 0;
         }
@@ -16,7 +16,7 @@ public:
         return dp[idx][n] = max(nt, tk);
     }
 
-    void checkAns(vector<int> &sumArray, int k, int idx, vector<int> &res, int t, vector<vector<int>> &dp){
+    void checkAns(vector<int> &sumArray, int &k, int idx, vector<int> &res, int t, vector<vector<int>> &dp){
         if(idx >= sumArray.size() || t == 3){
             return;
         }
