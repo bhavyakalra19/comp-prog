@@ -16,7 +16,7 @@ public:
     }
 
     void checkAns(vector<int> &sumArray, int &k, int idx, vector<int> &res, int t, vector<vector<int>> &dp){
-        if(idx >= sumArray.size() || t == 3 || res.size() == 3){
+        if(idx >= sumArray.size() || t == 3){
             return;
         }
         int take = sumArray[idx] + getAns(sumArray, k, idx + k, t+1 , dp);
