@@ -43,13 +43,6 @@ public:
         }
         sumArray.push_back(sum);
         vector<vector<int>> dp(sumArray.size(), vector<int>(4,-1));
-        cout << getAns(sumArray,k,0,0,dp) << endl;
-        for(auto a : dp){
-            for(auto b : a){
-                cout << b << " ";
-            }
-            cout << endl;
-        }
         vector<int> res;
         checkAns(sumArray, k, 0, res, 0, dp);
         return res;
