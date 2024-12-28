@@ -16,7 +16,7 @@ public:
     }
 
     void checkAns(vector<int> &sumArray, int &k, int idx, vector<int> &res, int t, vector<vector<int>> &dp){
-        if(idx >= sumArray.size() || t == 3){
+        if(idx >= sumArray.size() || t == 3 || res.size() == 3){
             return;
         }
         int take = sumArray[idx] + getAns(sumArray, k, idx + k, t+1 , dp);
@@ -44,12 +44,6 @@ public:
         vector<vector<int>> dp(sumArray.size(), vector<int>(4,-1));
         vector<int> res;
         checkAns(sumArray, k, 0, res, 0, dp);
-        for(auto a : dp){
-            for(auto b : a){
-                cout << b << " ";
-            }
-            cout << endl;
-        }
         return res;
     }
 };
