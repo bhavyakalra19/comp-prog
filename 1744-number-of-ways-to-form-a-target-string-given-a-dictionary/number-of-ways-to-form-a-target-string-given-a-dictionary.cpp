@@ -19,32 +19,32 @@ public:
 
     int numWays(vector<string>& words, string target) {
         int n = words[0].size();
+        int t = target.size();
         vector<vector<int>> check(n,vector<int>(26,0));
-        vector<vector<int>> dp(n+1,vector<int>(target.size()+1,0));
+        vector<vector<int>> dp(n+1,vector<int>(t+1,0));
+        vector<int> prev(t+1,0);
 
         for(int i = 0; i < n; i++){
             for(int j = 0; j < words.size(); j++){
                 check[i][words[j][i] - 'a']++;
             }
         }
-        for(int i = check.size() - 1; i >= 0; i--){
-            for(int j = target.size() - 1; j >= 0; j--){
-                
-            }
-        }
-        for(int i = 0; i <= n; i++){
-            dp[i][target.size()] = 1;
-        }
-
+        // for(int i = 0; i <= n; i++){
+        //     prev[i] = 1;
+        // }
+        
         for(int i = n - 1; i >= 0; i--){
-            for(int j = target.size() - 1; j >= 0; j--){
-                long long nt = dp[i+1][j];
+            prev[t] = 1;
+            vector<int> curr(t+1,0);
+            for(int j = t - 1; j >= 0; j--){
+                long long nt = prev[j];
                 long long tk = 0;
-                if(check[i][target[j] - 'a']) tk = ((long long)check[i][target[j] - 'a'] * dp[i+1][j+1])%mod;
-                dp[i][j] = (nt + tk)%mod;
+                if(check[i][target[j] - 'a']) tk = ((long long)check[i][target[j] - 'a'] * prev[j+1])%mod;
+                curr[j] = (nt + tk)%mod;
             }
+            prev = curr;
         }
-        return dp[0][0];
+        return prev[0];
         // return getAns(check,0,0,target,dp);
     }
 };
