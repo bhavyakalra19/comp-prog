@@ -1,7 +1,7 @@
 class Solution {
 public:
     const long long mod = 1000000007; 
-    long long getAns(vector<vector<long long>> &check, int i, int j, string &target, vector<vector<long long>> &dp){
+    int getAns(vector<vector<int>> &check, int i, int j, string &target, vector<vector<int>> &dp){
         if(j == target.size()){
             return 1;
         }
@@ -19,8 +19,8 @@ public:
 
     int numWays(vector<string>& words, string target) {
         int n = words[0].size();
-        vector<vector<long long>> check(n,vector<long long>(26,0));
-        vector<vector<long long>> dp(n,vector<long long>(target.size(),-1));
+        vector<vector<int>> check(n,vector<int>(26,0));
+        vector<vector<int>> dp(n,vector<int>(target.size(),-1));
         for(int i = 0; i < n; i++){
             for(int j = 0; j < words.size(); j++){
                 check[i][words[j][i] - 'a']++;
