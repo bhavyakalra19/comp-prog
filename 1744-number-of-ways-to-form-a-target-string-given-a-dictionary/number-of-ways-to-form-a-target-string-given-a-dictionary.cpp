@@ -1,21 +1,21 @@
 class Solution {
 public:
     const long long mod = 1000000007; 
-    int getAns(vector<vector<int>> &check, int i, int j, string &target, vector<vector<int>> &dp){
-        if(j == target.size()){
-            return 1;
-        }
-        if(i == check.size()){
-            return 0;
-        }
-        if(dp[i][j] != -1){
-            return dp[i][j];
-        }
-        long long nt = getAns(check, i+1,j, target, dp);
-        long long tk = 0;
-        if(check[i][target[j] - 'a'] > 0) tk = ((long long) check[i][target[j] - 'a'] * getAns(check,i+1,j+1,target,dp))%mod;
-        return dp[i][j] = (nt + tk) % mod;
-    }
+    // int getAns(vector<vector<int>> &check, int i, int j, string &target, vector<vector<int>> &dp){
+    //     if(j == target.size()){
+    //         return 1;
+    //     }
+    //     if(i == check.size()){
+    //         return 0;
+    //     }
+    //     if(dp[i][j] != -1){
+    //         return dp[i][j];
+    //     }
+    //     long long nt = getAns(check, i+1,j, target, dp);
+    //     long long tk = 0;
+    //     if(check[i][target[j] - 'a'] > 0) tk = ((long long) check[i][target[j] - 'a'] * getAns(check,i+1,j+1,target,dp))%mod;
+    //     return dp[i][j] = (nt + tk) % mod;
+    // }
 
     int numWays(vector<string>& words, string target) {
         int n = words[0].size();
