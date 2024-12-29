@@ -3,7 +3,7 @@ public:
     long long numberOfSubsequences(vector<int>& nums) {
         int n = nums.size();
         unordered_map<double,int> mp;
-        for(int i = 0; i < n - 3; i++){
+        for(int i = 0; i < n - 5; i++){
             for(int j = i+2; j < n - 3; j++){
                 mp[(double)nums[i]/(double)nums[j]]++;
             }
