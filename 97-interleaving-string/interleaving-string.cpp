@@ -25,19 +25,24 @@ public:
         if(n1 + n2 != n3){
             return false;
         }
-        vector<vector<bool>> dp(n1+1, vector<bool>(n2+1,false));
-        dp[n1][n2] = true;
+        // vector<vector<bool>> dp(n1+1, vector<bool>(n2+1,false));
+        vector<bool> prev(n2 + 1, false);
         for(int i = n1; i >= 0; i--){
+            vector<bool> curr(n2 + 1, false);
+            if(i == n1){
+                curr[n2] = true;
+            }
             for(int j = n2; j >= 0; j--){
                 if(i < n1 && s1[i] == s3[i+j]){
-                    dp[i][j] = dp[i][j] | dp[i+1][j];
+                    curr[j] = prev[j];
                 }
                 if(j < n2 && s2[j] == s3[i+j]){
-                    dp[i][j] = dp[i][j] | dp[i][j+1];
+                    curr[j] = curr[j] | curr[j+1];
                 }
             }
+            prev = curr;
         }
-        return dp[0][0]; 
+        return prev[0]; 
         // return getAns(s1,s2,s3,0,0,dp);
     }
 };
