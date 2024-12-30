@@ -7,10 +7,10 @@ public:
         if(dp[idx][prev+1] != -1){
             return dp[idx][prev+1];
         }
-        int notTake = getAns(nums, idx + 1, prev,dp);
+        int notTake = getAns(nums, idx + 1, prev, dp);
         int take = 0;
         if(prev == -1 || nums[idx] > nums[prev]){
-            take = 1 + getAns(nums, idx + 1, idx,dp);
+            take = 1 + getAns(nums, idx + 1, idx, dp);
         }
         return dp[idx][prev+1] = max(notTake, take);
     }
@@ -18,6 +18,6 @@ public:
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
         vector<vector<int>> dp(n,vector<int>(n+1,-1));
-        return getAns(nums, 0, -1,dp);
+        return getAns(nums,0,-1,dp);
     }
 };
