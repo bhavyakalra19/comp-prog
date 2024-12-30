@@ -1,26 +1,26 @@
 class Solution {
 public:
+    int getAns(vector<int> &nums, int idx, int low, vector<int> &dp){
+        if(idx < low){
+            return 0;
+        }
+        if(dp[idx] != -1){
+            return dp[idx];
+        }
+        int notTake = getAns(nums, idx - 1, low, dp);
+        int take = nums[idx] + getAns(nums, idx - 2, low, dp);
+        return dp[idx] = max(notTake, take);
+    }
+
     int rob(vector<int>& nums) {
         int n = nums.size();
-        if(n <= 3){
-            return *max_element(nums.begin(),nums.end());
+        if(n == 1){
+            return nums[0];
         }
-        int prev1 = nums[0];
-        int prev2 = 0;
-        int curr = nums[0];
-        for(int i = 1; i < n - 1; i++){
-            curr = max(nums[i] + prev2, prev1);
-            prev2 = prev1;
-            prev1 = curr;
-        }
-        prev1 = nums[1];
-        prev2 = 0;
-        int curr1 = nums[1];
-        for(int i = 2; i < n; i++){
-            curr1 = max(nums[i] + prev2, prev1);
-            prev2 = prev1;
-            prev1 = curr1;
-        }
-        return max(curr,curr1);
+        vector<int> dp1(n,-1);
+        vector<int> dp2(n,-1);
+        getAns(nums,n-2,0,dp1);
+        getAns(nums,n-1,1,dp2);
+        return max(dp1[n-2], dp2[n-1]);
     }
 };
