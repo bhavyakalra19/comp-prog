@@ -14,26 +14,27 @@ public:
 
     int rob(vector<int>& nums) {
         int n = nums.size();
-        if(n == 1){
-            return nums[0];
+        if(n <= 3){
+            return *max_element(nums.begin(),nums.end());
         }
-        if(n == 2){
-            return max(nums[0],nums[1]);
-        }
-        vector<int> dp1(n,-1);
-        vector<int> dp2(n,-1);
-        dp1[0] = nums[0];
-        dp1[1] = max(nums[0],nums[1]);
+        // vector<int> dp1(n,-1);
+        // vector<int> dp2(n,-1);
+        int prev2 = nums[0];
+        int prev1 = max(nums[0],nums[1]);
         for(int i = 2; i < n - 1; i++){
-            dp1[i] = max(dp1[i-1], nums[i] + dp1[i-2]);
+            int curr = max(prev1, nums[i] + prev2);
+            prev2 = prev1;
+            prev1 = curr;
         }
-        dp2[0] = 0;
-        dp2[1] = nums[1];
+        int p2 = 0;
+        int p1 = nums[1];
         for(int i = 2; i < n; i++){
-            dp2[i] = max(dp2[i-1], nums[i] + dp2[i-2]);
+            int curr = max(p1, nums[i] + p2);
+            p2 = p1;
+            p1 = curr;
         }
         // getAns(nums,n-2,0,dp1);
         // getAns(nums,n-1,1,dp2);
-        return max(dp1[n-2], dp2[n-1]);
+        return max(prev1, p1);
     }
 };
