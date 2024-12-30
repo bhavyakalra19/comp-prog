@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool getAns(string &s1, string &s2, string &s3, int i, int j, int k, vector<vector<int>> &dp){
-        if(k == s3.size()){
+        if(i + j == s3.size()){
             return true;
         }
         if(dp[i][j] != -1){
@@ -25,11 +25,11 @@ public:
             return false;
         }
         vector<vector<int>> dp(n1+1, vector<int>(n2+1,-1));
-        for(int i = n1 - 1; i >= 0; i--){
-            for(int j = n2 - 1; j >= 0; j--){
+        // for(int i = n1 - 1; i >= 0; i--){
+        //     for(int j = n2 - 1; j >= 0; j--){
                 
-            }
-        }
+        //     }
+        // }
         return getAns(s1,s2,s3,0,0,0,dp);
     }
 };
