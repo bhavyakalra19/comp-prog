@@ -9,9 +9,7 @@ public:
         for(int i = 0; i < n-1; i++){
             fs += nums[i];
             sum -= nums[i];
-            if(fs >= sum){
-                ans += 1;
-            }
+            if(fs >= sum) ans += 1;
         }
         return ans;
     }
