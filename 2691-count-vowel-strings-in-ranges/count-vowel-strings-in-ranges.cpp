@@ -1,8 +1,9 @@
 class Solution {
 public:
+    unordered_set<char> st{'a', 'e', 'i', 'o', 'u'};
     bool checkString(string s){
         int n = s.size() - 1;
-        if((s[0] == 'a' || s[0] == 'e' || s[0] == 'i' || s[0] == 'o' || s[0] == 'u') && (s[n] == 'a' || s[n] == 'e' || s[n] == 'i' || s[n] == 'o' || s[n] == 'u')){
+        if(st.find(s[0]) != st.end() && st.find(s[n]) != st.end()){
             return true;
         }
         return false;
