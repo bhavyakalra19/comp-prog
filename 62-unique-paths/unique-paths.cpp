@@ -19,25 +19,26 @@ public:
     // }
 
     int uniquePaths(int m, int n) {
-        vector<vector<int>> dp(m,vector<int>(n,0));
+        // vector<vector<int>> dp(m,vector<int>(n,0));
+        vector<int> prev(n,0);
         for(int i = 0; i < m; i++){
             for(int j = 0; j < n; j++){
                 if(i == 0 && j == 0){
-                    dp[i][j] = 1;
+                    prev[j] = 1;
                 }else{
                     int a = 0;
                     int b = 0;
                     if(i - 1 >= 0){
-                        a = dp[i-1][j];
+                        a = prev[j];
                     }
                     if(j - 1 >= 0){
-                        b = dp[i][j-1];
+                        b = prev[j-1];
                     }
-                    dp[i][j] = a + b;
+                    prev[j] = a + b;
                 }
             }
         }
-        return dp[m-1][n-1];
+        return prev[n-1];
         // return getAns(m-1,n-1,dp);
 
     }
