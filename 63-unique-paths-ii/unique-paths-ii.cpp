@@ -24,25 +24,26 @@ public:
         if(obstacleGrid[n-1][m-1]){
             return 0;
         }
-        vector<vector<int>> dp(n,vector<int>(m,-1));
+        // vector<vector<int>> dp(n,vector<int>(m,-1));
+        vector<int> prev(m,0);
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
                 if(i == 0 && j == 0){
-                    dp[i][j] = 1;
+                    prev[j] = 1;
                 }else{
                     int a = 0;
                     int b = 0;
                     if(i - 1 >= 0 && !obstacleGrid[i-1][j]){
-                        a = dp[i-1][j];
+                        a = prev[j];
                     }
                     if(j - 1 >= 0 && !obstacleGrid[i][j-1]){
-                        b = dp[i][j-1];
+                        b = prev[j-1];
                     }
-                    dp[i][j] = a + b;
+                    prev[j] = a + b;
                 }
             }
         }
-        return dp[n-1][m-1];
+        return prev[m-1];
         // return getAns(obstacleGrid, n-1, m-1, dp);
     }
 };
