@@ -3,9 +3,6 @@ public:
     int n;
     int m;
     int getAns(vector<vector<int>> &grid, int i, int j1, int j2, vector<vector<vector<int>>> &dp){
-        if(j1 < 0 || j1 == m || j2 < 0 || j2 == m){
-            return INT_MIN;
-        }
         if(i == n-1){
             if(j1 == j2){
                 return grid[i][j1];
@@ -18,7 +15,9 @@ public:
         int ans = INT_MIN;
         for(int a = -1; a < 2; a++){
             for(int j = -1; j < 2; j++){
-                ans = max(ans, getAns(grid,i+1, j1 + a, j2 + j,dp));
+                if((j1 + a < m) && (j1 + a >= 0) && (j2 + j < m) && (j2 + j >= 0)){
+                    ans = max(ans, getAns(grid,i+1, j1 + a, j2 + j,dp));
+                }
             }
         }
         if(j1 == j2){
