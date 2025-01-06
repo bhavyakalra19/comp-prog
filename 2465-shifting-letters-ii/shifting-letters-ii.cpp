@@ -14,8 +14,8 @@ public:
         }
         int sum = 0;
         for(int i = 0; i < n; i++){
-            sum += check[i];
-            int a = ((s[i] - 'a' + sum)%26 + 26) % 26;
+            sum = (sum + check[i]) % 26;
+            int a = ((s[i] - 'a' + sum) + 26) % 26;
             s[i] = a + 'a';
         }
         return s;
