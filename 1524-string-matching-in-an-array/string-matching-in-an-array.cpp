@@ -46,27 +46,23 @@ public:
 
     vector<string> stringMatching(vector<string>& words) {
         int n = words.size();
+        sort(words.begin(), words.end(), [](const string &s1, const string &s2){
+            return s1.size() < s2.size();
+        });
         vector<vector<int>> cmp;
         for(auto s : words){
+            cout << s << endl;
             cmp.push_back(checkKmp(s));
         }
         unordered_set<string> st;
+        vector<string> ans;
         for(int i = 0; i < n - 1; i++){
             for(int j = i+1; j < n; j++){
-                if(words[i].size() < words[j].size()){
-                    if(compareKmp(words[j], words[i], cmp[i])){
-                        st.insert(words[i]);
-                    }
-                }else{
-                    if(compareKmp(words[i], words[j], cmp[j])){
-                        st.insert(words[j]);
-                    }
+                if(compareKmp(words[j], words[i], cmp[i])){
+                    ans.push_back(words[i]);
+                    break;
                 }
             }
-        }
-        vector<string> ans;
-        for(auto a : st){
-            ans.push_back(a);
         }
         return ans;
     }
