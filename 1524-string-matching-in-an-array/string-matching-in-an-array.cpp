@@ -22,7 +22,9 @@ public:
         return check;
     }
 
-    bool compareKmp(string s1, string s2, vector<int> check){
+    bool compareKmp(string s1, string s2){
+        vector<int> check;
+        check = checkKmp(s2);
         int j = 0;
         int n = s1.size();
         for(int i = 0; i < n; i++){
@@ -49,16 +51,10 @@ public:
         sort(words.begin(), words.end(), [](const string &s1, const string &s2){
             return s1.size() < s2.size();
         });
-        vector<vector<int>> cmp;
-        for(auto s : words){
-            cout << s << endl;
-            cmp.push_back(checkKmp(s));
-        }
-        unordered_set<string> st;
         vector<string> ans;
         for(int i = 0; i < n - 1; i++){
             for(int j = i+1; j < n; j++){
-                if(compareKmp(words[j], words[i], cmp[i])){
+                if(compareKmp(words[j], words[i])){
                     ans.push_back(words[i]);
                     break;
                 }
