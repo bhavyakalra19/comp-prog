@@ -76,13 +76,6 @@ class BackTrie{
 int getAns(vector<int> check1, vector<int> check2){
     int i = check1.size() - 1;
     int j = check2.size() - 1;
-    cout << i << " " << j << endl;
-    if(i == 1){
-        cout << check1[0] << endl; 
-        if(j == 0){
-            cout << check2[0] << endl;
-        }
-    }
     int ans = 0;
     while(i >= 0 && j >= 0){
         if(check1[i] == check2[j]){
