@@ -1,81 +1,60 @@
 class Node{
     public:
-        char data;
-        unordered_map<char, Node*> mp;
-        unordered_map<int,int> check;
-        Node(char a){
-            data = a;
+        string data;
+        unordered_map<string, Node*> mp;
+        int count;
+
+        Node(string ch){
+            data = ch;
+            count = 0;
         }
 };
 
 class Trie{
     public:
         Node *root;
+
         Trie(){
-            root = new Node('\0');
+            root = new Node("");
         }
 
-        void insert(string word, int idx){
-            Node *temp = root;
-            for(auto s : word){
-                if(temp->mp.find(s) == temp->mp.end()){
-                    Node *t = new Node(s);
-                    temp->mp[s] = t;
-                }
-                temp = temp->mp[s];
-                temp->check[idx] = 1;
-            }
-        }
-
-        void insertBack(string word, int idx, int z){
+        void insert(string word){
             int n = word.size();
             Node *temp = root;
-            for(int i = n-1; i >= 0; i--){
-                if(temp->mp.find(word[i]) == temp->mp.end()){
-                    Node *t = new Node(word[i]);
-                    temp->mp[word[i]] = t;
+            for(int i = 0; i < n; i++){
+                string check = to_string(word[i]) + to_string(word[n-1-i]);
+                if(temp->mp.find(check) == temp->mp.end()){
+                    Node *t = new Node(check);
+                    temp->mp[check] = t;
                 }
-                temp = temp->mp[word[i]];
-                temp->check[idx + z] = 1;
+                temp = temp->mp[check];
+                temp->count++;
             }
         }
 
-        long long search(string word, int z){
-            Node *temp = root;
-            Node *back = root;
-            for(auto a : word){
-                if(temp->mp.find(a) == temp->mp.end()){
-                    return 0;
-                }
-                temp = temp->mp[a];
-            }
+        long long search(string word){
             int n = word.size();
-            for(int i = n - 1; i >= 0; i--){
-                if(back->mp.find(word[i]) == back->mp.end()){
+            Node *temp = root;
+            for(int i = 0; i < n; i++){
+                string check = to_string(word[i]) + to_string(word[n-1-i]);
+                if(temp->mp.find(check) == temp->mp.end()){
                     return 0;
                 }
-                back = back->mp[word[i]];
+                temp = temp->mp[check];
             }
-            int ans = 0;
-            for(auto m : temp->check){
-                if(back->check.find(m.first + z) != back->check.end()){
-                    ans++;
-                }
-            }
-            return ans;
+            return temp->count;
         }
 };
 
 class Solution {
 public:
-    long long countPrefixSuffixPairs(vector<string>& words) {
+    int countPrefixSuffixPairs(vector<string>& words) {
         Trie *t = new Trie();
         int n = words.size();
         long long ans = 0;
         for(int i = n-1; i >= 0; i--){
-            ans += t->search(words[i],n);
-            t->insert(words[i],i);
-            t->insertBack(words[i],i,n);
+            ans += t->search(words[i]);
+            t->insert(words[i]);
         }
         return ans;
     }
