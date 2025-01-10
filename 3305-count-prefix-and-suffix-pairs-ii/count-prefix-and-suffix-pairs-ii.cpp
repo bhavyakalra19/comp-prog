@@ -1,6 +1,6 @@
 class Node{
     public:
-        string data;
+        int data;
         unordered_map<int, Node*> mp;
         int count;
 
