@@ -17,7 +17,6 @@ public:
                 }
             }
         }
-cout << count << endl;
         for(auto w : words1){
             vector<int> curr(26,0);
             int cnt = 0;
@@ -28,7 +27,6 @@ cout << count << endl;
                     cnt++;
                 }
             }
-            cout << w << " " << cnt << endl;
             if(cnt == count){
                 ans.push_back(w);
             }
