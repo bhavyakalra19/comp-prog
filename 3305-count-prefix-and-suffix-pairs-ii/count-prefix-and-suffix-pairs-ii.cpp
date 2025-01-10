@@ -1,10 +1,10 @@
 class Node{
     public:
         string data;
-        unordered_map<string, Node*> mp;
+        unordered_map<int, Node*> mp;
         int count;
 
-        Node(string ch){
+        Node(int ch){
             data = ch;
             count = 0;
         }
@@ -15,14 +15,14 @@ class Trie{
         Node *root;
 
         Trie(){
-            root = new Node("");
+            root = new Node(0);
         }
 
         void insert(string word){
             int n = word.size();
             Node *temp = root;
             for(int i = 0; i < n; i++){
-                string check = to_string(word[i]) + to_string(word[n-1-i]);
+                int check = word[i] * 100 + word[n-1-i];
                 if(temp->mp.find(check) == temp->mp.end()){
                     Node *t = new Node(check);
                     temp->mp[check] = t;
@@ -36,7 +36,7 @@ class Trie{
             int n = word.size();
             Node *temp = root;
             for(int i = 0; i < n; i++){
-                string check = to_string(word[i]) + to_string(word[n-1-i]);
+                int check = word[i] * 100 + word[n-1-i];
                 if(temp->mp.find(check) == temp->mp.end()){
                     return 0;
                 }
