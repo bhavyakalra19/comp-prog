@@ -5,9 +5,6 @@ public:
         if(n < k){
             return false;
         }
-        if(n == k){
-            return true;
-        }
         vector<int> check(26,0);
         for(auto a : s){
             check[a - 'a']++;
