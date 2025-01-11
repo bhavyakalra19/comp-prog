@@ -22,21 +22,7 @@ public:
                 prev[j] = min(a,b);
             }
         }
-        // int a = getAns(coins,n-1,amount,dp);
-        // return a == INT_MAX ? -1 : a;
         return prev[amount] != INT_MAX ? prev[amount] : -1;
     }
 };
 
-// f(coins, idx , amount)
-// f(coins, idx - 1, amount)
-// f(coins, idx,amount - coins[i])
-
-
-// if(amount == 0){
-//     return 0;
-// }
-// if(idx == 0){
-//     if amount % coins[idx] == 0 return amount / coins[idx];
-//     return INT_MAX;
-// }
