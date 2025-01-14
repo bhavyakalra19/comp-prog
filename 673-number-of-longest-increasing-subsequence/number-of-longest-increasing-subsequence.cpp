@@ -7,17 +7,15 @@ public:
         int mxCount = 0;
         vector<int> count(n,1);
         for(int i = 1; i < n; i++){
-            int cnt = 1;
             for(int j = 0; j < i; j++){
                 if(nums[i] > nums[j] && dp[i] < dp[j] + 1){
                     dp[i] = dp[j] + 1;
                     mx = max(mx, dp[i]);
-                    cnt = count[j];
+                    count[i] = count[j];
                 }else if(nums[i] > nums[j] && dp[i] == dp[j] + 1){
-                    cnt += count[j];
+                    count[i] += count[j];
                 }
             }
-            count[i] = cnt;
         }
         int cnt = 0;
         for(int i = 0; i < n; i++){
