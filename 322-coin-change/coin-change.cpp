@@ -26,7 +26,6 @@ public:
 
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n,vector<int>(amount+1,INT_MAX));
         vector<int> prev(amount+1, INT_MAX);
         prev[0] = 0;
         for(int i = 0; i <= amount; i++){
@@ -34,7 +33,6 @@ public:
                 prev[i] = i / coins[0];
             }
         }
-
         for(int i = 1; i < n; i++){
             for(int j = 1; j <= amount; j++){
                 int a = INT_MAX;
@@ -49,7 +47,5 @@ public:
             }
         }
         return prev[amount] == INT_MAX ? -1 : prev[amount];
-        // int a = getAns(coins, n-1, amount, dp);
-        // return a == INT_MAX ? -1 : a;
     }
 };
