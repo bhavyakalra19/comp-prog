@@ -23,9 +23,8 @@ public:
     }
 
     long long minCost(int n, vector<vector<int>>& cost) {
-        vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(4, vector<long long>(4, -1)));
+        vector<vector<vector<long long>>> dp(n/2, vector<vector<long long>>(4, vector<long long>(4, -1)));
         return getAns(cost, 0, 3, 3, n, dp);
     }
 };
-
 
