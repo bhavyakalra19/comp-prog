@@ -35,6 +35,7 @@ public:
         return f[n] * factInv[r] % mod * factInv[n - r] % mod;
     }
 
+
     int minMaxSums(vector<int>& nums, int k) {
         int n = nums.size();
         long long ans = 0;
