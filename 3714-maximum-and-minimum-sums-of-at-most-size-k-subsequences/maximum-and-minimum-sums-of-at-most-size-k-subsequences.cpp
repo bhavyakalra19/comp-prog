@@ -36,23 +36,6 @@ public:
         return f[n] * factInv[r] % mod * factInv[n - r] % mod;
     }
 
-    long long fc(int a){
-        if(a == 1 || a == 0){
-            return 1;
-        }
-        if(mp[a] != -1){
-            return mp[a];
-        }
-        return mp[a] = (a * fc(a-1)) % mod;
-    }
-
-    long long ncr(int a, int b){
-        if(a < b){
-            return 0;
-        }
-        return ((fc(a) / (fc(b)) % mod) * ((fc(a) / fc(a - b))) % mod);
-    }
-
     int minMaxSums(vector<int>& nums, int k) {
         int n = nums.size();
         long long ans = 0;
