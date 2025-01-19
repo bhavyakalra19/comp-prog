@@ -2,7 +2,6 @@ class Solution {
 public:
 
     long long minCost(int n, vector<vector<int>>& cost) {
-        // vector<vector<vector<long long>>> dp(n/2 + 1, vector<vector<long long>>(4, vector<long long>(4, LONG_MAX)));
         vector<vector<long long>> dp(4, vector<long long>(4, 0));
         for(int i = n/2 - 1; i >= 0; i--){
             vector<vector<long long>> curr(4, vector<long long>(4, LONG_MAX));
