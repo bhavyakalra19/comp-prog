@@ -1,6 +1,5 @@
 class Solution {
 public:
-    vector<long long> mp;
     const int mod = 1e9 + 7;
     typedef long long ll;
     vector<ll> f, factInv;
