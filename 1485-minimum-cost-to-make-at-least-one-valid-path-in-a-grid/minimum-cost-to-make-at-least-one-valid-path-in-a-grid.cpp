@@ -1,33 +1,41 @@
-#include <bits/stdc++.h>
-using namespace std;
-const int dx[4] = {0, 0, 1, -1};
-const int dy[4] = {1, -1, 0, 0};
 class Solution {
 public:
     int minCost(vector<vector<int>>& grid) {
-        int r = grid.size(), c = grid[0].size();
-        vector<vector<int>> dist(r, vector<int>(c, INT_MAX));
-        deque<pair<int, int>> dq;
-        dq.emplace_front(0, 0);
-        dist[0][0] = 0;
-        
-        while (!dq.empty()) {
-            auto [x, y] = dq.front(); dq.pop_front();
-            for (int i = 0; i < 4; ++i) {
-                int nx = x + dx[i], ny = y + dy[i];
-                if (nx >= 0 && nx < r && ny >= 0 && ny < c) {
-                    int cost = (i + 1 == grid[x][y]) ? 0 : 1;
-                    if (dist[x][y] + cost < dist[nx][ny]) {
-                        dist[nx][ny] = dist[x][y] + cost;
-                        if (cost == 0) {
-                            dq.emplace_front(nx, ny);
-                        } else {
-                            dq.emplace_back(nx, ny);
-                        }
+        int dx[4] = {-1,0,1,0};
+        int dy[4] = {0,1,0,-1};
+        int n = grid.size();
+        int m = grid[0].size();
+        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> pq;
+        pq.push({0,{0,0}});
+        vector<vector<int>> check(n,vector<int>(m,INT_MAX));
+        check[0][0] = 0;
+        while(!pq.empty()){
+            auto it = pq.top();
+            pq.pop();
+            int cx = it.second.first;
+            int cy = it.second.second;
+            int cw = it.first;
+            for(int i = 0; i < 4; i++){
+                int nx = cx + dx[i];
+                int ny = cy + dy[i];
+                if(nx < n && ny < m && nx >= 0 && ny >= 0){
+                    int nw = cw + 1;
+                    if((grid[cx][cy] == 1) && (nx == cx) && (ny == cy + 1)){
+                        nw = cw;
+                    }else if((grid[cx][cy] == 2) && (nx == cx) && (ny == cy - 1)){
+                        nw = cw;
+                    }else if((grid[cx][cy] == 3) && (nx == cx + 1) && (ny == cy)){
+                        nw = cw;
+                    }else if((grid[cx][cy] == 4) && (nx == cx - 1) && (ny == cy)){
+                        nw = cw;
+                    }
+                    if(check[nx][ny] > nw){
+                        check[nx][ny] = nw;
+                        pq.push({nw,{nx,ny}});
                     }
                 }
             }
         }
-        return dist[r-1][c-1];
+        return check[n-1][m-1];
     }
 };
