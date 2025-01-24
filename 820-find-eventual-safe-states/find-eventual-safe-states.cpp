@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool getAns(vector<vector<int>> &graph, int idx, vector<int> &check, vector<bool> &vis){
+    bool getAns(vector<vector<int>> &graph, int idx, vector<int> &check){
         if(graph[idx].size() == 0){
             check[idx] = 1;
             return true;
@@ -8,14 +8,10 @@ public:
         if(check[idx] != 2){
             return check[idx];
         }
-        if(vis[idx] && graph[idx].size() != 0){
-            check[idx] = 0;
-            return false;
-        }
         bool a = true;
-        vis[idx] = true;
+        check[idx] = 0;
         for(int i = 0; i < graph[idx].size(); i++){
-            a = a & getAns(graph, graph[idx][i], check, vis);
+            a = a & getAns(graph, graph[idx][i], check);
         }
         return check[idx] = a;
     }
@@ -24,9 +20,8 @@ public:
         int n = graph.size();
         vector<int> check(n,2);
         vector<int> ans;
-        vector<bool> vis(n,false);
         for(int i = 0; i < n; i++){
-            if(getAns(graph,i,check,vis)){
+            if(getAns(graph,i,check)){
                 ans.push_back(i);
             }
         }
