@@ -2,7 +2,6 @@ class Solution {
 public:
     bool getAns(vector<vector<int>> &graph, int idx, vector<int> &check){
         if(graph[idx].size() == 0){
-            check[idx] = 1;
             return true;
         }
         if(check[idx] != 2){
