@@ -2,7 +2,6 @@ class Solution {
 public:
 
     void getAns(vector<vector<int>> &gp ,int idx, int &st, int &en, vector<int> &vis, int &cn){
-        cout << idx << endl;
         vis[idx] = true;
         cn++;
         for(auto g : gp[idx]){
