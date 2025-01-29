@@ -6,7 +6,7 @@ public:
         if(check[a] == a){
             return a;
         }
-        return findFunc(check[a]);
+        return check[a] = findFunc(check[a]);
     }
 
     vector<int> findRedundantConnection(vector<vector<int>>& edges) {
