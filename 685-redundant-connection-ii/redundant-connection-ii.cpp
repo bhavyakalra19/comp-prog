@@ -32,11 +32,14 @@ public:
             int cnt = 0;
             if(cn != 0){
                 getAns(gp,cn,edges[i][0],edges[i][1],vis,cnt);
+                if(cnt == n){
+                    return edges[i];
+                }
             }else if(degree[edges[i][1]] == 1){
                 getAns(gp,edges[i][1],edges[i][0],edges[i][1],vis, cnt);
-            }
-            if(cnt == n){
-                return edges[i];
+                if(cnt == n){
+                    return edges[i];
+                }
             }
         }
         return {0,0};
