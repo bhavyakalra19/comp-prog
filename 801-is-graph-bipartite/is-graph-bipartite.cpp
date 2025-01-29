@@ -6,7 +6,6 @@ public:
         vector<bool> s2(n,false);
         queue<int> q1;
         queue<int> q2;
-        q1.push(0);
         vector<bool> vis(n,false);
         for(int i = 0; i < n; i++){
             if(!vis[i]){
