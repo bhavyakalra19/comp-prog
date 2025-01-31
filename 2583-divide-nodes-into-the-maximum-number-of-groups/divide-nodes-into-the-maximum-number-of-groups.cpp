@@ -68,9 +68,7 @@ public:
             graph[e[1] - 1].push_back(e[0] - 1);
             int a = find(e[0] - 1);
             int b = find(e[1] - 1);
-            if(a != b){
-                pr[a] = b;
-            }
+            pr[a] = b;
         }
         
         if(!checkBipartite(graph)) return -1;
