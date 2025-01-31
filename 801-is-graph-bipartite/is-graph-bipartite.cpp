@@ -1,44 +1,26 @@
 class Solution {
 public:
+    bool dfs(vector<vector<int>> &graph, int idx, vector<int> &check, int val){
+        for(auto a : graph[idx]){
+            if(check[a] == val){
+                return false;
+            }
+            if(check[a] == -1){
+                check[a] = 1 - val;
+                if(!dfs(graph,a,check,check[a])) return false;
+            }
+        }
+        return true;
+    }
+
     bool isBipartite(vector<vector<int>>& graph) {
         int n = graph.size();
-        vector<bool> s1(n,false);
-        vector<bool> s2(n,false);
-        queue<int> q1;
-        queue<int> q2;
-        vector<bool> vis(n,false);
+        vector<int> check(n,-1);
         for(int i = 0; i < n; i++){
-            if(!vis[i]){
-                q1.push(i);
-            }
-            while(!q1.empty() || !q2.empty()){
-                while(!q1.empty()){
-                    auto it = q1.front();
-                    q1.pop();
-                    for(auto a : graph[it]){
-                        if(s1[a]){
-                            return false;
-                        }
-                        s2[a] = true;
-                        if(!vis[a]){
-                            vis[a] = true;
-                            q2.push(a);
-                        }
-                    }
-                }
-                while(!q2.empty()){
-                    auto it = q2.front();
-                    q2.pop();
-                    for(auto a : graph[it]){
-                        if(s2[a]){
-                            return false;
-                        }
-                        s1[a] = true;
-                        if(!vis[a]){
-                            vis[a] = true;
-                            q1.push(a);
-                        }
-                    }
+            if(check[i] == -1){
+                check[i] = 1;
+                if(!dfs(graph, i, check, 1)){
+                    return false;
                 }
             }
         }
