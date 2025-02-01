@@ -1,20 +1,16 @@
 class Solution {
 public:
-    int getAns(string &s, int idx, int v, vector<int> &dp, vector<int> &check){
+    int getAns(string &s, int idx, vector<int> &dp, vector<int> &check){
         if(idx == s.size()){
             return 0;
         }
         if(dp[idx] != -1){
             return dp[idx];
         }
-        if(v == 0){
-           if(s[idx] == 'a'){
-                return dp[idx] = getAns(s,idx+1,v,dp,check);
-           }else{
-                return dp[idx] = min(check[idx+1], 1 + getAns(s,idx+1,v,dp,check));
-           }
+        if(s[idx] == 'a'){
+            return dp[idx] = getAns(s,idx+1,dp,check);
         }
-        return 4;
+        return dp[idx] = min(check[idx+1], 1 + getAns(s,idx+1,dp,check));
     }
 
     int minimumDeletions(string s) {
@@ -28,6 +24,6 @@ public:
             check[i] = sm;
         }
         vector<int> dp(n,-1);
-        return getAns(s,0,0,dp,check);
+        return getAns(s,0,dp,check);
     }
 };
