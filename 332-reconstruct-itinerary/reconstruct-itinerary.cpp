@@ -9,7 +9,6 @@ public:
         stack<string> st;
         st.push(start);
         vector<string> curr;
-        vector<vector<string>> ans;
         while(!st.empty()){
             auto it = st.top();
             if(!mp[it].empty()){
