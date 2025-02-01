@@ -3,14 +3,15 @@ public:
     int minimumDeletions(string s) {
         int n = s.size();
         int sm = 0;
-        int next = 0;
-        for(int i = 0; i < n; i++){
+        vector<int> dp(n+1,0);
+        for(int i = n-1; i >= 0; i--){
             if(s[i] == 'a'){
-                next = min(1 + next, sm);
-            }else{
                 sm++;
+                dp[i] = dp[i+1];
+            }else{
+                dp[i] = min(sm, 1 + dp[i+1]);
             }
         }
-        return next;
+        return dp[0];
     }
 };
