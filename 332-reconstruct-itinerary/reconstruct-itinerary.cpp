@@ -20,9 +20,6 @@ public:
                 st.pop();
             }
         }
-        for(int i = curr.size() - 1; i > 0; i--){
-            ans.push_back({curr[i],curr[i-1]});
-        }
         reverse(curr.begin(), curr.end());
         return curr;
     }
