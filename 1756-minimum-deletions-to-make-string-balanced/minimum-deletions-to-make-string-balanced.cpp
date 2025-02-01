@@ -23,7 +23,14 @@ public:
             }
             check[i] = sm;
         }
-        vector<int> dp(n,-1);
-        return getAns(s,0,dp,check);
+        vector<int> dp(n+1,0);
+        for(int i = n-1; i >= 0; i--){
+            if(s[i] == 'a'){
+                dp[i] = dp[i+1];
+            }else{
+                dp[i] = min(1 + dp[i+1], check[i+1]);
+            }
+        }
+        return dp[0];
     }
 };
