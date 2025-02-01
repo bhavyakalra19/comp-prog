@@ -1,40 +1,37 @@
 class Solution {
 public:
     vector<vector<int>> validArrangement(vector<vector<int>>& pairs) {
-        unordered_map<int,vector<int>> grp;
-        unordered_map<int,int> mp;
+        unordered_map<int,stack<int>> mp;
+        unordered_map<int,int> cnt;
+        vector<int> curr;
         vector<vector<int>> ans;
-        for(auto p : pairs){
-            grp[p[0]].push_back(p[1]);
-            mp[p[0]]++;
-            mp[p[1]]--;
-        }
-        int startNode = pairs[0][0];
-        for(auto m : mp){
-            if(m.second == 1){
-                startNode = m.first;
-                break;
-            }
-        }
-        vector<int> check;
         stack<int> st;
-        st.push(startNode);
-
-        while(!st.empty()){
-            auto start = st.top();
-            if(grp[start].size() != 0){
-                int next = grp[start].back();
-                grp[start].pop_back();
-                st.push(next);
-            }else{
-                check.push_back(start);
-                st.pop();
+        for(auto p : pairs){
+            cnt[p[0]]++;
+            cnt[p[1]]--;
+            mp[p[0]].push(p[1]);
+        }
+        int start = pairs[0][0];
+        for(auto m : cnt){
+            if(m.second == 1){
+                start = m.first;
             }
         }
-        for(int i = 1; i < check.size(); i++){
-            ans.push_back({check[i],check[i-1]});
+        st.push(start);
+        while(!st.empty()){
+            auto it = st.top();
+            if(!mp[it].empty()){
+                int c = mp[it].top();
+                mp[it].pop();
+                st.push(c);
+            }else{
+                st.pop();
+                curr.push_back(it);
+            }
         }
-        reverse(ans.begin(),ans.end());
+        for(int i = curr.size() - 1; i > 0; i--){
+            ans.push_back({curr[i],curr[i-1]});
+        }
         return ans;
     }
 };
