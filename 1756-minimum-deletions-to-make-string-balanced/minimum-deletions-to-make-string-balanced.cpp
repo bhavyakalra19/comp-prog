@@ -13,8 +13,6 @@ public:
         int next = 0;
         for(int i = n-1; i >= 0; i--){
             if(s[i] != 'a'){
-            //     next = next;
-            // }else{
                 next = min(1 + next, check[i+1]);
             }
         }
