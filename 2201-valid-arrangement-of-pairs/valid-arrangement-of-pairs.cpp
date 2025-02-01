@@ -1,16 +1,8 @@
 class Solution {
 public:
-    // void dfs(unordered_map<int,stack<int>> &mp, vector<int> &curr, int idx){
-    //     while(!mp[idx].empty()){
-    //         int a = mp[idx].top();
-    //         mp[idx].pop();
-    //         dfs(mp,curr,a);
-    //     }
-    //     curr.push_back(idx);
-    // }
 
     vector<vector<int>> validArrangement(vector<vector<int>>& pairs) {
-        unordered_map<int,stack<int>> mp;
+        unordered_map<int,vector<int>> mp;
         unordered_map<int,int> cnt;
         vector<int> curr;
         vector<vector<int>> ans;
@@ -18,7 +10,7 @@ public:
         for(auto p : pairs){
             cnt[p[0]]++;
             cnt[p[1]]--;
-            mp[p[0]].push(p[1]);
+            mp[p[0]].push_back(p[1]);
         }
         int start = pairs[0][0];
         for(auto m : cnt){
@@ -30,8 +22,8 @@ public:
         while(!st.empty()){
             auto it = st.top();
             if(!mp[it].empty()){
-                int c = mp[it].top();
-                mp[it].pop();
+                int c = mp[it].back();
+                mp[it].pop_back();
                 st.push(c);
             }else{
                 st.pop();
