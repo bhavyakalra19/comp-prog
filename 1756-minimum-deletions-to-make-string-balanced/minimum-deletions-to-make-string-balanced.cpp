@@ -4,9 +4,6 @@ public:
         if(idx == s.size()){
             return 0;
         }
-        if(v == 1){
-            return check[idx];
-        }
         if(dp[idx] != -1){
             return dp[idx];
         }
@@ -14,7 +11,7 @@ public:
            if(s[idx] == 'a'){
                 return dp[idx] = getAns(s,idx+1,v,dp,check);
            }else{
-                return dp[idx] = min(getAns(s,idx+1,1,dp,check), 1 + getAns(s,idx+1,v,dp,check));
+                return dp[idx] = min(check[idx+1], 1 + getAns(s,idx+1,v,dp,check));
            }
         }
         return 4;
@@ -22,7 +19,7 @@ public:
 
     int minimumDeletions(string s) {
         int n = s.size();
-        vector<int> check(n,0);
+        vector<int> check(n+1,0);
         int sm = 0;
         for(int i = n - 1; i >= 0; i--){
             if(s[i] == 'a'){
