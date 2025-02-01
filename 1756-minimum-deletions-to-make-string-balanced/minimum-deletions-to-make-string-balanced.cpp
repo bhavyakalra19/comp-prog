@@ -10,14 +10,14 @@ public:
             }
             check[i] = sm;
         }
-        vector<int> dp(n+1,0);
+        int next = 0;
         for(int i = n-1; i >= 0; i--){
-            if(s[i] == 'a'){
-                dp[i] = dp[i+1];
-            }else{
-                dp[i] = min(1 + dp[i+1], check[i+1]);
+            if(s[i] != 'a'){
+            //     next = next;
+            // }else{
+                next = min(1 + next, check[i+1]);
             }
         }
-        return dp[0];
+        return next;
     }
 };
