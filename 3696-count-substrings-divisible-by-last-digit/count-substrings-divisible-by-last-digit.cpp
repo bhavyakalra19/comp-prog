@@ -24,7 +24,7 @@ public:
         long long ans = 0;
         for(int d = 1; d <= 9; d++){
             for(int i = 0 ; i <= n ; i++) {
-                for(int j = 0 ; j < 10 ; j++) {
+                for(int j = 0 ; j < d ; j++) {
                     for(int k = 0 ; k < 2 ; k++) {
                         dp[i][j][k] = -1;
                     }
