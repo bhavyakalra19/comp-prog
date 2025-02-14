@@ -1,12 +1,11 @@
 class ProductOfNumbers {
 public:
-    vector<int> check;
+    int check[40001];
     int sm;
     int i;
     int j;
     ProductOfNumbers() {
         sm = 1;
-        check.resize(40001);
         check[0] = 1;
         i = 0;
         j = 0;
