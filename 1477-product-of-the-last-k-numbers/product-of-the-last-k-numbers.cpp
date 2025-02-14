@@ -6,7 +6,8 @@ public:
     int j;
     ProductOfNumbers() {
         sm = 1;
-        check.push_back(1);
+        check.resize(40001);
+        check[0] = 1;
         i = 0;
         j = 0;
     }
@@ -17,8 +18,7 @@ public:
         }else{
             sm *= num;
         }
-        check.push_back(sm);
-        j++;
+        check[++j] = sm;
     }
     
     int getProduct(int k) {
