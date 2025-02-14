@@ -10,7 +10,6 @@ public:
         for(int i = c; i >= 1; i--){
             for(int j = 1; j <= c; j++){
                 if(i > j){
-                    dp[i][j] = 0;
                     continue;
                 }
                 long long ans = INT_MAX;
