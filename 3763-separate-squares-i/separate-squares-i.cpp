@@ -1,19 +1,19 @@
 class Solution {
 public:
-    double getAns(vector<vector<int>> &nums, double y, int &cnt){
+    double getAns(vector<vector<int>> &s, double y, int &cnt){
         double up = 0;
         double lw = 0;
-        for(auto &s : nums){
-            double side = s[2];
+        for(int i = 0; i < s.size(); i++){
+            double side = s[i][2];
             if(side == 0) continue;
-            if(s[1] >= y){
+            if(s[i][1] >= y){
                 up += side * side;
-            }else if((double)(s[1] + s[2]) <= y){
+            }else if((double)(s[i][1] + s[i][2]) <= y){
                 lw += side * side;
             }else{
                 cnt++;
-                double su1 = (double)(s[1] + s[2]) - y;
-                double sl1 = y - (double)s[1];
+                double su1 = (double)(s[i][1] + s[i][2]) - y;
+                double sl1 = y - (double)s[i][1];
                 up += side * su1;
                 lw += side * sl1;
             }
