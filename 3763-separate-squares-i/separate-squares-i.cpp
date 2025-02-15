@@ -12,7 +12,7 @@ public:
             double y = (st + en)/2;
             double up = 0;
             double lw = 0;
-            for(auto &s : squares){
+            for(const auto& s : squares){
                 double side = s[2];
                 double s1 = s[1];
                 if(s1 >= y){
