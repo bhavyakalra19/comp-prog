@@ -41,16 +41,6 @@ public:
                 ms = abs(a);
                 ans = mid;
             }
-            if(a == 0 && cnt == 0){
-                ans = -1;
-                for(auto s : squares){
-                    double y = s[1] + s[2];
-                    if(y <= mid){
-                        ans = max(ans, y);
-                    }
-                }
-                break;
-            }
             if(a > 0){
                 st = mid + 0.00001;
             }else{
