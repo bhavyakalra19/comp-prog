@@ -1,10 +1,10 @@
 class Solution {
 public:
-    unordered_set<string> st;
+    unordered_map<string, bool> st;
     vector<bool> check;
     void getAns(string s, string &tiles, int cnt){
         if(cnt == tiles.size()){
-            st.insert(s);
+            st[s] = 1;
             return;
         }
         getAns(s, tiles, cnt+1);
