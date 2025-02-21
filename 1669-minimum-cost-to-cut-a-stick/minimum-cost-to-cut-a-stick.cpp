@@ -1,24 +1,21 @@
 class Solution {
 public:
+    int getAns(vector<int> &cuts, int i, int j, vector<vector<int>> &dp){
+        if(i > j) return 0;
+        if(dp[i][j] != -1) return dp[i][j];
+        int ans = INT_MAX;
+        for(int k = i; k <= j; k++){
+            ans = min(ans, cuts[j+1] - cuts[i-1] + getAns(cuts, i, k-1, dp) + getAns(cuts, k+1, j, dp));
+        }
+        return dp[i][j] = ans;
+    }
 
     int minCost(int n, vector<int>& cuts) {
-        int c = cuts.size();
-        cuts.push_back(0);
         cuts.push_back(n);
-        sort(cuts.begin(),cuts.end());
-        vector<vector<long long>> dp(c+2, vector<long long>(c+2,0));
-        for(int i = c; i >= 1; i--){
-            for(int j = 1; j <= c; j++){
-                if(i > j){
-                    continue;
-                }
-                long long ans = INT_MAX;
-                for(int k = i; k <= j; k++){
-                    ans = min(ans, 1LL * cuts[j+1] - cuts[i-1] + dp[i][k-1] + dp[k+1][j]);
-                }
-                dp[i][j] = ans;
-            }
-        }
-        return dp[1][c];
+        cuts.push_back(0);
+        sort(cuts.begin(), cuts.end());
+        int a = cuts.size();
+        vector<vector<int>> dp(a, vector<int>(a,-1));
+        return getAns(cuts, 1, a - 2, dp);
     }
 };
