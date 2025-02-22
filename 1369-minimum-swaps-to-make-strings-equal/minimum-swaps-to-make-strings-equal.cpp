@@ -8,22 +8,16 @@ public:
         int uy = 0;
         for(int i = 0; i < n; i++){
             if(s1[i] == 'x'){
+                if(s1[i] != s2[i]) ux++;
                 a++;
             }else{
+                if(s1[i] != s2[i]) uy++;
                 b++;
             }
             if(s2[i] == 'x'){
                 a++;
             }else{
                 b++;
-            }
-
-            if(s1[i] != s2[i]){
-                if(s1[i] == 'x'){
-                    ux++;
-                }else{
-                    uy++;
-                }
             }
         }
         if(a % 2 != 0 || b % 2 != 0) return -1;
