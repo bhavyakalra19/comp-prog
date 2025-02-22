@@ -24,10 +24,14 @@ public:
             if(check1[i] == 0) continue;
             for(int j = 0; j < 26; j++){
                 if(check2[j] == 0) continue;
+                if(i == j){
+                    if(cnt1 == cnt2) return true;
+                    continue;
+                }
                 int a1 = cnt1;
                 int a2 = cnt2;
-                if(i != j && check1[i] == 1) a1--;
-                if(i != j && check2[j] == 1) a2--;
+                if(check1[i] == 1) a1--;
+                if(check2[j] == 1) a2--;
                 if(check1[j] == 0) a1++;
                 if(check2[i] == 0) a2++;
                 if(a1 == a2) return true;
