@@ -27,7 +27,7 @@ public:
                 ans = max(ans, mp[mx] + min(j-i-mp[mx], numOperations));
             }
             mx += 1;
-            if((j == i) && j < n){
+            if((j-i == 1) && j < n){
                 mx = max(0,nums[j] - k);
                 j++;
             }
