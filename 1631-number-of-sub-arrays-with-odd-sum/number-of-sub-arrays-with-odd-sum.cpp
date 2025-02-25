@@ -16,7 +16,7 @@ public:
                 odd += 1;
                 ans += 1 + even;
             }
-            ans %= mod;
+            if(ans >= mod) ans %= mod;
         }
         return ans;
     }
