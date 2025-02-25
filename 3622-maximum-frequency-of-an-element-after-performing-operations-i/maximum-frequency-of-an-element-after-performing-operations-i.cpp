@@ -18,7 +18,7 @@ public:
             while(j < n && (nums[j] - k) <= mx){
                 j++;
             }
-            while(i < j && (nums[i] + k) < mx){
+            while(nums[i] + k < mx){
                 i++;
             }
             if(j-i <= numOperations){
@@ -27,7 +27,7 @@ public:
                 ans = max(ans, mp[mx] + min(j-i-mp[mx], numOperations));
             }
             mx += 1;
-            if((j-i == 1) && j < n){
+            if((j == i) && j < n){
                 mx = max(0,nums[j] - k);
                 j++;
             }
