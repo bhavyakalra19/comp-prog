@@ -28,8 +28,7 @@ public:
             }
             mx += 1;
             if((j-i == 1) && j < n){
-                mx = max(0,nums[j] - k);
-                j++;
+                mx = max(0,nums[j++] - k);
             }
         }
         return ans;
