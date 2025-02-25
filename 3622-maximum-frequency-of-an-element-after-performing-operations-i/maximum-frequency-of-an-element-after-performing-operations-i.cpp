@@ -24,7 +24,7 @@ public:
             if(j-i <= numOperations){
                 ans = max(ans, j - i);
             }else{
-                ans = max(ans, mp[mx] + min(j-i-mp[mx], numOperations));
+                ans = max(ans, min(j-i, mp[mx] + numOperations));
             }
             mx += 1;
             if((j-i == 1) && j < n){
