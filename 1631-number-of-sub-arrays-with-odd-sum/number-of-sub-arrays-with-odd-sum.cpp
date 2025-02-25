@@ -11,11 +11,12 @@ public:
             sum += arr[i];
             if(sum % 2 == 0){
                 even += 1;
-                ans = (ans + odd) % mod;
+                ans += odd;
             }else{
                 odd += 1;
-                ans = (ans + 1 + even) % mod;
+                ans += 1 + even;
             }
+            ans %= mod;
         }
         return ans;
     }
