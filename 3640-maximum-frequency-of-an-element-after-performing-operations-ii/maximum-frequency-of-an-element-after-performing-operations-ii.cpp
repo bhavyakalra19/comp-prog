@@ -14,7 +14,7 @@ public:
         for(auto &m : below){
             int a = m.first;
             sm += below[a];
-            ans = max(ans, mp[a] + min(sm - mp[a], numOperations));
+            ans = max(ans, min(sm, mp[a] + numOperations));
         }
         return ans;
     }
