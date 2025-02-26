@@ -9,7 +9,7 @@ public:
             below[it] = below[it];
             below[it + k + 1] -= 1;
         }
-        int ans = 1;
+        int ans = 0;
         int sm = 0;
         for(auto &m : below){
             int a = m.first;
