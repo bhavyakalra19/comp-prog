@@ -5,7 +5,7 @@ public:
         map<int,int> below;
         for(auto &it : nums){
             mp[it]++;
-            below[it - k] += 1;
+            below[max(0,it - k)] += 1;
             below[it] = below[it];
             below[it + k + 1] -= 1;
         }
