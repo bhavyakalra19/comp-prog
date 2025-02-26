@@ -1,22 +1,25 @@
 class Solution {
 public:
     int maxFrequency(vector<int>& nums, int k, int numOperations) {
-        map<int,int>mp;
-        unordered_map<int,int>hash;
-        set<int>points;
-        for(auto &it:nums){
-            hash[it]++;
-            mp[it-k]++;
-            mp[it+k+1]--;
-            points.insert(it);
-            points.insert(it-k);
-            points.insert(it+k+1);
+        unordered_map<int,int> mp;
+        map<int,int> below;
+        vector<int> points;
+        for(auto &it : nums){
+            mp[it]++;
+            below[it - k] += 1;
+            below[it] = below[it];
+            below[it + k + 1] -= 1;
+            // points.push_back(it - k);
+            // points.push_back(it + k + 1);
+            // points.push_back(it);
         }
-        int ans=1;
-        int sum=0;
-        for(auto &it:points){
-            sum+=mp[it];
-            ans=max(ans,hash[it]+min(sum-hash[it],numOperations));
+        // sort(points.begin(), points.end());
+        int ans = 1;
+        int sm = 0;
+        for(auto &m : below){
+            int a = m.first;
+            sm += below[a];
+            ans = max(ans, mp[a] + min(sm - mp[a], numOperations));
         }
         return ans;
     }
