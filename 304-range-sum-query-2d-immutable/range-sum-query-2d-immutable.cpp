@@ -1,10 +1,9 @@
 class NumMatrix {
 public:
-    vector<vector<int>> check;
+    int check[201][201];
     NumMatrix(vector<vector<int>>& matrix) {
         int n = matrix.size();
         int m = matrix[0].size();
-        check.resize(n,vector<int>(m));
         for(int i = 0; i < n; i++){
             int sm = 0;
             for(int j = 0; j < m; j++){
