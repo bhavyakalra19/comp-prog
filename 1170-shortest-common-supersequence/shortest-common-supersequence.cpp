@@ -18,27 +18,18 @@ public:
         int j = n2;
         string s = "";
         while(i > 0 && j > 0){
-            if(str1[i-1] == str2[j-1]){
-                s = str1[i-1] + s;
-                i--;
-                j--;
+            if(str1[i-1] == str2[j-1]){ s = str1[i-1] + s; i--; j--;
             }else{
-                if(dp[i][j] == dp[i-1][j]){
-                    s = str1[i-1] + s;
-                    i--;
-                }else{
-                    s = str2[j-1] + s;
-                    j--;
+                if(dp[i][j] == dp[i-1][j]){ s = str1[i-1] + s; i--;
+                }else{ s = str2[j-1] + s; j--;
                 }
             }
         }
         while(i){
-            s = str1[i-1] + s;
-            i--;
+            s = str1[i-1] + s; i--;
         }
         while(j){
-            s = str2[j-1] + s;
-            j--;
+            s = str2[j-1] + s; j--;
         }
         return s;
     }
