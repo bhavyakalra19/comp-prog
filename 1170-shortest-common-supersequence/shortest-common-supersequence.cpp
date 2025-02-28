@@ -20,8 +20,10 @@ public:
         while(i > 0 && j > 0){
             if(str1[i-1] == str2[j-1]){ s = str1[i-1] + s; i--; j--;
             }else{
-                if(dp[i][j] == dp[i-1][j]){ s = str1[i-1] + s; i--;
-                }else{ s = str2[j-1] + s; j--;
+                if(dp[i][j] == dp[i-1][j]){ 
+                    s = str1[i-1] + s; i--;
+                }else{ 
+                    s = str2[j-1] + s; j--;
                 }
             }
         }
