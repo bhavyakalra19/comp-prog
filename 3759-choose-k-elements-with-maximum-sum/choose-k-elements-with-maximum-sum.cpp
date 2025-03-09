@@ -7,13 +7,10 @@ public:
         for(int i = 0; i < n; i++) check.push_back({nums1[i], i});
         priority_queue<int, vector<int>, greater<int>> pq;
         long long sum = 0;
-        sort(check.begin(), check.end(), [](const pair<int,int> &a, const pair<int,int> &b){
-            return a.first < b.first;
-        });
-        int prev = -1;
+        sort(check.begin(), check.end());
         for(int i = 0; i < n; i++){
             int a = check[i].second;
-            if(check[i].first == prev){
+            if(i > 0 && check[i].first == check[i-1].first){
                 ans[a] = ans[check[i-1].second];
             }else{
                 ans[a] = sum;
@@ -26,7 +23,6 @@ public:
                 pq.pop();
                 pq.push(nums2[a]);
             }
-            prev = check[i].first;
         }
         return ans;
     }
