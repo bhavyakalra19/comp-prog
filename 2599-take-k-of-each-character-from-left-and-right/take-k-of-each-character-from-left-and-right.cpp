@@ -34,7 +34,6 @@ public:
                 check[a]--;
                 j++;
             }
-            
         }
         return ans;
     }
