@@ -1,21 +1,22 @@
 class Solution {
 public:
-    int getAns(vector<int> &nums, int ch){
+    int getAns(vector<int> &nums, int check, int &n){
         int i = 0;
         int j = 0;
-        int n = nums.size();
         int ans = 0;
-        for(int i = 0; i < n; i++){
-            if(nums[i] <= ch){
-                ans += i - j + 1;
-            }else{
+        while(i < n){
+            if(nums[i] > check){
                 j = i + 1;
             }
+            ans += i - j + 1;
+            i++;
         }
         return ans;
     }
 
     int numSubarrayBoundedMax(vector<int>& nums, int left, int right) {
-        return getAns(nums,right) - getAns(nums, left - 1);
+        int n = nums.size();
+        return getAns(nums, right, n) - getAns(nums, left - 1, n);
     }
 };
+
