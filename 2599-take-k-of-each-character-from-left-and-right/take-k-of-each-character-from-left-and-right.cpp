@@ -34,9 +34,7 @@ public:
                 check[a]--;
                 j++;
             }
-            if(i == n - 1 && ans == INT_MAX && cnt < 3){
-                return -1;
-            }
+            
         }
         return ans;
     }
