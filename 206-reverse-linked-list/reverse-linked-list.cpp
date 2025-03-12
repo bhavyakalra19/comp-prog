@@ -10,17 +10,21 @@
  */
 class Solution {
 public:
+    ListNode *ans;
+    ListNode* getAns(ListNode *head){
+        if(!head->next){
+            ans = head;
+            return head;
+        }
+        ListNode *t = getAns(head->next);
+        t->next = head;
+        return head;
+    }
+
     ListNode* reverseList(ListNode* head) {
         if(!head || !head->next) return head;
-        ListNode *p = NULL;
-        ListNode *q = head;
-        ListNode *r;
-        while(q){
-            r = q->next;
-            q->next = p;
-            p = q;
-            q = r;
-        }
-        return p;
+        ListNode *temp = getAns(head);
+        temp->next = NULL;
+        return ans;
     }
 };
