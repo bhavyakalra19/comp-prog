@@ -1,36 +1,40 @@
 class Solution {
 public:
     int takeCharacters(string s, int k) {
-        int check[3] = {0};
-        int count  = 0;
-        int ans = INT_MAX;
-        int j = 0;
         int n = s.size();
-        int main = 2 * n;
-        if(k == 0){
-            return 0;
+        vector<int> check(3,0);
+        int cnt = 0;
+        int ans = n;
+        if(k == 0) return 0;
+        for(int i = 0; i < n; i++){
+            int a = s[i] - 'a';
+            check[a]++;
         }
-        for(int i = 0; i < main, j < n; i++){
-            int ct = s[i%n] - 'a';
-            check[ct] += 1;
-            if(check[ct] == k){
-                count++;
+        if((3 * k) > n) return -1;
+        for(int i = 0; i < 3; i++){
+            if(check[i] < k) return -1;
+        }
+        check[0] = 0;
+        check[1] = 0;
+        check[2] = 0;
+        int j = 0;
+        for(int i = 0; i < 2 * n; i++){
+            int a = s[i % n] - 'a';
+            check[a] += 1;
+            if(check[a] == k) cnt++;
+            if(j == 0 && cnt == 3){
+                ans = min(ans, i - j + 1);
             }
-            if(j == 0 && count == 3){
-                ans = min(ans,i - j + 1);
-            }
-            while(count == 3){
-                if(i >= (n - 1) && j < n){
-                    ans = min(ans, i - j + 1);
-                }
-                int ct = s[j%n] - 'a';
-                if(check[ct] == k){
+            while(cnt == 3){
+                if(i >= n-1 && j < n) ans = min(ans, i - j + 1);
+                a = s[j % n] - 'a';
+                if(check[a] == k){
                     break;
                 }
-                check[ct] -= 1;
+                check[a]--;
                 j++;
             }
-            if(i == n - 1 && ans == INT_MAX && count < 3){
+            if(i == n - 1 && ans == INT_MAX && cnt < 3){
                 return -1;
             }
         }
