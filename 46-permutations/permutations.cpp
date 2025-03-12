@@ -1,20 +1,21 @@
 class Solution {
 public:
-    void getAns(vector<int> &nums, vector<vector<int>> &ans, int idx, int n){
-        if(idx == n){
+    void getAns(vector<int> &nums, int idx, vector<vector<int>> &ans){
+        if(idx == nums.size()){
             ans.push_back(nums);
             return;
         }
-        for(int i = idx; i < n; i++){
+        for(int i = idx; i < nums.size(); i++){
             swap(nums[idx], nums[i]);
-            getAns(nums, ans, idx + 1, n);
+            getAns(nums, idx+1, ans);
             swap(nums[idx], nums[i]);
         }
     }
 
     vector<vector<int>> permute(vector<int>& nums) {
+        int n = nums.size();
         vector<vector<int>> ans;
-        getAns(nums, ans, 0, nums.size());
+        getAns(nums, 0, ans);
         return ans;
     }
 };
