@@ -18,8 +18,7 @@ public:
             if(root){
                 st.push(root);
                 root = root->left;
-            }
-            if(!root){
+            }else{
                 root = st.top();
                 st.pop();
                 ans.push_back(root->val);
