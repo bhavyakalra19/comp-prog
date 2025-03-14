@@ -11,27 +11,28 @@
  */
 class Solution {
 public:
-    long long getAns(TreeNode* root, long long &ans) {
-        if(!root){
-            return 0;
-        }
-        long long a = getAns(root->left,ans);
-        long long b = getAns(root->right,ans);
-        long long mx = max(a,b);
-        ans = max(ans, a + b + root->val);
-        if(mx <= 0){
-            if(root->val < 0){
-                return 0;
-            }
+    int ans;
+    int getAns(TreeNode *root){
+        if(!root) return 0;
+        int a = getAns(root->left);
+        int b = getAns(root->right);
+        if(a < 0 && b < 0){
+            ans = max(ans, root->val);
             return root->val;
+        }else if(a < 0){
+            ans = max(ans, root->val + b);
+            return root->val + b;
+        }else if(b < 0){
+            ans = max(ans, root->val + a);
+            return root->val + a;
         }
-
-        return ((long long)root->val + mx > 0) ? ((long long)root->val + mx ): 0;
+        ans = max(ans, a + b + root->val);
+        return max(a + root->val, b + root->val);
     }
 
     int maxPathSum(TreeNode* root) {
-        long long ans = INT_MIN;
-        getAns(root, ans);
+        ans = INT_MIN;
+        getAns(root);
         return ans;
     }
 };
