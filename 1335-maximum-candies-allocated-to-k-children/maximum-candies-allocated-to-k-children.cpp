@@ -1,15 +1,12 @@
 class Solution {
 public:
-    bool getAns(vector<int> candies, long long &k, int mx){
+    bool getAns(vector<int> &candies, long long &k, int mx){
         if(mx == 0) return true;
         long long check = 0;
         int i = 0;
         int n = candies.size();
         while(i < n && check < k){
-            if(candies[i] >= mx){
-                check += candies[i] / mx;
-                candies[i] %= mx;
-            }
+            check += candies[i] / mx;
             i++;
         }
         return check >= k;
