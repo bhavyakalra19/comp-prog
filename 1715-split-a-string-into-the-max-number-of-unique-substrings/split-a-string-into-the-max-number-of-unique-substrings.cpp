@@ -1,34 +1,24 @@
 class Solution {
 public:
-    int ans;
-    int n;
-    void getAns(string s, int idx, unordered_map<string,bool> &mp, int num){
-        if(idx >= n){
-            ans = max(ans,num);
+    void getAns(string &s, unordered_set<string> &st, int idx, string curr, int &ans){
+        if(idx == s.size()){
+            int a = 0;
+            if(curr != "" && st.find(curr) == st.end()) a = 1; 
+            ans = max(ans, (int)(st.size()) + a);
             return;
         }
-        string curr = "";
-        for(int i = idx; i < n; i++){
-            curr += s[i];
-            if(mp[curr] == false){
-                mp[curr] = true;
-                getAns(s,i+1,mp,num+1);
-                mp[curr] = false;
-            }
+        getAns(s, st, idx + 1, curr + s[idx], ans);
+        if(curr != "" && st.find(curr) == st.end()){
+            st.insert(curr);
+            getAns(s, st, idx, "", ans);
+            st.erase(curr);
         }
     }
 
     int maxUniqueSplit(string s) {
-        ans = 0;
-        n = s.size();
-        string curr = "";
-
-        for(int i = 0; i < n; i++){
-            unordered_map<string,bool> mp;
-            string sub = s.substr(0,i+1);
-            mp[sub] = true;
-            getAns(s,i+1,mp,1);
-        }
+        unordered_set<string> st;
+        int ans = 0;
+        getAns(s, st, 0, "", ans);
         return ans;
     }
 };
