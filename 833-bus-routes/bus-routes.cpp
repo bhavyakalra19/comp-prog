@@ -3,18 +3,16 @@ public:
     int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
         if(source == target) return 0;
         int n = routes.size();
-        unordered_map<int, vector<int>> check;
-        unordered_map<int, vector<int>> gp;
-        unordered_map<int,bool> visitBus;
-        unordered_map<int,bool> visitNode;
+        unordered_map<int,vector<int>> check;
+        unordered_map<int,vector<int>> gp;
+        unordered_map<int, bool> bus;
+        unordered_map<int, bool> node;
+        node[source] = true;
         for(int i = 0; i < n; i++){
-            int m = routes[i].size();
-            if(m == 1){
-                continue;
-            }
-            for(int j = 0; j < m; j++){
-                check[routes[i][j]].push_back(i);
-                gp[i].push_back(routes[i][j]);
+            if(routes[i].size() == 1) continue;
+            for(auto &a : routes[i]){
+                check[i].push_back(a);
+                gp[a].push_back(i);
             }
         }
         queue<int> q;
@@ -25,17 +23,16 @@ public:
             while(size--){
                 auto it = q.front();
                 q.pop();
-                for(auto bus : check[it]){
-                    if(visitBus[bus]){
-                        continue;
-                    }
-                    visitBus[bus] = true;
-                    for(auto node : gp[bus]){
-                        if(!visitNode[node]){
-                            q.push(node);
-                            visitNode[node] = true;
-                            if(node == target){
-                                return ans + 1;
+                for(auto a : gp[it]){
+                    if(bus.find(a) == bus.end()){
+                        bus[a] = true;
+                        for(auto &e : check[a]){
+                            if(node.find(e) == node.end()){
+                                q.push(e);
+                                node[e] = true;
+                                if(e == target){
+                                    return ans + 1;
+                                }
                             }
                         }
                     }
