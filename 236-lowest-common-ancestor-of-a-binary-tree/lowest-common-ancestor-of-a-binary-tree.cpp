@@ -14,7 +14,6 @@ public:
         if(!root || temp != NULL) return false;
         bool a = getAns(root->left, p, q);
         bool b = getAns(root->right, p, q);
-        if(temp != NULL) return false;
         if((root->val == p || root->val == q) && (a == true || b == true)){
             temp = root;
         }
