@@ -3,7 +3,6 @@ public:
     int minRefuelStops(int target, int startFuel, vector<vector<int>>& stations) {
         priority_queue<int> pq;
         int st = 0;
-        sort(stations.begin(), stations.end());
         int i = 0;
         int n = stations.size();
         int ans = 0;
