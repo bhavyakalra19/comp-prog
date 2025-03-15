@@ -14,10 +14,11 @@ public:
         if(!root || temp != NULL) return false;
         bool a = getAns(root->left, p, q);
         bool b = getAns(root->right, p, q);
+        if(temp != NULL) return false;
         if(((root->val == p || root->val == q) && (a == true || b == true)) || (a & b)){
             temp = root;
         }
-        return (a | b | root->val == p | root->val == q);
+        return (a | b | root->val == p || root->val == q);
     }
 
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
