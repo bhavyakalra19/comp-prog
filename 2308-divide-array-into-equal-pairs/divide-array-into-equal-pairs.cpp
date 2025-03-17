@@ -1,8 +1,6 @@
 class Solution {
 public:
     bool divideArray(vector<int>& nums) {
-        int n = nums.size();
-        int sz = n / 2;
         int oc = 0;
         vector<int> mp(501,0);
         for(auto &a : nums){
