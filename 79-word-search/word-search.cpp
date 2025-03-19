@@ -6,7 +6,6 @@ public:
     int dy[4] = {0,1,0,-1};
     bool getAns(vector<vector<char>> &board, string word, int idx, int i, int j){
         if(idx == word.size()){
-            cout << i << " " << j << endl;
             return true;
         }
         for(int a = 0; a < 4; a++){
