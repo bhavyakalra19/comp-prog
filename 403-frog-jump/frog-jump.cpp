@@ -37,7 +37,7 @@ public:
 
     bool canCross(vector<int>& stones) {
         n = stones.size();
-        vector<vector<int>> dp(n, vector<int>(10000, -1));
+        vector<vector<int>> dp(n, vector<int>(1000, -1));
         if(stones[1] > 1) return false;
         int a = getAns(stones, 1, 1, dp);
         return a;
