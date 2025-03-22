@@ -34,7 +34,6 @@ public:
                 i++; 
             }
             i++;
-            cout << row << " " << col << endl;
             if(col == -1){
                 sum += row;
             }else{
