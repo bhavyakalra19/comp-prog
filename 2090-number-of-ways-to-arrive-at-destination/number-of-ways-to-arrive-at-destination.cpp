@@ -13,7 +13,6 @@ public:
             pq.pop();
             int cx = it.second;
             long long cw = it.first;
-            if(cw > check[cx]) continue;
             for(auto &a : adj[cx]){
                 long long nw = cw + 1LL * a.second;
                 if(nw < check[a.first]){
