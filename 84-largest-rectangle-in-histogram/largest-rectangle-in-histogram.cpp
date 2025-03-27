@@ -12,7 +12,7 @@ public:
                 if(st.empty()){
                     gap = i;
                 }else{
-                    gap = (i - top) + (top - st.top() - 1);
+                    gap = (i - st.top() - 1);
                 }
                 ans = max(ans, heights[top] * gap);
             }
