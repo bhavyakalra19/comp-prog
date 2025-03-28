@@ -1,27 +1,23 @@
 class Solution {
 public:
-    void getAns(vector<int> &nums, unordered_map<int,int> &mp, vector<vector<int>> &ans, int idx){
-        if(idx == nums.size()){
+    void getAns(vector<int> &nums, int i, vector<vector<int>> &ans){
+        if(i == nums.size()){
             ans.push_back(nums);
             return;
         }
-        for(auto &a : mp){
-            if(a.second > 0){
-                nums[idx] = a.first;
-                mp[a.first] -= 1;
-                getAns(nums, mp, ans, idx + 1);
-                mp[a.first] += 1;
-            }
+        unordered_set<int> st;
+        for(int k = i; k < nums.size(); k++){
+            if(st.find(nums[k]) != st.end()) continue;
+            st.insert(nums[k]);
+            swap(nums[i], nums[k]);
+            getAns(nums, i + 1, ans);
+            swap(nums[i], nums[k]);
         }
     }
 
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        unordered_map<int,int> mp;
-        for(auto &a : nums){
-            mp[a] += 1;
-        }
         vector<vector<int>> ans;
-        getAns(nums, mp, ans, 0);
+        getAns(nums, 0, ans);
         return ans;
     }
 };
