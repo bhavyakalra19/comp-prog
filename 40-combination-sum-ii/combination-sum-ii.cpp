@@ -1,29 +1,26 @@
 class Solution {
 public:
-    vector<vector<int>> ans;
-
-    void getAns(vector<int> candidates, int idx, int target, vector<int> check){
+    void getAns(vector<int> &nums, int idx, int target, vector<vector<int>> &ans, vector<int> &check){
         if(target == 0){
             ans.push_back(check);
             return;
         }
-        for(int i = idx; i < candidates.size(); i++){
-            if(candidates[i] > target){
-                break;
-            }
-            if(i > idx && candidates[i] == candidates[i-1]){
-                continue;
-            }
-            check.push_back(candidates[i]);
-            getAns(candidates,i+1,target-candidates[i],check);
+        if(idx == nums.size()) return;
+        for(int i = idx; i < nums.size(); i++){
+            if(i != idx && nums[i] == nums[i-1]) continue;
+            if(target < nums[i]) break;
+            check.push_back(nums[i]);
+            getAns(nums, i + 1, target - nums[i], ans, check);
             check.pop_back();
         }
     }
 
     vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
-        sort(candidates.begin(),candidates.end());
+        sort(candidates.begin(), candidates.end());
+        int n = candidates.size();
+        vector<vector<int>> ans;
         vector<int> check;
-        getAns(candidates,0,target,check);
+        getAns(candidates, 0, target, ans, check);
         return ans;
     }
 };
