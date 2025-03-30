@@ -23,21 +23,21 @@ public:
         getAns(mp[root], mp, vis, k-1);
     }
 
-    void getParent(TreeNode *root, unordered_map<TreeNode*, TreeNode*> &mp){
-        if(!root){
+    void getParent(TreeNode *root, unordered_map<TreeNode*, TreeNode*> &mp, TreeNode *&target){
+        if(!root || root == target){
             return;
         }
         if(root->left) mp[root->left] = root;
         if(root->right) mp[root->right] = root;
-        getParent(root->left, mp);
-        getParent(root->right, mp);
+        getParent(root->left, mp, target);
+        getParent(root->right, mp, target);
     }
 
     vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
         unordered_map<TreeNode*, TreeNode*> parentMap;
         parentMap[root] = NULL;
         unordered_map<TreeNode*, bool> visited;
-        getParent(root, parentMap);
+        getParent(root, parentMap, target);
         getAns(target, parentMap, visited, k);
         return ans;
     }
