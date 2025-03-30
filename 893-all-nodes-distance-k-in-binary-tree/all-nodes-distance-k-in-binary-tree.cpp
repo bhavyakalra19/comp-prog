@@ -11,7 +11,7 @@ class Solution {
 public:
     vector<int> ans;
 
-    void getAns(TreeNode *root, unordered_map<TreeNode*, TreeNode*> mp, unordered_map<TreeNode*, bool> &vis, int k){
+    void getAns(TreeNode *&root, unordered_map<TreeNode*, TreeNode*> &mp, unordered_map<TreeNode*, bool> &vis, int k){
         if(!root || vis.find(root) != vis.end()) return;
         if(k == 0){
             ans.push_back(root->val);
@@ -23,7 +23,7 @@ public:
         getAns(mp[root], mp, vis, k-1);
     }
 
-    void getParent(TreeNode *root, unordered_map<TreeNode*, TreeNode*> &mp, TreeNode *&target){
+    void getParent(TreeNode *&root, unordered_map<TreeNode*, TreeNode*> &mp, TreeNode *&target){
         if(!root || root == target){
             return;
         }
