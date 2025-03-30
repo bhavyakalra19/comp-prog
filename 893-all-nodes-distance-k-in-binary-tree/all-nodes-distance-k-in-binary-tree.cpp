@@ -20,7 +20,7 @@ public:
         vis[root] = true;
         getAns(root->left, mp, vis, k-1);
         getAns(root->right, mp, vis, k-1);
-        getAns(mp[root], mp, vis, k-1);
+        if(mp.find(root) != mp.end()) getAns(mp[root], mp, vis, k-1);
     }
 
     void getParent(TreeNode *&root, unordered_map<TreeNode*, TreeNode*> &mp, TreeNode *&target){
