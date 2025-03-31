@@ -11,29 +11,30 @@
  */
 class Solution {
 public:
-    int getRight(TreeNode *root){
-        while(root->right != NULL){
-            root = root->right;
+    int getLeftMost(TreeNode *temp){
+        while(temp->left){
+            temp = temp->left;
         }
-        return root->val;
+        return temp->val;
     }
 
     TreeNode* deleteNode(TreeNode* root, int key) {
-        if(!root) return NULL;
-        if(key < root->val){
-            root->left = deleteNode(root->left, key);
-        }else if(key > root->val){
-            root->right = deleteNode(root->right, key);
-        }else{
+        if(!root){
+            return NULL;
+        }
+        if(root->val == key){
             if(!root->left){
                 return root->right;
             }else if(!root->right){
                 return root->left;
             }else{
-                int a = getRight(root->left);
-                root->val = a;
-                root->left = deleteNode(root->left, a);
+                root->val = getLeftMost(root->right);
+                root->right = deleteNode(root->right, root->val);
             }
+        }else if(key < root->val){
+            root->left = deleteNode(root->left, key);
+        }else{
+            root->right = deleteNode(root->right, key);
         }
         return root;
     }
