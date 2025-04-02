@@ -31,7 +31,6 @@ public:
             mx = path[mx];
         }
         result.push_back(nums[mx]);
-        // reverse(result.begin(), result.end());
         return result;
     }
 };
