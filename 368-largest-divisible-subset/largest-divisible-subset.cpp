@@ -1,34 +1,37 @@
 class Solution {
 public:
     vector<int> largestDivisibleSubset(vector<int>& nums) {
-        int n = nums.size();
         sort(nums.begin(), nums.end());
-        vector<int> dp(n,1);
-        int check = 0;
-        int mx = 1;
-        vector<int> mp(n);
-        mp[0] = 0;
+        int n = nums.size();
+        vector<int> check(n);
+        vector<int> path(n);
+        int ans = 0;
+        int mx = 0;
+        check[0] = 1;
+        path[0] = 0;
         for(int i = 1; i < n; i++){
-            mp[i] = i;
+            int curr = 0;
+            int currIdx = i;
             for(int j = 0; j < i; j++){
-                if(nums[i] % nums[j] == 0 && dp[i] < dp[j] + 1){
-                    dp[i] = dp[j] + 1;
-                    mp[i] = j;
-                    if(dp[i] > mx){
-                        mx = dp[i];
-                        check = i;
-                    }
+                if((nums[i] % nums[j] == 0) && check[j] > curr){
+                    curr = check[j];
+                    currIdx = j;
                 }
             }
+            path[i] = currIdx;
+            check[i] = curr + 1;
+            if(check[i] > ans){
+                ans = check[i];
+                mx = i;
+            }
         }
-
-        vector<int> ans;
-        ans.push_back(nums[check]);
-        while(check != mp[check]){
-            check = mp[check];
-            ans.push_back(nums[check]);
+        vector<int> result;
+        while(mx != path[mx]){
+            result.push_back(nums[mx]);
+            mx = path[mx];
         }
-        reverse(ans.begin(), ans.end());
-        return ans;
+        result.push_back(nums[mx]);
+        reverse(result.begin(), result.end());
+        return result;
     }
 };
