@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> largestDivisibleSubset(vector<int>& nums) {
-        sort(nums.begin(), nums.end());
+        sort(nums.begin(), nums.end(), greater<int>());
         int n = nums.size();
         vector<int> check(n);
         vector<int> path(n);
@@ -13,7 +13,7 @@ public:
             int curr = 0;
             int currIdx = i;
             for(int j = 0; j < i; j++){
-                if((nums[i] % nums[j] == 0) && check[j] > curr){
+                if((nums[j] % nums[i] == 0) && check[j] > curr){
                     curr = check[j];
                     currIdx = j;
                 }
@@ -31,7 +31,7 @@ public:
             mx = path[mx];
         }
         result.push_back(nums[mx]);
-        reverse(result.begin(), result.end());
+        // reverse(result.begin(), result.end());
         return result;
     }
 };
