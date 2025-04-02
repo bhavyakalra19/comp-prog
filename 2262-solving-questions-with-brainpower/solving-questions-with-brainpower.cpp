@@ -1,18 +1,14 @@
 class Solution {
 public:
+    long long getAns(vector<vector<int>> &nums, int idx, vector<long long> &dp){
+        if(idx >= nums.size()) return 0;
+        if(dp[idx] != -1) return dp[idx];
+        return dp[idx] = max(1LL * nums[idx][0] + getAns(nums, idx + nums[idx][1] + 1, dp), getAns(nums, idx + 1, dp));
+    }
+
     long long mostPoints(vector<vector<int>>& questions) {
-        vector<long long> dp(questions.size(), 0);
-        for (int i = questions.size() - 1; i >= 0; i--) {
-            int index = i + questions[i][1] + 1;
-            if (index < questions.size()) {
-                dp[i] = dp[index] + questions[i][0];
-            } else {
-                dp[i] = questions[i][0];
-            }
-            if (i < questions.size() - 1) {
-                dp[i] = max(dp[i + 1], dp[i]);
-            }
-        }
-        return dp[0];
+        int n = questions.size();
+        vector<long long> dp(n,-1);
+        return getAns(questions, 0, dp);
     }
 };
