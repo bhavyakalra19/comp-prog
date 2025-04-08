@@ -5,7 +5,7 @@ public:
         int sum = 1;
         int n = nums.size();
         while(i < n){
-            if(nums[i] == nums[i-1]){
+            while(i < n && nums[i] == nums[i-1]){
                 sum += 1;
                 i++;
             }
