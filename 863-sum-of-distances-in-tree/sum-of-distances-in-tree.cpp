@@ -1,39 +1,35 @@
 class Solution {
 public:
-    vector<int> count;
-    vector<int> res;
-    int n;
-    void dfs1(vector<vector<int>> &gp, int par, int idx){
-        for(auto &a : gp[idx]){
+    void dfs1(vector<vector<int>> &adj, int idx, int par, vector<int> &check, vector<int> &res){
+        for(auto &a : adj[idx]){
             if(a != par){
-                dfs1(gp, idx, a);
-                count[idx] += count[a];
-                res[idx] += res[a] + count[a];
+                dfs1(adj, a, idx, check, res);
+                check[idx] += check[a];
+                res[idx] += res[a] + check[a];
             }
         }
     }
-
-    void dfs2(vector<vector<int>> &gp, int par, int idx){
-        res[idx] = res[par] - count[idx] + n - count[idx];
-        for(auto &a : gp[idx]){
+    
+    void dfs2(vector<vector<int>> &adj, int idx, int par, vector<int> &check, vector<int> &res){
+        res[idx] = res[par] - check[idx] + adj.size() - check[idx];
+        for(auto &a : adj[idx]){
             if(par != a){
-                dfs2(gp, idx, a);
+                dfs2(adj, a, idx, check, res);
             }
         }
     }
 
     vector<int> sumOfDistancesInTree(int n, vector<vector<int>>& edges) {
-        this->n = n;
-        count.resize(n,1);
-        res.resize(n,0);
-        vector<vector<int>> gp(n);
-        for(int i = 0; i < n - 1; i++){
-            gp[edges[i][0]].push_back(edges[i][1]);
-            gp[edges[i][1]].push_back(edges[i][0]);
+        vector<vector<int>> adj(n);
+        for(auto &edge : edges){
+            adj[edge[0]].push_back(edge[1]);
+            adj[edge[1]].push_back(edge[0]);
         }
-        dfs1(gp, -1, 0);
-        for(auto &a : gp[0]){
-            dfs2(gp, 0, a);
+        vector<int> check(n,1);
+        vector<int> res(n,0);
+        dfs1(adj, 0, -1, check, res);
+        for(auto &a : adj[0]){
+            dfs2(adj, a, 0, check, res);
         }
         return res;
     }
