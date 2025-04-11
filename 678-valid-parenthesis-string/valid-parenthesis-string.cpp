@@ -9,10 +9,12 @@ public:
                 mn++;
                 mx++;
             }else if(s[i] == '*'){
-                mn = max(0, mn - 1);
+                mn--;
+                if(mn < 0) mn = 0;
                 mx++;
             }else{
-                mn = max(0, mn - 1);
+                mn--;
+                if(mn < 0) mn = 0;
                 mx--;
                 if(mx < 0) return false;
             }
