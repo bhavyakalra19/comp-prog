@@ -2,19 +2,18 @@ class Solution {
 public:
     int jump(vector<int>& nums) {
         int n = nums.size();
-        int jump = 0;
-        int far = 0;
-        int near = 0;
-        for(int i = 0; i < n - 1; i++){
-            far = max(far, i + nums[i]);
-            if(i == near){
-                near = far;
-                jump++;
-                if(near >= n - 1){
-                    break;
-                }
+        int curr = 0;
+        int mx = 0;
+        int cnt = 0;
+        if(n == 1) return 0; 
+        for(int i = 0; i < n; i++){
+            mx = max(mx, i + nums[i]);
+            if(i == curr){
+                curr = mx;
+                cnt++;
+                if(curr >= n-1) break;
             }
         }
-        return jump;
+        return cnt;
     }
 };
