@@ -48,10 +48,7 @@ public:
         temp->prev = head;
     }
     
-    int get(int key) {
-        if(key_map.find(key) == key_map.end() || key_map[key] == NULL) return -1;
-
-        Node *last = key_map[key];
+    void updateFreq(Node *last){
         last->prev->next = last->next;
         last->next->prev = last->prev;
         int old_freq = last->cnt;
@@ -60,6 +57,12 @@ public:
             freq++;
         }
         addToFreq(last->cnt, last);
+    }
+
+    int get(int key) {
+        if(key_map.find(key) == key_map.end() || key_map[key] == NULL) return -1;
+        Node *last = key_map[key];
+        updateFreq(last);
         return last->data;
     }
     
@@ -81,15 +84,8 @@ public:
             addToFreq(1, temp);
         }else{
             Node *last = key_map[key];
-            last->prev->next = last->next;
-            last->next->prev = last->prev;
             last->data = value;
-            int old_freq = last->cnt;
-            last->cnt += 1;
-            if(freq == old_freq && freq_map[freq].first->next == freq_map[freq].second){
-                freq++;
-            }
-            addToFreq(last->cnt, last);
+            updateFreq(last);
         }
     }
 };
