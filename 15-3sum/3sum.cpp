@@ -17,9 +17,6 @@ public:
                 if(sum == 0){
                     ans.push_back({nums[i], nums[j], nums[k]});
                     j++;
-                    // while(j < k && nums[j] == nums[j-1]){
-                    //     j++;
-                    // }
                     k--;
                 }else if(sum < 0){
                     j++;
