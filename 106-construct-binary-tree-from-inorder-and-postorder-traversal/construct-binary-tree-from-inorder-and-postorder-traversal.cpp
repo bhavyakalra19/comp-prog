@@ -13,28 +13,28 @@ class Solution {
 public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
         int n = inorder.size();
+        if(n == 0) return NULL;
         TreeNode *root = new TreeNode(postorder[n-1]);
         TreeNode *main = root;
-        stack<TreeNode*> st;
-        st.push(root);
         unordered_map<int,int> mp;
         for(int i = 0; i < n; i++){
             mp[inorder[i]] = i;
         }
+        stack<TreeNode*> st;
+        st.push(root);
         for(int i = n-2; i >= 0; i--){
-            TreeNode *temp = new TreeNode(postorder[i]);
-            if(mp[root->val] < mp[temp->val]){
-                root->right = temp;
-                root = temp;
-            }else{
-                while(!st.empty() && mp[st.top()->val] > mp[temp->val]){
+            if(mp[postorder[i]] < mp[st.top()->val]){
+                while(!st.empty() && mp[postorder[i]] < mp[st.top()->val]){
                     root = st.top();
                     st.pop();
                 }
-                root->left = temp;
-                root = temp;
+                root->left = new TreeNode(postorder[i]);
+                root = root->left;
+            }else{
+                root->right = new TreeNode(postorder[i]);
+                root = root->right;
             }
-            st.push(temp);
+            st.push(root);
         }
         return main;
     }
