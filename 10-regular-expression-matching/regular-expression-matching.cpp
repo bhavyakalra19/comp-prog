@@ -13,10 +13,10 @@ public:
         if(s[i] == p[j] || p[j] == '.'){
             a = getAns(s, p, i-1, j-1, dp);
         }else if(p[j] == '*'){
-            a = a | getAns(s, p, i, j-2, dp);
             if(p[j-1] == s[i] || p[j-1] == '.'){
-                a = a | getAns(s, p, i-1, j, dp);
+                a = getAns(s, p, i-1, j, dp) | getAns(s, p, i-1, j-2, dp);
             }
+            a |= getAns(s, p, i, j-2, dp);
         }
         return dp[i][j] = a;
     }
