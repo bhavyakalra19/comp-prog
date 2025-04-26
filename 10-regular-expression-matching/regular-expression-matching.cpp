@@ -14,7 +14,7 @@ public:
             a = getAns(s, p, i-1, j-1, dp);
         }else if(p[j] == '*'){
             if(p[j-1] == s[i] || p[j-1] == '.'){
-                a = getAns(s, p, i-1, j, dp) | getAns(s, p, i-1, j-2, dp);
+                a = getAns(s, p, i-1, j, dp);
             }
             a |= getAns(s, p, i, j-2, dp);
         }
