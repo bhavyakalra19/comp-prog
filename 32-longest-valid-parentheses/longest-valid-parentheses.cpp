@@ -8,12 +8,12 @@ public:
             if(s[i] == '('){
                 st.push(i);
             }else{
-                if(!st.empty() && s[st.top()] == '('){
-                    st.pop();
-                    int dist = i - (st.empty() ? -1 : st.top());
-                    ans = max(ans, dist);
-                }else{
+                if(st.empty() || s[st.top()] == ')'){
                     st.push(i);
+                }else{
+                    st.pop();
+                    int last = st.empty() ? -1 : st.top();
+                    ans = max(ans, i - last);
                 }
             }
         }
