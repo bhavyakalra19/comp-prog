@@ -5,71 +5,65 @@ class Node{
         Node *prev;
         Node *next;
 
-        Node(int k, int d){
-            key = k;
-            data = d;
-            next = NULL;
-            prev = NULL;
+        Node(int key, int data){
+            this->data = data;
+            this->key = key;
         }
 };
 
 class LRUCache {
 public:
+    unordered_map<int,Node*> mp;
     int cap;
     int curr;
     Node *head;
     Node *tail;
-    unordered_map<int,Node*> mp;
     LRUCache(int capacity) {
-        cap = capacity;
-        curr = 0;
         head = new Node(-1,-1);
         tail = new Node(-1,-1);
         head->next = tail;
         tail->prev = head;
+        cap = capacity;
+        curr = 0;
     }
     
     int get(int key) {
         if(mp.find(key) == mp.end() || mp[key] == NULL){
             return -1;
         }
-        Node *temp = mp[key];
-        temp->prev->next = temp->next;
-        temp->next->prev = temp->prev;
-        temp->next = head->next;
-        head->next->prev = temp;
-        head->next = temp;
-        temp->prev = head;
-        return temp->data;
+        Node *last = mp[key];
+        last->prev->next = last->next;
+        last->next->prev = last->prev;
+        last->next = head->next;
+        head->next->prev = last;
+        head->next = last;
+        last->prev = head;
+        return last->data;
     }
     
     void put(int key, int value) {
+        Node *last;
         if(mp.find(key) != mp.end() && mp[key] != NULL){
-            Node *temp = mp[key];
-            temp->data = value;
-            temp->prev->next = temp->next;
-            temp->next->prev = temp->prev;
-            temp->next = head->next;
-            head->next->prev = temp;
-            head->next = temp;
-            temp->prev = head;
+            last = mp[key];
+            last->prev->next = last->next;
+            last->next->prev = last->prev;
+            last->data = value;
         }else{
-            if(curr == cap){
-                Node *last = tail->prev;
-                mp[last->key] = NULL;
-                last->prev->next = tail;
-                tail->prev = last->prev;
-
+            if(cap == curr){
+                Node *nw = tail->prev;
+                nw->prev->next = nw->next;
+                nw->next->prev = nw->prev;
+                mp[nw->key] = NULL;
             }else{
                 curr++;
             }
-            Node *temp = new Node(key, value);
-            mp[key] = temp;
-            temp->next = head->next;
-            head->next->prev = temp;
-            head->next = temp;
-            temp->prev = head;
+            last = new Node(key, value);
         }
+        mp[key] = last;
+        last->next = head->next;
+        head->next->prev = last;
+        head->next = last;
+        last->prev = head;
     }
 };
 
