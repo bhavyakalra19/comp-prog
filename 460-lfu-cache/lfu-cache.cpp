@@ -1,46 +1,51 @@
 class Node{
     public:
-        int data;
         int key;
+        int data;
         int cnt;
-        Node *next;
         Node *prev;
+        Node *next;
 
         Node(int k, int d){
+            prev = NULL;
+            next = NULL;
+            cnt = 1;
             key = k;
             data = d;
-            cnt = 1;
-            next = NULL;
-            prev = NULL;
         }
 };
 
 class LFUCache {
 public:
-    int curr;
-    int cap;
     int freq;
+    int curr_cap;
+    int cap;
     unordered_map<int,Node*> key_map;
     unordered_map<int,pair<Node*,Node*>> freq_map;
     LFUCache(int capacity) {
         freq = 1;
-        curr = 0;
+        curr_cap = 0;
         cap = capacity;
     }
+    void addFreq(Node *temp){
+        int curr_freq = temp->cnt;
+        // temp->prev->next = temp->next;
+        // temp->next->prev = temp->prev;
 
-    void addToFreq(int freq, Node *temp){
+        // if(freq_map[curr_freq].first->next == freq_map[curr_freq].second){
+        //     freq = curr_freq+1;
+        // }
+        // curr_freq++;
         Node *head;
         Node *tail;
-        if(freq_map.find(freq) == freq_map.end()){
+        if(freq_map.find(curr_freq) == freq_map.end()){
             head = new Node(-1,-1);
             tail = new Node(-1,-1);
             head->next = tail;
             tail->prev = head;
-            freq_map[freq] = {head,tail};
+            freq_map[curr_freq] = make_pair(head, tail);
         }else{
-            auto it = freq_map[freq];
-            head = it.first;
-            tail = it.second;
+            head = freq_map[curr_freq].first;
         }
         head->next->prev = temp;
         temp->next = head->next;
@@ -48,44 +53,55 @@ public:
         temp->prev = head;
     }
     
-    void updateFreq(Node *last){
+    void updateFreq(Node *temp){
+        int curr_freq = temp->cnt;
+        if(freq == curr_freq && freq_map[curr_freq].first->next == freq_map[curr_freq].second){
+            freq = curr_freq+1;
+        }
+        temp->cnt += 1;
+    }
+    
+    int get(int key) {
+        //if key doesnt exists
+        if(key_map.find(key) == key_map.end() || key_map[key] == NULL){
+            return -1;
+        }
+         //if key exists
+        Node *last = key_map[key];
         last->prev->next = last->next;
         last->next->prev = last->prev;
-        int old_freq = last->cnt;
-        last->cnt += 1;
-        if(freq == old_freq && freq_map[freq].first->next == freq_map[freq].second){
-            freq++;
-        }
-        addToFreq(last->cnt, last);
-    }
-
-    int get(int key) {
-        if(key_map.find(key) == key_map.end() || key_map[key] == NULL) return -1;
-        Node *last = key_map[key];
         updateFreq(last);
+        addFreq(key_map[key]);  
         return last->data;
     }
     
     void put(int key, int value) {
-        if(key_map.find(key) == key_map.end() || key_map[key] == NULL){
-            if(curr < cap){
-                curr++;
-            }else{
-                auto it = freq_map[freq];
-                Node *tail = it.second;
-                Node *last = tail->prev;
-                last->prev->next = tail;
-                tail->prev = last->prev;
-                key_map[last->key] = NULL;
-            }
-            Node *temp = new Node(key, value);
-            key_map[key] = temp;
-            freq = 1;
-            addToFreq(1, temp);
-        }else{
+        //if key exists
+        if(key_map.find(key) != key_map.end() && key_map[key] != NULL){
             Node *last = key_map[key];
-            last->data = value;
+            last->prev->next = last->next;
+            last->next->prev = last->prev;
             updateFreq(last);
+            addFreq(key_map[key]);
+            last->data = value;
+        }else{
+            //if key doesn't exist
+            //if capacity is full
+            Node *last;
+            if(curr_cap == cap){
+                last = freq_map[freq].second->prev;
+                last->next->prev = last->prev;
+                last->prev->next = last->next;
+                updateFreq(last);
+                key_map[last->key] = NULL;
+            }else{
+            //if capacity not full
+                curr_cap += 1;
+            }
+            freq = 1;
+            last = new Node(key, value);
+            addFreq(last);
+            key_map[key] = last;
         }
     }
 };
