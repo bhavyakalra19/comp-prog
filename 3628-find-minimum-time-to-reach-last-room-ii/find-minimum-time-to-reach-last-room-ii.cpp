@@ -14,9 +14,6 @@ public:
             int cx = it.second[0];
             int cy = it.second[1];
             int cp = it.second[2];
-            if(cx == m-1 && cy == n-1){
-                return it.first;
-            }
             int cw = it.first;
             for(int i = 0; i < 4; i++){
                 int nx = cx + dx[i];
@@ -35,6 +32,6 @@ public:
                 }
             }
         }
-        return -1;
+        return check[m-1][n-1];
     }
 };
