@@ -1,28 +1,37 @@
 class Solution {
 public:
+    int mod = 1e9 + 7;
     int lengthAfterTransformations(string s, int t) {
-        const int mod = 1e9 + 7;
-        vector<int> count(26,0);
-        for(auto a : s){
-            count[a - 'a']++;
+        vector<int> check(26,0);
+        int n = s.size();
+        for(int i = 0; i < n; i++){
+            check[s[i] - 'a']++;
         }
-        while(t > 0){
-            vector<int> tmp(26,0);
-            for(int i = 0; i < 26; i++){
-                if(i == 25){
-                    tmp[0] = (tmp[0] + count[i])%mod;
-                    tmp[1] = (tmp[1] + count[i])%mod;
+        for(int i = 0; i < t/26; i++){
+            vector<int> curr(26,0);
+            for(int j = 0; j < 26; j++){
+                if(j == 25){
+                    curr[j] = (curr[j] + check[j]) % mod;
+                    curr[0] = (curr[0] + check[j]) % mod;
+                    curr[1] = (curr[1] + check[j]) % mod;
                 }else{
-                    tmp[i+1] = (tmp[i+1] + count[i])%mod;
+                    curr[j] = (curr[j] + check[j]) % mod;
+                    curr[j+1] = (curr[j+1] + check[j]) % mod;
                 }
             }
-            count = tmp;
-            t--;
+            check = curr;
         }
-        long long ans = 0;
-        for(auto a : count){
-            ans = (ans + a)%mod;
+        t = t % 26;
+        int ans = 0;
+        for(int i = 0; i < 26; i++){
+            if(i + t >= 26){
+                ans = (ans + check[i]) % mod;
+                ans = (ans + check[i]) % mod; 
+            }else{
+                ans = (ans + check[i]) % mod;
+            }
         }
-        return ans % mod;
+        return ans;
     }
 };
+
