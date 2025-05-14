@@ -1,25 +1,37 @@
 class Solution {
 public:
     vector<string> findItinerary(vector<vector<string>>& tickets) {
-        unordered_map<string, priority_queue<string, vector<string>, greater<string>>> mp;
+        unordered_map<string, vector<string>> mp;
+        vector<string> ans;
         for(auto t : tickets){
-            mp[t[0]].push(t[1]);
+            mp[t[0]].push_back(t[1]);
         }
-        string start = "JFK";
+        for(auto &m : mp){
+            sort(m.second.begin(), m.second.end());
+        }
         stack<string> st;
-        st.push(start);
-        vector<string> curr;
+        stack<string> main;
+        st.push("JFK");
         while(!st.empty()){
             auto it = st.top();
-            if(!mp[it].empty()){
-                st.push(mp[it].top());
-                mp[it].pop();
-            }else{
-                curr.push_back(it);
+            if(mp.find(it) == mp.end() || mp[it].size() == 0){
                 st.pop();
+                main.push(it);
+            }else{
+                string str = mp[it].front();
+                mp[it].erase(mp[it].begin());
+                st.push(str);
             }
         }
-        reverse(curr.begin(), curr.end());
-        return curr;
+        while(!main.empty()){
+            ans.push_back(main.top());
+            main.pop();
+        }
+        return ans;
     }
 };
+
+// JFK -> MUC
+// MUC -> LHR
+// LHR -> SFO
+// SFO -> SJC
