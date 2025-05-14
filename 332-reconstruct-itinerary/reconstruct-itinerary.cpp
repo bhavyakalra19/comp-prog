@@ -30,8 +30,3 @@ public:
         return ans;
     }
 };
-
-// JFK -> MUC
-// MUC -> LHR
-// LHR -> SFO
-// SFO -> SJC
