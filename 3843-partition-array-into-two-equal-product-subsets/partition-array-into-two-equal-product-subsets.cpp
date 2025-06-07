@@ -12,8 +12,6 @@ public:
 
     bool checkEqualPartitions(vector<int>& nums, long long target) {
         n = nums.size();
-        long long curr = 1;
-        long long check = 0;
         return getAns(1, 1, target, 0, nums);
     }
 };
