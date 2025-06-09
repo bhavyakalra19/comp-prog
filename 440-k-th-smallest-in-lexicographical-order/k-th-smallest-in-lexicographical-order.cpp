@@ -13,14 +13,14 @@ public:
     int findKthNumber(int n, int k) {
         int num = 1;
         int i = 1;
-        while(i < k){
+        while(i != k){
             int check = checkBasic(num, num+1, n);
-            if(check + i > k){
-                num *= 10;
-                i++;
-            }else{
+            if(check + i <= k){
                 i += check;
                 num++;
+            }else{
+                num *= 10;
+                i++;
             }
         }
         return num;
