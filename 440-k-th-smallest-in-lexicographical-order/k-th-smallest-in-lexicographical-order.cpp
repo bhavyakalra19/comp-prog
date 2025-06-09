@@ -1,9 +1,9 @@
 class Solution {
 public:
-    int getAns(long a, long b, long n){
+    long checkBasic(long a, long b, long n){
         long ans = 0;
         while(a <= n){
-            ans += min(n+1,b) - a;
+            ans += min(n + 1, b) - a;
             a *= 10;
             b *= 10;
         }
@@ -11,16 +11,16 @@ public:
     }
 
     int findKthNumber(int n, int k) {
+        int num = 1;
         int i = 1;
-        long num = 1;
         while(i < k){
-            int check = getAns(num,num+1,n);
-            if(k >= check + i){
+            int check = checkBasic(num, num+1, n);
+           if(check + i > k){
+                num *= 10;
+                i++;
+            }else{
                 i += check;
                 num++;
-            }else{
-                i++;
-                num *= 10;
             }
         }
         return num;
