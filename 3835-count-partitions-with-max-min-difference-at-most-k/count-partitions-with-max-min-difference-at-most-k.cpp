@@ -1,44 +1,37 @@
 class Solution {
 public:
-    
-const int MOD = 1e9 + 7;
+    long long mod = 1e9 + 7;
+    int countPartitions(vector<int>& nums, int k) {
+        int n = nums.size();
+        vector<long long> dp(n+1,0);
+        vector<long long> ps(n+3, 0);
+        ps[n] = 1;
+        deque<int> minq;
+        deque<int> maxq;
+        int right = n-1;
+        for(int curr = n-1; curr >= 0; curr--){
+            while(!minq.empty() && nums[curr] < nums[minq.back()]){
+                minq.pop_back();
+            }
+            minq.push_back(curr);
 
-int countPartitions(vector<int>& nums, int k) {
-    int n = nums.size();
-    vector<int> dp(n + 1), prefix(n + 2);
-    dp[0] = 1;
-    prefix[1] = 1;
+            while(!maxq.empty() && nums[curr] > nums[maxq.back()]){
+                maxq.pop_back();
+            }
+            maxq.push_back(curr);
 
-    deque<int> minQ, maxQ;
-    int left = 0;
-
-    for (int right = 1; right <= n; ++right) {
-        int val = nums[right - 1];
-
-        // Maintain monotonic queues for max and min
-        while (!minQ.empty() && nums[minQ.back()] >= val)
-            minQ.pop_back();
-        minQ.push_back(right - 1);
-
-        while (!maxQ.empty() && nums[maxQ.back()] <= val)
-            maxQ.pop_back();
-        maxQ.push_back(right - 1);
-
-        // Shrink window if invalid
-        while (nums[maxQ.front()] - nums[minQ.front()] > k) {
-            if (minQ.front() == left)
-                minQ.pop_front();
-            if (maxQ.front() == left)
-                maxQ.pop_front();
-            left++;
+            while(nums[maxq.front()] - nums[minq.front()] > k){
+                if(maxq.front() == right){
+                    maxq.pop_front();
+                }
+                if(minq.front() == right){
+                    minq.pop_front();
+                }
+                right--;
+            }
+            dp[curr] = (ps[curr + 1] - ps[right + 2] + mod) % mod;
+            ps[curr] = (ps[curr + 1] + dp[curr]) % mod;
         }
-
-        // dp[right] = sum of dp[left..right-1]
-        dp[right] = (prefix[right] - prefix[left] + MOD) % MOD;
-        prefix[right + 1] = (prefix[right] + dp[right]) % MOD;
+        return dp[0];
     }
-
-    return dp[n];
-}
-
 };
