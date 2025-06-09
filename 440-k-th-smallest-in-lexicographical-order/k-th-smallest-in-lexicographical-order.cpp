@@ -15,7 +15,7 @@ public:
         int i = 1;
         while(i < k){
             int check = checkBasic(num, num+1, n);
-           if(check + i > k){
+            if(check + i > k){
                 num *= 10;
                 i++;
             }else{
