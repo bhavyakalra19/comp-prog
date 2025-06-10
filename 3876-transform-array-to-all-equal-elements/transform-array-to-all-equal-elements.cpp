@@ -33,12 +33,3 @@ public:
         return checkEqual(neg, k);
     }
 };
-
-//if both odd return false
-//if one is odd go for another one 
-// if both is even check for both
-
-
-// -1 1 1 1 1 1 -1
-
-// -1 1 1 1 1 -1 check for both 1 and -1
