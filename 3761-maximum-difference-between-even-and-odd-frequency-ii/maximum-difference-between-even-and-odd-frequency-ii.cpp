@@ -12,7 +12,7 @@ public:
         }
         for(int first = 0; first < 5; first++){
             for(int second = 0; second < 5; second++){
-                if(first == second || freq[second][n] == 0) continue;
+                if(first == second || freq[second][n] == 0 || freq[first][n] == 0) continue;
                 vector<pair<int,int>> arr;
                 vector<vector<int>> check(2,vector<int>(2, 1e9));
                 int freqA = 0;
