@@ -2,34 +2,33 @@ class Solution {
 public:
     int maxDifference(string s, int k) {
         int n = s.size();
-        int ans = INT_MIN;
-        vector<vector<int>> freq(5, vector<int>(n + 1, 0));
-        for (int i = 0; i < n; i++){
-            for (int d = 0; d < 5; d++){
-                freq[d][i + 1] = freq[d][i];
+        vector<vector<int>> freq(n+1, vector<int>(5,0));
+
+        for(int i = 1; i <= n; i++){
+            for(int j = 0; j < 5; j++){
+                freq[i][j] = freq[i-1][j];
             }
-            freq[s[i] - '0'][i + 1]++;
+            int a = s[i-1] - '0';
+            freq[i][a]++;
         }
+        int ans = INT_MIN;
         for(int first = 0; first < 5; first++){
             for(int second = 0; second < 5; second++){
-                if(first == second || freq[second][n] == 0 || freq[first][n] == 0) continue;
-                vector<pair<int,int>> arr;
-                vector<vector<int>> check(2,vector<int>(2, 1e9));
-                int freqA = 0;
-                int freqB = 0;
+                if(first == second) continue;
+                int last = 0;
                 int prevA = 0;
                 int prevB = 0;
-                int left = 0;
-                for(int i = k - 1; i < n; i++){
-                    freqA = freq[first][i+1];
-                    freqB = freq[second][i+1];
-                    while(i - left + 1 >= k && freqB - prevB >= 2){
-                        check[prevA & 1][prevB & 1] = min(check[prevA & 1][prevB & 1], prevA - prevB);
-                        prevA = freq[first][left+1];
-                        prevB = freq[second][left+1];
-                        left++;
+                vector<vector<int>> parity(2,vector<int>(2,1e9));
+                for(int i = k-1; i < n; i++){
+                    int freqA = freq[i+1][first];
+                    int freqB = freq[i+1][second];
+                    while(i - last + 1 >= k && freqB - prevB >= 2){
+                        parity[prevA & 1][prevB & 1] = min(parity[prevA & 1][prevB & 1], prevA - prevB);
+                        last++;
+                        prevA = freq[last][first];
+                        prevB = freq[last][second];
                     }
-                    ans = max(ans, freqA - freqB - check[1 - (freqA & 1)][freqB & 1]);
+                    ans = max(ans, freqA - freqB - parity[1 - (freqA & 1)][freqB & 1]);
                 }
             }
         }
@@ -37,12 +36,24 @@ public:
     }
 };
 
-// eo | oo
-// ee | oe
-// oe | ee
-// oo | eo
 
-// ee 0
-// eo 1
-// oe 2
-// oo 3
+// (freqA - freqB) - min((prevA - prevB))
+
+// e & 1 = 0 
+
+// o & 1 = 1
+
+// e e = 0 0
+// e o = 0 1
+// o e = 1 0
+// o o = 1 1
+
+// e e == o e
+// e o == o o
+// o o == e o
+// o e == e e
+// count a = freq[i+1];
+// count b = freq[i+1];
+
+// prevB = freq[last];
+// count b = freq
