@@ -18,10 +18,12 @@ public:
                 int last = 0;
                 int prevA = 0;
                 int prevB = 0;
+                int freqA = 0;
+                int freqB = 0;
                 vector<vector<int>> parity(2,vector<int>(2,1e9));
                 for(int i = k-1; i < n; i++){
-                    int freqA = freq[i+1][first];
-                    int freqB = freq[i+1][second];
+                    freqA = freq[i+1][first];
+                    freqB = freq[i+1][second];
                     while(i - last + 1 >= k && freqB - prevB >= 2){
                         parity[prevA & 1][prevB & 1] = min(parity[prevA & 1][prevB & 1], prevA - prevB);
                         last++;
