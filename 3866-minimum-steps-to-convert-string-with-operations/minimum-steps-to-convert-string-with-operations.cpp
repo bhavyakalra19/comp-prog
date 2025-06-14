@@ -40,7 +40,6 @@ public:
                 reverse(s1.begin(), s1.end());
                 c = checkSubstr(s1, s2, 0, i - idx + 1); 
             }
-            if(a >= 1e9 && c >= 1e9) continue;
             int b = getAns(word1, word2, i + 1, dp);
             if(b >= 1e9) continue;
             mn = min(mn, min(c + 1,a) + b);
