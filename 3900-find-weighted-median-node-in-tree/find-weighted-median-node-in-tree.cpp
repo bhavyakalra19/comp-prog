@@ -94,7 +94,6 @@ class Solution {
             long long aRoot = dist[a] - dist[root];
             long long bRoot = dist[b] - dist[root];
             long long total = (aRoot + bRoot + 1)/ 2;
-            cout << root << endl;
             if(aRoot == bRoot) {
                 ans.push_back(root);
             }else if(aRoot > bRoot) {
@@ -106,8 +105,3 @@ class Solution {
     return ans;
   }
 };
-
-
-//         0
-//     1
-// 2
