@@ -1,41 +1,29 @@
 class Solution {
 public:
-    int maxDistance(string str, int k) {
-        int n = 0;
-        int w = 0;
-        int e = 0;
-        int s = 0;
+    int maxDistance(string s, int k) {
+        int n = s.size();
+        int N = 0;
+        int S = 0;
+        int E = 0;
+        int W = 0;
         int ans = 0;
-        int x = 0;
-        int y = 0;
-        for(auto a : str){
-            if(a == 'N'){
-                n++;
-                y++;
-            }else if(a == 'S'){
-                s++;
-                y--;
-            }else if(a == 'W'){
-                w++;
-                x++;
-            }else{
-                e++;
-                x--;
+        for(int i = 0; i < n; i++){
+            if(s[i] == 'N'){
+                N++;
+            }else if(s[i] == 'S'){
+                S++;
+            }else if(s[i] == 'E'){
+                E++;
+            }else if(s[i] == 'W'){
+                W++;
             }
-            if(n > s){
-                if(e > w){
-                    ans = max(ans, abs(x) + abs(y) + 2 * min(k,w + s));
-                }else{
-                    ans = max(ans, abs(x) + abs(y) + 2 * min(k,e + s));
-                }
-            }else{
-                if(e > w){
-                    ans = max(ans, abs(x) + abs(y) + 2 * min(k, n + w));
-                }else{
-                    ans = max(ans, abs(x) + abs(y) + 2 * min(k, n + e));
-                }
-            }
+            int xMin = min(N, S);
+            int xMax = max(N, S);
+            int yMin = min(W, E);
+            int yMax = max(W, E);
+            ans = max(ans, xMax + yMax - xMin - yMin + (2 * min(k, xMin + yMin)));
         }
         return ans;
     }
+    
 };
