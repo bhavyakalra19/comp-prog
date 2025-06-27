@@ -43,6 +43,7 @@ public:
             mxCount += check[i];
         }
         int n = s.size();
+        if(mxCount == 0) return "";
         for(int i = min(7, mxCount); i >= 1; i--){
             vector<string> allString;
             dfs(check, allString, i, "");
