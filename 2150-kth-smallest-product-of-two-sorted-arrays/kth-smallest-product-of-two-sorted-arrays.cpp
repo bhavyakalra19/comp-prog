@@ -50,10 +50,12 @@ public:
         int m2 = tp.size();
         long long low = min(((n1 > 0) && (m2 > 0)) ? 1LL * on[0] * tp[m2-1] : LONG_MAX, ((n2 > 0) && (m1 > 0)) ? 1LL * op[n2-1] * tn[0] : LONG_MAX);
         long long high = max(((n1 > 0) && (m2 > 0)) ? 1LL *  on[n1-1] * tp[0] : LONG_MIN, ((n2 > 0) && (m1 > 0)) ? 1LL * op[0] * tn[m1-1] : LONG_MIN);
+        reverse(op.begin(), op.end());
+        reverse(tp.begin(), tp.end());
         long long ans;
         while(low <= high){
             long long mid = low + ((high - low) / 2);
-            if(countProdNeg(on, tp, mid) + countProdNeg(tn, op, mid) < k){
+            if(countProdPos(on, tp, mid) + countProdPos(tn, op, mid) < k){
                 low = mid + 1;
             }else{
                 ans = mid;
