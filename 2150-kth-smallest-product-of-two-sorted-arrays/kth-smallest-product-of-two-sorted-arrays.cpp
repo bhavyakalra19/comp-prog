@@ -22,27 +22,6 @@ public:
         return ans;
     }
 
-    long long countProdNeg(vector<int> &nums1, vector<int> &nums2, long long mx){
-        long long ans = 0;
-        for(int i = 0; i < nums1.size(); i++){
-            int num = nums1[i];
-            int low = 0;
-            int hg = nums2.size() - 1;
-            int curr = 0;
-            while(low <= hg){
-                int mid = (low + hg)/2;
-                if(1LL * nums2[mid] * num <= mx){
-                    hg = mid - 1;
-                    curr = nums2.size() - mid;
-                }else{
-                    low = mid + 1;
-                }
-            }
-            ans += curr;
-        }
-        return ans;
-    }
-
     long long getAnsNeg(vector<int> &on, vector<int> &op, vector<int> &tn, vector<int> &tp, long long k){
         int n1 = on.size();
         int n2 = op.size();
