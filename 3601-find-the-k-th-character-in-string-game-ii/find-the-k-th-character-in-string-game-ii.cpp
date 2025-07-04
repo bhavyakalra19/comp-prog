@@ -1,13 +1,19 @@
 class Solution {
 public:
     char kthCharacter(long long k, vector<int>& operations) {
-        int check = 0;
+        long long change = 0;
         for(int i = log2(k); i >= 0; i--){
-            if(k > (1LL << i)){
-                k -= (1LL << i);
-                check += operations[i];
+            long long curr = 1LL << i;
+            if(k > curr){
+                if(operations[i] == 1){
+                    change++;
+                }
+                k -= curr;
             }
+            curr >>= 1;
         }
-        return 'a' + check % 26;
+        int a = change % 26;
+        return a + 'a';
     }
 };
+
