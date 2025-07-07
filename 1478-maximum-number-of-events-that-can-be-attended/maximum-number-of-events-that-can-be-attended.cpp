@@ -2,25 +2,26 @@ class Solution {
 public:
     int maxEvents(vector<vector<int>>& events) {
         int n = events.size();
-        priority_queue<int ,vector<int>, greater<int>> pq;
+        sort(events.begin(), events.end());
+        priority_queue<int, vector<int>, greater<int>> pq;
+        int i = 0;
+        int time = 0;
         int ans = 0;
-        int j = 0;
-        sort(events.begin(),events.end());
-        int mx = 0;
-        for(int i = 0; i < n; i++){
-            mx = max(mx,events[i][1]);
-        }
-        for(int i = 1; i <= mx; i++){
-            while(!pq.empty() && pq.top() < i){
-                pq.pop();
+        while(!pq.empty() || i < n){
+            if(pq.empty() && time < events[i][0]){
+                time = events[i][0];
             }
-            while(j < n && events[j][0] == i){
-                pq.push(events[j][1]);
-                j++;
+            while(i < n && events[i][0] == time){
+                pq.push(events[i][1]);
+                i++;
             }
             if(!pq.empty()){
+                ans++;
                 pq.pop();
-                ans += 1;
+            }
+            time += 1;
+            while(!pq.empty() && pq.top() < time){
+                pq.pop();
             }
         }
         return ans;
