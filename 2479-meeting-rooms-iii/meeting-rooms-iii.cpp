@@ -15,7 +15,7 @@ public:
             if(pq.empty() && time < meetings[i][0]){
                 time = meetings[i][0];
             }
-            while(i < n && (!token.empty() && time >= meetings[i][0])){
+            while(i < n && !token.empty() && time >= meetings[i][0]){
                 int curr = token.top();
                 pq.push({time + meetings[i][1] - meetings[i][0] - 1, curr});
                 token_count[curr] += 1;
