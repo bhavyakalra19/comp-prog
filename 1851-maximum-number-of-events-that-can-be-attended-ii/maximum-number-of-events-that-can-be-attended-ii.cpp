@@ -37,6 +37,3 @@ public:
         return getAns(events, k, 0, dp);
     }
 };
-
-// curr event -> if take -> binary Search next Index
-// else -> i+1
