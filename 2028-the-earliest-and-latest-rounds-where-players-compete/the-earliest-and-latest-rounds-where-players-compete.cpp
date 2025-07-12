@@ -1,8 +1,8 @@
 class Solution {
 public:
     unordered_map<int,vector<int>> mp;
-    unordered_map<int, bool> min_map;
-    unordered_map<int, bool> max_map;
+    unordered_map<int, int> min_map;
+    unordered_map<int, int> max_map;
     void dfs(int &curr, int i, int j, vector<int> &nums, int &firstPlayer, int &secondPlayer){
         while(i <= j && (curr & (1 << i))){
             i++;
@@ -53,7 +53,9 @@ public:
         if(checkStatus(n, firstPlayer, secondPlayer, curr)){
             return 1;
         }
-        min_map[curr] = true;
+        if(min_map.find(curr) != min_map.end()){
+            return min_map[curr];
+        }
         if(mp.find(curr) == mp.end()){
             vector<int> nums;
             dfs(curr, 1, n, nums, firstPlayer, secondPlayer); 
@@ -61,18 +63,18 @@ public:
         }
         int ans = 1e9;
         for(auto a : mp[curr]){
-            if(min_map.find(a) == min_map.end()){
-                ans = min(ans, 1 + getMin(n, firstPlayer, secondPlayer, a));
-            }
+            ans = min(ans, 1 + getMin(n, firstPlayer, secondPlayer, a));
         }
-        return ans;
+        return min_map[curr] = ans;
     }
 
     int getMax(int &n, int &firstPlayer, int &secondPlayer, int &curr){
         if(checkStatus(n, firstPlayer, secondPlayer, curr)){
             return 1;
         }       
-        max_map[curr] = true;
+        if(max_map.find(curr) != max_map.end()){
+            return max_map[curr];
+        }
         if(mp.find(curr) == mp.end()){
             vector<int> nums;
             dfs(curr, 1, n, nums, firstPlayer, secondPlayer); 
@@ -80,13 +82,10 @@ public:
         }
         int ans = -1e9;
         for(auto a : mp[curr]){
-            if(max_map.find(a) == max_map.end()){
-                ans = max(ans, 1 + getMax(n, firstPlayer, secondPlayer, a));
-            }
+            ans = max(ans, 1 + getMax(n, firstPlayer, secondPlayer, a));
         }
-        return ans;
+        return max_map[curr] = ans;
     }
-
 
     vector<int> earliestAndLatest(int n, int firstPlayer, int secondPlayer) {
         int a = (1 << (n + 1)) - 1;
