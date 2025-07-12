@@ -52,13 +52,13 @@ public:
             return 1;
         }
         
-        // if(mp.find(curr) == mp.end()){
+        if(mp.find(curr) == mp.end()){
             vector<int> nums;
             dfs(curr, 1, n, nums, firstPlayer, secondPlayer); 
-        //     mp[curr] = nums;
-        // }
+            mp[curr] = nums;
+        }
         int ans = 1e9;
-        for(auto a : nums){
+        for(auto a : mp[curr]){
             ans = min(ans, 1 + getMin(n, firstPlayer, secondPlayer, a));
         }
         return ans;
@@ -68,13 +68,13 @@ public:
         if(checkStatus(n, firstPlayer, secondPlayer, curr)){
             return 1;
         }       
-        // if(mp.find(curr) == mp.end()){
+        if(mp.find(curr) == mp.end()){
             vector<int> nums;
             dfs(curr, 1, n, nums, firstPlayer, secondPlayer); 
-        //     mp[curr] = nums;
-        // }
+            mp[curr] = nums;
+        }
         int ans = -1e9;
-        for(auto a : nums){
+        for(auto a : mp[curr]){
             ans = max(ans, 1 + getMax(n, firstPlayer, secondPlayer, a));
         }
         return ans;
