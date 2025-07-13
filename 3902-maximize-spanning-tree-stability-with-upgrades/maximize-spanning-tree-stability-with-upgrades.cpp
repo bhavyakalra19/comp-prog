@@ -72,6 +72,3 @@ public:
         return checkVis == n ? mn : -1;
     }
 };
-
-
-// 2 -> 3
