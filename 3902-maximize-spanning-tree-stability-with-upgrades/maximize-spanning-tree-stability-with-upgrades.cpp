@@ -18,7 +18,6 @@ public:
 
     int maxStability(int n, vector<vector<int>>& edges, int k) {
         adj.resize(n);
-        vector<int> check(n, 1);
         for(int i = 0; i < n; i++){
             adj[i] = i;
         }
@@ -33,10 +32,6 @@ public:
                     return -1;
                 }else{
                     mn = min(mn, e[2]);
-                    checkVis += check[e[0]];
-                    checkVis += check[e[1]];
-                    check[e[0]] = 0;
-                    check[e[1]] = 0;
                 }
             }
         }
@@ -51,10 +46,6 @@ public:
             int s = it.second.second;
             if(unionFunc(f,s)){
                 ans.push_back(wt);
-                checkVis += check[f];
-                checkVis += check[s];
-                check[f] = 0;
-                check[s] = 0;
             }
         }
         sort(ans.begin(), ans.end());
@@ -69,6 +60,6 @@ public:
         for(int i = 0; i < n; i++){
             if(find(i) != find(0)) return -1;
         }
-        return checkVis == n ? mn : -1;
+        return mn;
     }
 };
