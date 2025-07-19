@@ -1,77 +1,65 @@
 class Node{
-public:
-    string data;
-    unordered_map<string,Node*> mp;
-    bool isTerm;
-    Node(string val){
-        isTerm = false;
-        data = val;
-    }
+    public:
+        string data;
+        unordered_map<string, Node*> mp;
+        bool end;
+        Node(string d){
+            data = d;
+            end = false;
+        }
 };
 
 class Trie{
-public:
-    Node *root;
+    public:
+        Node *root;
 
-    Trie(){
-        root = new Node("start");
-    }
+        Trie(){
+            root = new Node(" ");
+        }
 
-    void search(vector<string> str){
-        Node *temp = root;
-        for(auto s : str){
-            if(temp->mp.find(s) == temp->mp.end()){
-                temp->mp[s] = new Node(s);
+        bool addNode(string s){
+            Node *temp = root;
+            int n = s.size();
+            vector<string> ans;
+            int i = 0;
+            while(i < n){
+                string check = "";
+                while(i < n && s[i] == '/'){
+                    i++;
+                }
+                while(i < n && s[i] != '/'){
+                    check += s[i++];
+                }
+                ans.push_back(check);
             }
-            temp = temp->mp[s];
-            if(temp->isTerm){
-                return;
+            for(auto a : ans){
+                if(temp->mp.find(a) == temp->mp.end()){
+                    temp->mp[a] = new Node(a);
+                }
+                temp = temp->mp[a];
+                if(temp->end == true){
+                    return false;
+                }
             }
+            temp->end = true;
+            return true;
         }
-        temp->isTerm = true;
-    }
-
-    void getAns(Node *root, vector<string> &ans, string s){
-        if(root->isTerm){
-            ans.push_back(s);
-            return;
-        }
-        for(auto ch : root->mp){
-            getAns(ch.second, ans, s + '/' + ch.first);
-        }
-    } 
-
-    vector<string> check(){
-        vector<string> ans;
-        getAns(root,ans,"");
-        return ans;
-    } 
 };
+
 
 class Solution {
 public:
-    vector<string> getAns(string str){
+    vector<string> removeSubfolders(vector<string>& folder) {
         vector<string> ans;
-        string check;
-        for(auto s : str){
-            if(s == '/'){
-                if(check != ""){
-                    ans.push_back(check);
-                }
-                check = "";
-            }else{
-                check += s;
+        Trie *t = new Trie();
+        sort(folder.begin(), folder.end(), [](const string &a, const string &b){
+            return a.size() < b.size();
+        });
+        for(auto f : folder){
+            if(t->addNode(f)){
+                ans.push_back(f);
             }
         }
-        ans.push_back(check);
         return ans;
-    }
-
-    vector<string> removeSubfolders(vector<string>& folder) {
-        Trie t;
-        for(auto f : folder){
-            t.search(getAns(f));
-        }
-        return t.check();
     }
 };
