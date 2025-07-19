@@ -2,11 +2,11 @@ class Solution {
 public:
     long long minimumDifference(vector<int>& nums) {
         int n = nums.size();
-        vector<long long> min_arr(n, 0);
-        priority_queue<int> pq;
-        priority_queue<int, vector<int>, greater<int>> mq;
         int a = n/3;
         int b = 2 * a;
+        vector<long long> min_arr(b, 0);
+        priority_queue<int> pq;
+        priority_queue<int, vector<int>, greater<int>> mq;
         long long sum = 0;
         for(int i = 0; i < n/3; i++){
             sum += nums[i];
