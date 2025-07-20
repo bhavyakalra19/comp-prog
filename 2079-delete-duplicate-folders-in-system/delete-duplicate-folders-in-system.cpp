@@ -11,8 +11,8 @@ class Node{
 
 
 class Trie{
-    unordered_map<string, int> string_map;
-    unordered_map<Node*, string> check_map;
+    unordered_map<string, Node*> string_map;
+    unordered_map<Node*, bool> check_map;
     public:
         Node *root;
         
@@ -49,8 +49,12 @@ class Trie{
                     s += a;
                     s += "-";
                 }
-                string_map[s] += 1;
-                check_map[temp] = s;
+                if(string_map.find(s) == string_map.end()){
+                    string_map[s] = temp;
+                }else{
+                    check_map[temp] = true;
+                    check_map[string_map[s]] = true;
+                }
                 for(int i = 0; i < ans.size(); i++){
                     ans[i] = temp->data + ans[i];
                 }
@@ -58,8 +62,8 @@ class Trie{
             return ans;
         }
 
-        void getAns(Node *temp, vector<vector<string>> &ans, vector<string> &s){
-            if(string_map[check_map[temp]] > 1){
+        void getAns(Node *temp, vector<vector<string>> &ans, vector<string> s){
+            if(check_map[temp]){
                 return;
             }
             s.push_back(temp->data);
@@ -67,7 +71,6 @@ class Trie{
             for(auto a : temp->mp){
                 getAns(temp->mp[a.first], ans, s);
             }
-            s.pop_back();
         }
 };
 
