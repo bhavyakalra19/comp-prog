@@ -26,9 +26,6 @@ public:
             }
             for(int j = n - i; j <= k; j++){
                 int ans = 0;
-                // for(int m = 1; m <= min(arr[i], j); m++){
-                //     ans = (ans + prev[j-m] ) % mod;
-                // }
                 curr[j] = (prev[j-min(arr[i],j)] - prev[j] + mod) % mod;
             }
             prev = curr;
