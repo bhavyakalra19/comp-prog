@@ -21,7 +21,7 @@ public:
         k--;
         for(int i = n-1; i >= 0; i--){
             vector<long long> curr(k + 1, 0);
-            for(int j = k; j >= 0; j--){
+            for(int j = k-1; j >= 0; j--){
                 prev[j] = (prev[j] + prev[j+1]) % mod; 
             }
             for(int j = n - i; j <= k; j++){
