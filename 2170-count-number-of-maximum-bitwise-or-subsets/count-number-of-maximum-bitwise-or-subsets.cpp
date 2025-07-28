@@ -1,22 +1,22 @@
 class Solution {
 public:
-    void getAns(int check, vector<int> nums, int idx, int curr, int &ans){
-        if(curr == check){
+
+    void getAns(vector<int> &nums, int idx, int &ans, int curr, int &mx){
+        if(curr == mx){
             ans++;
         }
-
         for(int i = idx; i < nums.size(); i++){
-            getAns(check,nums,i+1,curr | nums[i],ans);
+            getAns(nums, i + 1, ans, curr | nums[i], mx);
         }
     }
 
     int countMaxOrSubsets(vector<int>& nums) {
         int check = 0;
-        for(auto a : nums){
+        for(auto &a : nums){
             check |= a;
         }
         int ans = 0;
-        getAns(check, nums, 0, 0, ans);
+        getAns(nums, 0, ans, 0, check);
         return ans;
     }
 };
