@@ -64,11 +64,8 @@ public:
                 swap(a, b);
             }
             getDfs(check[b], total ^ check[b], a, b, nums, levels[a] - 1);
-            getAns(total ^ check[b], check[b], b, a);
+            getDfs(total ^ check[b], check[b], b, a, nums, levels[b] - 1);
         }
         return ans;
     }
 };
-
-// upper -> check[lower], total ^ lower
-// lower -> total ^ check[lower], check[lower]
