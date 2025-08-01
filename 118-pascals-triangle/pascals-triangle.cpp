@@ -1,13 +1,17 @@
 class Solution {
 public:
     vector<vector<int>> generate(int numRows) {
+        int n = 1;
         vector<vector<int>> ans;
-        ans.push_back({1});
-        for(int i = 2; i <= numRows; i++){
-            ans.push_back(vector<int>(i,1));
-            for(int j = 1; j < i - 1; j++){
-                ans[i-1][j] = ans[i-2][j-1] + ans[i-2][j];
+        while(n <= numRows){
+            vector<int> nums(n, 1);
+            if(n > 2){
+                for(int i = 1; i < n-1; i++){
+                    nums[i] = ans[n-2][i-1] + ans[n-2][i];
+                }
             }
+            ans.push_back(nums);
+            n++;
         }
         return ans;
     }
