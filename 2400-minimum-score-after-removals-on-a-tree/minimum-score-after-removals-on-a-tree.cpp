@@ -33,19 +33,6 @@ public:
         }
     }
 
-    void getAns(int x, int y, int curr, int par){
-        for(auto &a : adj[curr]){
-            if(a != par){
-                int a1 = y ^ check[a];
-                int a2 = check[a];
-                int mx = max(x, max(a1, a2));
-                int mn = min(x, min(a1, a2));
-                ans = min(ans, mx - mn);
-                getAns(x, y, a, curr);
-            }
-        }
-    }
-
     int minimumScore(vector<int>& nums, vector<vector<int>>& edges) {
         int n = nums.size();
         adj.resize(n);
