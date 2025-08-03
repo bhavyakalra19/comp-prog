@@ -14,6 +14,7 @@ public:
             j++;
         }
         jSt = j;
+
         //calculating total cost from left most reachable point to startPos inclusive
         while(j < n && fruits[j][0] <= startPos){
             cost += fruits[j++][1];
@@ -23,8 +24,7 @@ public:
             for(int i = startPos + 1; i <= startPos + k; i++){
                 int point = i - startPos;
                 if(j < n && (fruits[j][0] == i)){
-                    rightCost[point] += fruits[j][1];
-                    j++;
+                    rightCost[point] += fruits[j++][1];
                 }
                 rightCost[point] += rightCost[point - 1];
             }
@@ -32,13 +32,9 @@ public:
         j = jSt;
         for(int i = startPos - k; i <= startPos; i++){
             int left = startPos - i;
-            int right = (k - left) / 2;
-            int currCost = cost + rightCost[right];
-            ans = max(ans, currCost);
+            ans = max(ans, cost + rightCost[(int)((k - left) / 2)]);
             if(left * 2 <= k){
-                int secondRight = k - left * 2;
-                int newCost = cost + rightCost[secondRight];
-                ans = max(ans, newCost);
+                ans = max(ans, cost + rightCost[k - (left * 2)]);
             }
             if(j < n && fruits[j][0] == i){
                 cost -= fruits[j++][1];
