@@ -10,14 +10,13 @@ public:
         int j = 0;
         while(i < n){
             if(fruits[i] != fn && fruits[i] != sn){
-                if(sn == -1){
-                    sn = fruits[i];
-                }else{
+                if(sn != -1){
                     sn = fruits[i];
                     ans = max(ans, i - j);
                     j = prev;
                     fn = fruits[j];
                 }
+                sn = fruits[i];
             }
             if(i > 0 && fruits[i] != fruits[i-1]){
                 prev = i;
