@@ -1,14 +1,10 @@
 class Node{
     public:
-        int st;
-        int en;
         int mx;
         Node *left;
         Node *right;
 
-    Node(int l, int r){
-        st = l;
-        en = r;
+    Node(){
         mx = 0;
         left = NULL;
         right = NULL;
@@ -19,12 +15,12 @@ class Solution {
 public:
     Node* createTree(vector<int> &baskets, int left, int right){
         if(left == right){
-            Node *root = new Node(left, right);
+            Node *root = new Node();
             root->mx = baskets[left];
             return root;
         }
         int mid = (left + right)/2;
-        Node *root = new Node(left, right);
+        Node *root = new Node();
         root->left = createTree(baskets, left, mid);
         root->right = createTree(baskets, mid + 1, right);
         root->mx = max(root->left->mx, root->right->mx);
