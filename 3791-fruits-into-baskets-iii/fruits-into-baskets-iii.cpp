@@ -27,7 +27,7 @@ public:
         return root;
     }
     
-    int getAns(Node *&root, int curr){
+    int getAns(Node *&root, int &curr){
         if(root->left == root->right){
             int val = root->mx;
             root->mx = 0;
