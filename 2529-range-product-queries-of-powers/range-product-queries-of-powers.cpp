@@ -25,7 +25,7 @@ public:
                a >>= 1;
                b = (b * b) % mod;
             }
-            ans.push_back(curr % mod);
+            ans.push_back(curr);
         }
         return ans;
     }
