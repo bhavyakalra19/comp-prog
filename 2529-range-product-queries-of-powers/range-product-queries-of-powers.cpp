@@ -10,8 +10,7 @@ public:
             cnt++;
             n >>= 1;
         }
-        vector<int> check(nums.size() + 1);
-        check[0] = 0;
+        vector<int> check(nums.size() + 1, 0);
         for(int i = 0; i < nums.size(); i++){
             check[i+1] = check[i] + nums[i];
         }
