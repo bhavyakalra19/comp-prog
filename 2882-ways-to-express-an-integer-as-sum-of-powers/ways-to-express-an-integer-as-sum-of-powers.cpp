@@ -12,7 +12,6 @@ public:
     }
 
     int numberOfWays(int n, int x) {
-        if(n == 1) return 1;
         int mx = 1;
         vector<int> check;
         while(1){
