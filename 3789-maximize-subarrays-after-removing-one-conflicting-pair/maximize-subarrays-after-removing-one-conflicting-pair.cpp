@@ -13,23 +13,21 @@ public:
             pre[a[0]].push_back(a[1]);
             post[a[1]]++;
         } 
-        int top1 = 0;
-        int top2 = 0;
+        int top1 = 1;
+        int top2 = 1;
         long long ans = 0;
         bool op = true;
         long long mx = 0;
         for(int i = 1; i <= n; i++){
             if(op){
-                int j = i+1;
+                int j = top1;
                 int cnt = 0;
                 while(j <= n + 1 && cnt < 2){
                     if(post[j] > 0){
                         if(cnt == 0){
                             top1 = j;
-                            top2 = j;
-                        }else{
-                            top2 = j;
                         }
+                        top2 = j;
                         cnt += post[j];
                     }
                     j++;
