@@ -44,7 +44,7 @@ public:
             //increase curr
             for(auto &a : pre[i]){
                 post[a]--;
-                if(((a == top1 || a == top2) && post[a] == 0) || (top1 == top2 && post[a] == 1)){
+                if(((a == top1 || a == top2) && post[a] == 0) || (top2 == a && post[a] == 1)){
                     op = true;
                 }
             }
