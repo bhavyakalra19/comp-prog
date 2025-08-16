@@ -20,7 +20,7 @@ public:
         vector<int> prev(k+1, 1);
         k--;
         for(int i = n-1; i >= 0; i--){
-            if(n - i - 1 > k) continue;
+            if(n - i - 1 > k) break;
             vector<int> curr(k + 1, 0);
             for(int j = k-1; j >= 0; j--){
                 prev[j] = (prev[j] + prev[j+1]) % mod; 
