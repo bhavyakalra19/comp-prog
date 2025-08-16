@@ -1,7 +1,7 @@
 class Solution {
 public:
     long long maxSubarrays(int n, vector<vector<int>>& conflictingPairs) {
-        unordered_map<int, vector<int>> pre;
+        vector<vector<int>> pre(n + 1);
         vector<int> post(n + 2, 0);
         vector<long long> count(n + 1, 0);
         post[n+1] = 1e9;
