@@ -17,6 +17,7 @@ public:
         int top2 = 0;
         long long ans = 0;
         bool op = true;
+        long long mx = 0;
         for(int i = 1; i <= n; i++){
             if(op){
                 int j = i+1;
@@ -36,7 +37,10 @@ public:
                 op = false;
             }
             ans += top1 - i;
-            if(top1 != n+1) count[top1] += top2 - top1;
+            if(top1 != n+1){
+                count[top1] += top2 - top1;
+                mx = max(mx, count[top1]);
+            }
             //increase curr
             for(auto &a : pre[i]){
                 post[a]--;
@@ -44,10 +48,6 @@ public:
                     op = true;
                 }
             }
-        }
-        long long mx = 0;
-        for(int i = 1; i <= n; i++){
-            mx = max(mx, count[i]);
         }
         return ans + mx;
     }
