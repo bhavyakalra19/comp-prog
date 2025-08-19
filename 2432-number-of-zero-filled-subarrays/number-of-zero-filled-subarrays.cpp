@@ -4,11 +4,8 @@ public:
         long long ans = 0;
         long long cnt = 0;
         for(auto &a : nums){
-            if(a == 0){
-                cnt++;
-            }else{
-                cnt = 0;
-            }
+            if(a == 0) cnt++;
+            else cnt = 0;
             ans += cnt;
         }
         return ans;
