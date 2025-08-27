@@ -4,9 +4,7 @@ public:
     int dy[4] = {-1, 1, 1, -1};
     int n;
     int m;
-    vector<vector<vector<vector<int>>>> dp;
     int dfs(vector<vector<int>> &grid, int i, int j, int ch, int a){
-        if(dp[i][j][a][ch] != -1) return dp[i][j][a][ch];
         int ans = 0;
         if(ch){
             int b = (a + 1) % 4;
@@ -25,14 +23,13 @@ public:
                 ans = max(ans, dfs(grid, nx, ny, ch, a));
             }
         }
-        return dp[i][j][a][ch] = ans + 1;
+        return ans + 1;
     }
 
 
     int lenOfVDiagonal(vector<vector<int>>& grid) {
         n = grid.size();
         m = grid[0].size();
-        dp.resize(n, vector<vector<vector<int>>>(m, vector<vector<int>>(4, vector<int>(2,-1))));
         int ans = 0;
         for(int i = 0; i < n; i++){
             for(int j = 0; j < m; j++){
