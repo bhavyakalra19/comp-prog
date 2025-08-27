@@ -1,33 +1,31 @@
 class Solution {
 public:
+    int dx[4] = {-1, -1, 1, 1};
+    int dy[4] = {-1, 1, 1, -1};
     int n;
     int m;
-    int dx[4] = {-1,-1,1,1};
-    int dy[4] = {-1,1,1,-1};
-    int getAns(vector<vector<int>> &grid, int i, int j, int ch, int a){
-        int ans = 1;
-        if(ch == 1){
-            int nx = i + dx[(a + 1)%4];
-            int ny = j + dy[(a + 1)%4];
+    int dfs(vector<vector<int>> &grid, int i, int j, int ch, int a){
+        int ans = 0;
+        if(ch){
+            int b = (a + 1) % 4;
+            int nx = i + dx[b];
+            int ny = j + dy[b];
             if(nx >= 0 && nx < n && ny >= 0 && ny < m){
-                if(grid[i][j] == 0 && grid[nx][ny] == 2){
-                    ans = max(ans, 1 + getAns(grid, nx, ny, 0, (a+1)%4));
-                }else if(grid[i][j] == 2 && grid[nx][ny] == 0){
-                    ans = max(ans, 1 + getAns(grid, nx, ny, 0, (a+1)%4));
+                if((grid[i][j] == 2 && grid[nx][ny] == 0) || (grid[i][j] == 0 && grid[nx][ny] == 2)){
+                    ans = max(ans, dfs(grid, nx, ny, 0, b));
                 }
             }
         }
         int nx = i + dx[a];
         int ny = j + dy[a];
         if(nx >= 0 && nx < n && ny >= 0 && ny < m){
-            if(grid[i][j] == 0 && grid[nx][ny] == 2){
-                ans = max(ans, 1 + getAns(grid, nx, ny, ch, a));
-            }else if(grid[i][j] == 2 && grid[nx][ny] == 0){
-                ans = max(ans, 1 + getAns(grid, nx, ny, ch, a));
+            if((grid[i][j] == 2 && grid[nx][ny] == 0) || (grid[i][j] == 0 && grid[nx][ny] == 2)){
+                ans = max(ans, dfs(grid, nx, ny, ch, a));
             }
         }
-        return ans;
+        return ans + 1;
     }
+
 
     int lenOfVDiagonal(vector<vector<int>>& grid) {
         n = grid.size();
@@ -40,8 +38,10 @@ public:
                     for(int a = 0; a < 4; a++){
                         int nx = i + dx[a];
                         int ny = j + dy[a];
-                        if(nx >= 0 && nx < n && ny >= 0 && ny < m && grid[nx][ny] == 2){
-                             ans = max(ans, 1 + getAns(grid, nx, ny, 1, a));
+                        if(nx >= 0 && nx < n && ny >= 0 && ny < m){
+                            if(grid[nx][ny] == 2){
+                                ans = max(ans, 1 + dfs(grid, nx, ny, 1, a));
+                            }
                         }
                     }
                 }
