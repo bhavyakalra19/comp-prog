@@ -2,44 +2,35 @@ class Solution {
 public:
     vector<vector<int>> sortMatrix(vector<vector<int>>& grid) {
         int n = grid.size();
-        for(int idx = 0; idx < n; idx++){
-            vector<int> check;
-            int j = 0;
-            int i = idx;
-            while(i < n && j < n){
-                check.push_back(grid[i][j]);
-                i++;
-                j++;
+        int m = grid[0].size();
+
+        for(int i = 0; i < n; i++){
+            vector<int> ans;
+            int a = i;
+            int b = 0;
+            while(a < n && b < m){
+                ans.push_back(grid[a++][b++]);
             }
-            sort(check.begin(), check.end(), greater<int>());
-            j = 0;
-            i = idx;
-            int k = 0;
-            while(i < n && j < n){
-                grid[i][j] = check[k];
-                i++;
-                j++;
-                k++;
+            sort(ans.begin(), ans.end(), greater<int>());
+            a = i;
+            b = 0;
+            for(auto &c : ans){
+                grid[a++][b++] = c;
             }
         }
-        for(int idx = 1; idx < n; idx++){
-            vector<int> check;
-            int i = 0;
-            int j = idx;
-            while(i < n && j < n){
-                check.push_back(grid[i][j]);
-                i++;
-                j++;
+
+        for(int j = 1; j < m; j++){
+            vector<int> ans;
+            int a = 0;
+            int b = j;
+            while(a < n && b < m){
+                ans.push_back(grid[a++][b++]);
             }
-            sort(check.begin(), check.end());
-            i = 0;
-            j = idx;
-            int k = 0;
-            while(i < n && j < n){
-                grid[i][j] = check[k];
-                i++;
-                j++;
-                k++;
+            sort(ans.begin(), ans.end());
+            a = 0;
+            b = j;
+            for(auto &c : ans){
+                grid[a++][b++] = c;
             }
         }
         return grid;
