@@ -7,8 +7,8 @@ public:
     long long minOperations(vector<vector<int>>& queries) {
         long long ans = 0;
         vector<int> dx = {1,4,16,64,256, 1024,4096,16384,65536,262144,1048576,4194304,16777216,67108864,268435456, mod+1};
+        vector<long long> mp(16, 0);
         for(auto &q : queries){
-            unordered_map<int,long long> mp;
             int i = 0;
             int a = q[0];
             int b = q[1];
@@ -66,6 +66,7 @@ public:
                                     ans += (c-1) * ((mp[c-1] - 1) / 2);
                                 }
                             }
+                            mp[c-1] = 0;
                             break;
                         }
                     }
