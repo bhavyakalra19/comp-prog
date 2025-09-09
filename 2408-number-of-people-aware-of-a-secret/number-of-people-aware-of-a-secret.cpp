@@ -15,7 +15,6 @@ public:
                 check[i + delay] = (check[i + delay] + cnt) % mod;
                 neg[i + forget] = (neg[i + forget] - cnt + mod) % mod;
             }
-            // cout << cnt << " " << knows << endl;
         }
         return knows;
     }
