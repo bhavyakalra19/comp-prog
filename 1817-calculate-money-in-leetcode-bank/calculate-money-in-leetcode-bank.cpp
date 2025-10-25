@@ -9,8 +9,7 @@ public:
         int total = n / 7;
         int start = 1 + total;
         int newSum = calculateSum(total - 1) * 7;
-        total = sevenSum * total;
-        total += newSum;
+        total = sevenSum * total + newSum;
         for(int i = 0; i < n % 7; i++){
             total += start;
             start++;
