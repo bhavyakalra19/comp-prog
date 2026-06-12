@@ -45,7 +45,6 @@ public:
         vis[1] = true;
         getAns(edge_map, 1, 0);
         if(mx_depth == 0) return 0;
-        cout << mx_depth << endl;
         return getResult(mx_depth);
     }
 };
