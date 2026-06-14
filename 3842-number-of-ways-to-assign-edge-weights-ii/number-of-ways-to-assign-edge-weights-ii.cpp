@@ -54,10 +54,10 @@ public:
     }
 
     int mod = 1e9 + 7;
-    unordered_map<int,int> dp;
+    vector<int> dp;
     int getDist(int a){
         if(a <= 1) return a;
-        if(dp.find(a) != dp.end()) return dp[a];
+        if(dp[a] != -1) return dp[a];
         return dp[a] = (2 * getDist(a-1)) % mod;
     }
 
@@ -74,6 +74,7 @@ public:
         depth.resize(n+1, 0);
         nodes.resize(n+1);
         vis.resize(n+1);
+        dp.resize(100001, -1);
         for(auto &a : edges){
             nodes[a[0]].push_back(a[1]);
             nodes[a[1]].push_back(a[0]);
