@@ -2,8 +2,8 @@ class Solution {
 public:
     vector<vector<int>> binary_map;
     int height;
-    unordered_map<int,vector<int>> nodes;
-    unordered_map<int,bool> vis;
+    vector<vector<int>> nodes;
+    vector<bool> vis;
     vector<int> depth;
     
     void createBinaryLiftingMap(int curr, int prev, int c){
@@ -71,7 +71,9 @@ public:
     vector<int> assignEdgeWeights(vector<vector<int>>& edges, vector<vector<int>>& queries) {
         height = 0;
         int n = edges.size() + 1;
-        depth.resize(n+2, 0);
+        depth.resize(n+1, 0);
+        nodes.resize(n+1);
+        vis.resize(n+1);
         for(auto &a : edges){
             nodes[a[0]].push_back(a[1]);
             nodes[a[1]].push_back(a[0]);
