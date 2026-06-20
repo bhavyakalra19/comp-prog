@@ -42,6 +42,11 @@ public:
             vector<int> b = res[i-1];
             int dist = a[0] - b[0];
             curr = max(curr, (dist + a[1] + b[1])/2);
+
+            // this formular is find talllest building x between two building h1, h2
+            // x = h1 + t(dist from h1 to x)
+            // x = h2 + dist(h2 - h1) - t
+
         }
         return curr;
     }
