@@ -13,12 +13,15 @@ public:
         long long ps = 0;
         for(int i = 0; i < n; i++){
             if(nums[i] == target){
-
+                
+                //sum is either increaseing by one or decreasing by one so store the previous lowest sum in ps
                 ps += check[curr];
 
                 curr += 1;
             }else{
                 curr -= 1;
+                //but now curr is decreased we need to remove that added sum up there as curr is lowered why add same upper value
+                // this is becasue we are storing all values sum which have ps < curr, if curr decreases we remove from prefix sum totol as now we want one more lowrer value
                 ps -= check[curr];
             }
  
