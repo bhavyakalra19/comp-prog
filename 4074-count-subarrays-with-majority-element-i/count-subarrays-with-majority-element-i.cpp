@@ -34,3 +34,6 @@ public:
 // n n-1, n, n+1 , n
 
 // 0 -1, -2, -3 -2 -3
+
+
+//we can use segment tree here but value is either decreasing by one or increasing by one this is the best method we can do to calcutlate total sum of ps on the go
