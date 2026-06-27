@@ -47,7 +47,6 @@ public:
                 mx = max(mx, ans - 1);
                 i++;
             }
-            cout << endl;
         }
         return mx;
     }
