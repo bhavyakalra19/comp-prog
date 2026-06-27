@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //binary search
     int checkBinarySearch(vector<int> &nums, int st, int en, long long check){
         int ans = -1;
         while(st <= en){
