@@ -25,7 +25,6 @@ public:
             i++;
         }
         int mx = (i % 2 == 0 && i > 0) ? i - 1 : i;
-        cout << "i -> " << i << endl;
 
         while(i < n){
             int check = nums[i];
@@ -35,7 +34,6 @@ public:
                 }
             }else{
                 int j = i;
-                cout << nums[j] << " ";
                 int ans = 2;
                 while(j + 1 < n && nums[j] == nums[j+1]){
                     st.insert(nums[j]);
@@ -43,7 +41,6 @@ public:
                     if(mid == -1){
                         break;
                     }
-                    cout << nums[mid] << " ";
                     ans += 2;
                     j = mid;
                 }
