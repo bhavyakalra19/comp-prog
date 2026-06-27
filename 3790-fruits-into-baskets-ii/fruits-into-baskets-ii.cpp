@@ -1,72 +1,53 @@
-class Node{
-    public:
-        int st;
-        int en;
-        int leftMax;
-        int rightMax;
-        Node *left;
-        Node *right;
-
-    Node(int l, int r){
-        st = l;
-        en = r;
-        leftMax = 0;
-        rightMax = 0;
-        left = NULL;
-        right = NULL;
-    }
-};
-
 class Solution {
 public:
-    Node* createTree(vector<int> &baskets, int left, int right){
-        if(left == right){
-            Node *root = new Node(left, right);
-            root->leftMax = baskets[left];
-            root->rightMax = baskets[left];
-            return root;
+    vector<vector<int>> tree;
+
+    // left, right, max_value
+
+    int buildTree(vector<int> &fruits, int x, int y, int node){
+        if(x == y){
+            tree[node] = {fruits[x], fruits[x], fruits[x]};
+            return fruits[x];
         }
-        int mid = (left + right)/2;
-        Node *root = new Node(left, right);
-        root->left = createTree(baskets, left, mid);
-        root->right = createTree(baskets, mid + 1, right);
-        root->leftMax = max(root->left->leftMax, root->left->rightMax);
-        root->rightMax = max(root->right->leftMax, root->right->rightMax);
-        return root;
+        int mid = (x + y) / 2;
+
+        int left = buildTree(fruits, x, mid, 2 * node + 1);
+        int right = buildTree(fruits, mid + 1, y, 2 * node + 2);
+        tree[node] = {left, right, max(left, right)};
+        return tree[node][2];
     }
-    
-    int getAns(Node *&root, int curr){
-        if(root->left == root->right){
-            int val = root->leftMax;
-            root->leftMax = 0;
-            root->rightMax = 0;
-            return val;
+
+    int checkAndUpdate(int &check, int x, int y, int node){
+        if(x == y){
+            tree[node] = {0,0,0};
+            return 0;
         }
-        int a;
-        if(root->leftMax >= curr){
-            a = getAns(root->left, curr);
-            root->leftMax = max(root->left->leftMax, root->left->rightMax);
+        int mid = (x + y) / 2;
+
+        int left = tree[node][0];
+        int right = tree[node][1];
+        if(check <= left){
+            left = checkAndUpdate(check, x, mid, 2 * node + 1);
         }else{
-            a = getAns(root->right, curr);
-            root->rightMax = max(root->right->leftMax, root->right->rightMax);
+            right = checkAndUpdate(check, mid + 1, y, 2 * node + 2);
         }
-        return a;
+        tree[node] = {left, right, max(left, right)};
+        return tree[node][2];
     }
 
     int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
-        int n = fruits.size();
-        Node *root = createTree(baskets, 0, n-1);
+        //segment tree
+        int n = baskets.size();
+        tree.resize(4 * n, vector<int>(3, 0));
+        buildTree(baskets, 0, n-1, 0);
         int ans = 0;
-        for(int i = 0; i < n; i++){
-            if(fruits[i] > root->leftMax && fruits[i] > root->rightMax){
-                ans++;
+        for(auto &a : fruits){
+            if(tree[0][2] >= a){
+                checkAndUpdate(a, 0, n-1, 0);
             }else{
-                getAns(root, fruits[i]);
+                ans++;
             }
         }
         return ans;
     }
 };
-
-
-
