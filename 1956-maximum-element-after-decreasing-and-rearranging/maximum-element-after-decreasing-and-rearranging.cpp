@@ -32,6 +32,7 @@ public:
         int i = 0;
         int curr = 1;
         int used_smaller = 0;
+        // why i used this used_smaller value as if i dont get any count i want its just bigger value not maz value, just bigger value to be decrease so that bigger value remain untouched coz we can decrease value not increase so keeping increased value makes our answer better
         while(i < n){
             int used = min(mp[curr], used_smaller);
             mp[curr] -= used;
