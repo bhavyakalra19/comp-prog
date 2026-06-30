@@ -1,27 +1,46 @@
 class Solution {
 public:
     int numberOfSubstrings(string s) {
-        int n = s.size();
-        vector<int> check(3,0);
+        int a = 0;
+        int b = 0;
+        int c = 0;
         int i = 0;
-        int j = 0;
-        int cnt = 0;
+        int n = s.size();
         int ans = 0;
+        int prev = 0;
+        int j = 0;
         while(i < n){
-            while(i < n && cnt < 3){
-                int a = s[i] - 'a';
-                if(check[a] == 0) cnt++;
-                check[a]++;
+            while(i < n && (a == 0 || b == 0 || c == 0)){
+                if(s[i] == 'a'){
+                    a++;
+                }else if(s[i] == 'b'){
+                    b++;
+                }else{
+                    c++;
+                }
                 i++;
             }
-            while(cnt == 3){
-                ans += n - i + 1;
-                int a = s[j] - 'a';
-                if(check[a] == 1) cnt--;
-                check[a]--;
-                j++;
+            int j = prev;
+
+            while(prev < n && (a > 0 && b > 0 && c > 0)){
+                if(s[prev] == 'a'){
+                    a--;
+                }else if(s[prev] == 'b'){
+                    b--;
+                }else{
+                    c--;
+                }
+                prev++;
             }
+
+            int right = n - i + 1;
+            int left = prev - j;
+            ans += left * right;
+            
         }
         return ans;
     }
 };
+
+
+// a a a b c a a b c
