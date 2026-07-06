@@ -7,13 +7,11 @@ public:
             return a[0] < b[0];
         });
         int cnt = 0;
-        int low = intervals[0][0];
         int high = intervals[0][1];
         for(int i = 1; i < n; i++){
             if(intervals[i][1] <= high){
                 cnt++;
             }else{
-                low = intervals[i][0];
                 high = intervals[i][1];
             }
         }
