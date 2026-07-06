@@ -10,7 +10,7 @@ public:
         int low = intervals[0][0];
         int high = intervals[0][1];
         for(int i = 1; i < n; i++){
-            if(intervals[i][0] == low || intervals[i][1] <= high){
+            if(intervals[i][1] <= high){
                 cnt++;
             }else{
                 low = intervals[i][0];
