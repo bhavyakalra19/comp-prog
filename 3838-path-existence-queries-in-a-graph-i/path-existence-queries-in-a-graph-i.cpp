@@ -24,7 +24,7 @@ public:
         }
         vector<bool> ans;
 
-        //main logic
+        //main logic -> why check all nodes check for the last one if it reachable to next one
         for(int i = 0; i < n-1; i++){
             if(nums[i+1] - nums[i] <= maxDiff){
                 unionFunc(i, i+1);
