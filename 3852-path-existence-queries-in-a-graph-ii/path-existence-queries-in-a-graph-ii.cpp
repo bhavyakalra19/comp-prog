@@ -40,7 +40,7 @@ public:
             start[nodes[i].second] = i;
         }
 
-        //jump binary lifting
+        //jump binary lifting instead of binary search -> In one jump how much far you can go and similarly 1,2,4,8,16...
         int LOG = 20;
         int right = 0;
         vector<vector<int>> up(n, vector<int>(LOG+1));
