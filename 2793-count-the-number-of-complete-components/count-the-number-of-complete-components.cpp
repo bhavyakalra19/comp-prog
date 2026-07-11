@@ -1,32 +1,49 @@
 class Solution {
 public:
-    void getAns(vector<vector<int>> &adj, int &v, int &e, vector<bool> &check, int idx){
-        check[idx] = true;
-        e++;
-        for(auto &a : adj[idx]){
-            v++;
-            if(!check[a]){
-                getAns(adj, v, e, check, a);
+
+    void checkGraph(int node, vector<int> &check, vector<vector<int>> &graph, vector<bool> &vis){
+        vis[node] = true;
+        check.push_back(graph[node].size());
+
+        for(auto &a : graph[node]){
+            if(!vis[a]){
+                checkGraph(a, check, graph, vis);
             }
         }
     }
 
     int countCompleteComponents(int n, vector<vector<int>>& edges) {
-        vector<bool> check(n,false);
-        vector<vector<int>> adj(n);
-        int cnt = 0;
-        for(auto &e : edges){
-            adj[e[0]].push_back(e[1]);
-            adj[e[1]].push_back(e[0]);
+        int ans = 0;
+        vector<vector<int>> graph(n);
+        for(auto &a : edges){
+            graph[a[0]].push_back(a[1]);
+            graph[a[1]].push_back(a[0]);
         }
+
+        vector<bool> vis(n, false);
         for(int i = 0; i < n; i++){
-            if(!check[i]){
-                int v = 0;
-                int e = 0;
-                getAns(adj, v, e, check, i);
-                if(((e * (e - 1)) == v) || e == 1) cnt++;
+            if(graph[i].size() == 0){
+                ans++;
+            }else if(!vis[i]){
+                vector<int> check;
+                checkGraph(i, check, graph, vis);
+
+                if(check.size() - 1 != check[0]){
+                    continue;
+                }
+                
+                bool correct = true;
+                for(int i = 1; i < check.size(); i++){
+                    if(check[i] != check[i-1]){
+                        correct = false;
+                        break;
+                    }
+                }
+                if(correct){
+                    ans++;
+                }
             }
         }
-        return cnt;
+        return ans;
     }
 };
