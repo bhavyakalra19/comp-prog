@@ -35,7 +35,6 @@ public:
         for(int i = 1; i < n-1; i++){
             int a = prefix[i-1];
             int b = suffix[i+1];
-            // cout << a << " " << b << endl;
             if(a != -1 && b != -1 && b - a > 1) return true;
         }
 
