@@ -1,27 +1,25 @@
 class Solution {
 public:
     vector<int> arrayRankTransform(vector<int>& arr) {
+        //no radix sort as numbers range are way larger 
         int n = arr.size();
-        if(n == 0){
-            return arr;
-        }
-        vector<int> check;
-        unordered_map<int,int> mp;
+        if(n == 0) return {};
+        vector<pair<int,int>> check;
         for(int i = 0; i < n; i++){
-            check.push_back(arr[i]);
+            check.push_back({arr[i], i});
         }
         sort(check.begin(), check.end());
-        int idx = 1;
-        mp[check[0]] = 1;
+        int curr = check[0].first;
+        int rank = 1;
+        vector<int> ans(n);
+        ans[check[0].second] = 1;
         for(int i = 1; i < n; i++){
-            if(check[i] != check[i-1]){
-                idx += 1;
+            if(check[i].first != curr){
+                rank++;
+                curr = check[i].first;
             }
-            mp[check[i]] = idx;
+            ans[check[i].second] = rank;
         }
-        for(int i = 0; i < n; i++){
-            arr[i] = mp[arr[i]];
-        }
-        return arr;
+        return ans;
     }
 };
