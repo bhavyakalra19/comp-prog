@@ -7,7 +7,6 @@ public:
         while(x <= n){
             x = x << 1;
         }
-        cout << x << endl;
         return x;
     }
 };
