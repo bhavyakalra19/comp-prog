@@ -1,33 +1,30 @@
 class Solution {
 public:
     int minScore(int n, vector<vector<int>>& roads) {
-        vector<vector<pair<int,int>>> g(n + 1);
-
-        for (auto &e : roads) {
-            g[e[0]].push_back({e[1], e[2]});
-            g[e[1]].push_back({e[0], e[2]});
+        // do union and find from 1 and check all nodes which we can go to and find min node in all the ways
+        vector<vector<pair<int,int>>> graph(n+1);
+        for(auto &a : roads){
+            graph[a[0]].push_back({a[1], a[2]});
+            graph[a[1]].push_back({a[0], a[2]});
         }
-
-        vector<int> vis(n + 1, 0);
+        int mn = INT_MAX;
+        vector<bool> vis(n+1, false);
         queue<int> q;
         q.push(1);
-        vis[1] = 1;
-
-        int ans = INT_MAX;
-
-        while (!q.empty()) {
-            int u = q.front();
+        vis[1] = true;
+        while(!q.empty()){
+            auto it = q.front();
             q.pop();
-
-            for (auto &[v, w] : g[u]) {
-                ans = min(ans, w);
-                if (!vis[v]) {
-                    vis[v] = 1;
-                    q.push(v);
+            for(auto &a : graph[it]){
+                int nx = a.first;
+                int nw = a.second;
+                mn = min(mn, nw);
+                if(!vis[nx]){
+                    q.push(nx);
                 }
+                vis[nx] = true;
             }
         }
-
-        return ans;
+        return mn;
     }
 };
