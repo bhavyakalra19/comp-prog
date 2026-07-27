@@ -1,7 +1,10 @@
 class Solution {
 public:
     int minScore(int n, vector<vector<int>>& roads) {
-        // do union and find from 1 and check all nodes which we can go to and find min node in all the ways
+        // theres always a path to destination then dont care of destination
+        // main is to find all the nodes we can explore from 1 
+        // we can use the min node on the way using go and forth
+        // find the min path you can find
         vector<vector<pair<int,int>>> graph(n+1);
         for(auto &a : roads){
             graph[a[0]].push_back({a[1], a[2]});
