@@ -42,53 +42,6 @@ public:
         return ways;
     }
 
-    // const long long INF = 1e18; // Adjust to your specific problem's INF
-
-    // long long get_ncr(int n, int r) {
-    //     if (r < 0 || r > n) return 0;
-        
-    //     // 1. The Symmetry Optimization: forces the loop to run as few times as possible
-    //     if (r > n - r) r = n - r; 
-        
-    //     long long ans = 1;
-    //     if (n == r || r == 0) return 1;
-        
-    //     for (int i = 1; i <= r; i++) {
-    //         // 2. The 128-bit cast: prevents overflow during the multiplication step
-    //         __int128_t step = (static_cast<__int128_t>(ans) * (n - i + 1)) / i;
-            
-    //         // 3. The INF cap: stops calculation if it gets too large
-    //         if (step >= INF) return INF;
-    //         ans = static_cast<long long>(step);
-    //     }
-    //     return ans;
-    // }
-
-    // long long get_ways(vector<int> &count, int c, int n) {
-    //     count[c] -= 1;
-    //     n -= 1;
-    //     long long ways = 1;
-        
-    //     for (int i = 0; i < 26; i++) {
-    //         if (count[i] > 0) {
-    //             long long current_ncr = get_ncr(n, count[i]);
-                
-    //             // Cast to 128-bit before multiplying combinations together to prevent overflow
-    //             __int128_t next_ways = static_cast<__int128_t>(ways) * current_ncr;
-                
-    //             if (next_ways >= INF) {
-    //                 count[c] += 1; // Restore before returning
-    //                 return INF;
-    //             }
-                
-    //             ways = static_cast<long long>(next_ways);
-    //             n -= count[i];
-    //         }
-    //     }
-    //     count[c] += 1;
-    //     return ways;
-    // }
-
     string smallestPalindrome(string s, int k) {
         int n = s.size();
         vector<int> count(26, 0);
