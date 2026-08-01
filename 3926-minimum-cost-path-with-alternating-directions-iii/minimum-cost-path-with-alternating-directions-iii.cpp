@@ -1,7 +1,6 @@
 class Solution {
 public:
     
-
     long long minCost(int n, int m, vector<vector<int>>& penalty) {
         vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(m, vector<long long>(2, LONG_MAX)));
         priority_queue<pair<long long, pair<int, pair<int,int>>>, vector<pair<long long, pair<int, pair<int,int>>>>, greater<pair<long long, pair<int, pair<int,int>>>>> pq;
