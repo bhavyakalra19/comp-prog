@@ -16,6 +16,7 @@ public:
             int cp = it.second[0];
             int cx = it.second[1];
             int cy = it.second[2];
+            if (cw > dp[cx][cy][cp]) continue;
 
             int np = cp ^ 1;
             long long ncw = penalty[cx][cy] + cw;
