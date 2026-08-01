@@ -1,15 +1,15 @@
 class Solution {
 public:
     vector<vector<int>> dp;
-    int getAns(int i, int j, int &n, vector<int> &nums){
-        if(i == j){
-            return nums[i];
-        }
-        if(dp[i][j] != -1) return dp[i][j];
-        int a = nums[i] - getAns(i+1, j, n, nums);
-        int b = nums[j] - getAns(i, j-1, n, nums);
-        return dp[i][j] = max(a, b);
-    }
+    // int getAns(int i, int j, int &n, vector<int> &nums){
+    //     if(i == j){
+    //         return nums[i];
+    //     }
+    //     if(dp[i][j] != -1) return dp[i][j];
+    //     int a = nums[i] - getAns(i+1, j, n, nums);
+    //     int b = nums[j] - getAns(i, j-1, n, nums);
+    //     return dp[i][j] = max(a, b);
+    // }
 
     bool predictTheWinner(vector<int>& nums) {
         int n = nums.size();
