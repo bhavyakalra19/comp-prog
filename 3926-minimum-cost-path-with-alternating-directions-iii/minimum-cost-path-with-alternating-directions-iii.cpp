@@ -1,9 +1,11 @@
 class Solution {
 public:
+    
+
     long long minCost(int n, int m, vector<vector<int>>& penalty) {
         vector<vector<vector<long long>>> dp(n, vector<vector<long long>>(m, vector<long long>(2, LONG_MAX)));
-        priority_queue<pair<long long, vector<int>>, vector<pair<long long, vector<int>>>, greater<pair<long long, vector<int>>>> pq;
-        pq.push({1, {1, 0, 0}});
+        priority_queue<pair<long long, pair<int, pair<int,int>>>, vector<pair<long long, pair<int, pair<int,int>>>>, greater<pair<long long, pair<int, pair<int,int>>>>> pq;
+        pq.push({1, {1, {0, 0}}});
         dp[0][0][1] = 1;
 
         vector<int> dx = {-1, 0, 1, 0};
@@ -13,9 +15,10 @@ public:
             auto it = pq.top();
             pq.pop();
             long long cw = it.first;
-            int cp = it.second[0];
-            int cx = it.second[1];
-            int cy = it.second[2];
+            int cp = it.second.first;
+            int cx = it.second.second.first;
+            int cy = it.second.second.second;
+            
             if (cw > dp[cx][cy][cp]) continue;
 
             int np = cp ^ 1;
@@ -23,7 +26,7 @@ public:
 
             if(dp[cx][cy][np] > ncw){
                 dp[cx][cy][np] = ncw;
-                pq.push({ncw, {np, cx, cy}});
+                pq.push({ncw, {np, {cx, cy}}});
             }
 
             for(int a = 0; a < 4; a++){
@@ -42,7 +45,7 @@ public:
 
                     if(dp[nx][ny][np] > nw){
                         dp[nx][ny][np] = nw;
-                        pq.push({nw, {np, nx, ny}});
+                        pq.push({nw, {np, {nx, ny}}});
                     }
                 }
             }
