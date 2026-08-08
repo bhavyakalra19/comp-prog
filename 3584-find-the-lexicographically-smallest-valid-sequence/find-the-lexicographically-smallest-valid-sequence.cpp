@@ -23,12 +23,10 @@ public:
                 cnt++;
             }
         }
-        cout << endl;
         bool check = true;
         j = 0;
         vector<int> ans;
         for(int i = 0; i < n; i++){
-            // cout << prefix[i] << " " << suffix[i] << endl;
             if(word1[i] == word2[j]){
                 j++;
                 ans.push_back(i);
