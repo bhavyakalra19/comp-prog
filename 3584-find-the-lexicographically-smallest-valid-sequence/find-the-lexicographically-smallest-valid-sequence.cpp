@@ -21,7 +21,7 @@ public:
                 j++;
                 ans.push_back(i);
                 if(j == m) break;
-            }else if ((suffix[i] + j) >= (m-1) && check){
+            }else if((suffix[i] + j) >= (m-1) && check){
                 j++;
                 ans.push_back(i);
                 check = false;
@@ -40,3 +40,6 @@ public:
 // 0 1 2 2
 // 2 1 1 0
 
+
+// you dont need dp as only suffix array will tell you that if you gonna have how many matches after current index
+// you dont need prefix sum then too
