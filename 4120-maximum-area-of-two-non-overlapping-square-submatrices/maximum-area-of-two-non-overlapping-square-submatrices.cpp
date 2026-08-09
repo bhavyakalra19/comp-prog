@@ -1,5 +1,6 @@
 class Solution {
 public:
+    vector<vector<int>> check;
     int handle1DRow(vector<vector<int>>& mat, int m) {
         int count = 0;
         for (int j = 0; j < m; j++) {
@@ -17,7 +18,6 @@ public:
     }
 
     void calculateLeft(vector<vector<int>> &mat, int &n, int &m, vector<int> &left){
-        vector<vector<int>> check(n, vector<int>(m, 0));
         for(int i = 0; i < n; i++){
             check[i][0] = mat[i][0];
             if(mat[i][0]) left[0] = 1;
@@ -40,7 +40,6 @@ public:
 
     int getVerticleMax(vector<vector<int>> &mat, int &n, int &m, vector<int> &left){
         int mx = 0;
-        vector<vector<int>> check(n, vector<int>(m, 0));
         for(int i = n-1; i >= 0; i--){
             check[i][m-1] = mat[i][m-1];
             if(check[i][m-1]) mx = 1; 
@@ -64,7 +63,6 @@ public:
     }
 
     void calculateTop(vector<vector<int>> &mat, int &n, int &m, vector<int> &top){
-        vector<vector<int>> check(n, vector<int>(m, 0));
         for(int j = 0; j < m; j++){
             check[0][j] = mat[0][j];
             if(mat[0][j]) top[0] = 1;
@@ -87,7 +85,6 @@ public:
 
     int getHorizontalMax(vector<vector<int>> &mat, int &n, int &m, vector<int> &top){
         int mx = 0;
-        vector<vector<int>> check(n, vector<int>(m, 0));
         for(int j = m - 1; j >= 0; j--){
             check[n-1][j] = mat[n-1][j];
             if(check[n-1][j]) mx = 1; 
@@ -112,10 +109,12 @@ public:
 
     int maxArea(vector<vector<int>>& mat) {
         if (mat.empty() || mat[0].empty()) return 0;
-
+        
         int n = mat.size();
         int m = mat[0].size();
 
+        check.resize(n, vector<int>(m));
+        
         if (n == 1) return handle1DRow(mat, m);
         if (m == 1) return handle1DCol(mat, n);
 
