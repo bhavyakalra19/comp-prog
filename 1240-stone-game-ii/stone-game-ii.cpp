@@ -20,7 +20,23 @@ public:
         for(int i = n-2; i >= 0; i--){
             piles[i] += piles[i+1];
         }
-        return getAns(piles, 0, 1, dp);
+
+        for(int i = n-1; i >= 0; i--){
+            for(int m = max(n-1, 1); m > 0; m--){
+                if(i + 2 * m >= n){
+                    dp[i][m] = piles[i];
+                }else{
+                    int ans = INT_MAX;
+                    for(int j = i + 2*m - 1; j >= i; j--){
+                        int nm = max(m, j - i + 1);
+                        ans = min(ans, dp[j+1][nm]);
+                    }
+                    dp[i][m] = piles[i] - ans;
+                }
+            }
+        }
+        return dp[0][1];
+        // return getAns(piles, 0, 1, dp);
     }
 };
 
