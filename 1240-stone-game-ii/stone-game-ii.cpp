@@ -1,34 +1,34 @@
 class Solution {
 public:
-    int getAns(int alice, vector<int> piles, vector<vector<vector<int>>> &dp, int m, int idx, int n){
-        if(idx == piles.size()){
-            return 0;
+    int n;
+    int getAns(vector<int> &piles, int i, int m, vector<vector<int>> &dp){
+        if(i + 2 * m >= n){
+            return piles[i];
         }
-        if(dp[alice][idx][m] != -1){
-            return dp[alice][idx][m];
+        if(dp[i][m] != -1) return dp[i][m];
+        int ans = INT_MAX;
+        for(int j = i; j < i + 2 * m; j++){
+            int nm = max(m, j - i + 1);
+            ans = min(ans, getAns(piles, j + 1, nm, dp));
         }
-        int sum = 0;
-        int stones = (alice == 1 ? 0 : INT_MAX);
-        for(int x = 1; x <= 2*m; x++){
-            if(idx + x > n){
-                break;
-            }
-            sum += piles[idx + x - 1];
-            if(alice == 1){
-                stones = max(stones, sum + getAns(0,piles,dp,max(x,m), idx + x, n));
-            }else{
-                stones = min(stones, getAns(1,piles,dp,max(x,m), idx + x, n));
-            }
-        }
-        return dp[alice][idx][m] = stones;
+        return dp[i][m] = piles[i] - ans;
     }
 
     int stoneGameII(vector<int>& piles) {
-        int n = piles.size();
-        if(n == 1){
-            return piles[0];
+        n = piles.size();
+        vector<vector<int>> dp(n, vector<int>(n + 1, -1));
+        for(int i = n-2; i >= 0; i--){
+            piles[i] += piles[i+1];
         }
-        vector<vector<vector<int>>> dp(2,vector(n+1, vector<int>(n+1, -1)));
-        return getAns(1,piles,dp,1,0,n);    
+        return getAns(piles, 0, 1, dp);
     }
 };
+
+// if alice playing then he want more sum
+//  this to be max -> piles[i] + ... + piles[i+k] + getAns()
+
+// if bob
+
+// getAns() to be min
+
+//but instead take max total stone  - getAns()
