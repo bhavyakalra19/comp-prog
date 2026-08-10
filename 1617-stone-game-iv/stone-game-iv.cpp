@@ -7,14 +7,13 @@ public:
             return true;
         }
         if(dp[n] != -1) return dp[n];
-        bool ans = false;
         for(int i = 1; i * i <= n; i++){
             if(!getAns(n - i * i, dp)){
-                ans = true;
+                return dp[n] = true;
             }
         }
 
-        return dp[n] = ans;
+        return dp[n] = false;
     }
 
     bool winnerSquareGame(int n) {
