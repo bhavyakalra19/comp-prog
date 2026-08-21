@@ -66,7 +66,7 @@ public:
         // we want to remove lcm of 2 numbers but have to add lcm of 3 numbers then add for 4 then remove 5
         // because lets say 2 3 5 -> if we remove multiples of lcm of 2 combined of them -> 6, 10, 15 now look at number 30 its being removed 3 times we have to add 30 one time or lcm of (2, 3, 5) so its balanced
 
-        // create recursion loop where you select and not select element if size of selected % 2 == 0 then remvals, else adds
+        // create recursion loop where you select and not select element if size of selected % 2 == 0 then add lcm to removals, else adds
         checkAddsRemovals(check, adds, removals, 1, 0, 0);
         return getAns(adds, removals, k);
     }
