@@ -16,13 +16,11 @@ public:
             check_digit += (9 - place);
         }
         int digit_num = sm - (left % sm == 0 ? sm : left % sm);
-        cout << digit_num << endl;
-        cout << check_digit << endl;
+    
         while(digit_num > 0){
             check_digit /= 10;
             digit_num--;
         }
-        cout << check_digit % 10 << endl;
         return check_digit % 10;
     }
     
