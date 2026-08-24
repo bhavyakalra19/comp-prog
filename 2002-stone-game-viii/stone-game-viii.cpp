@@ -5,6 +5,7 @@ public:
             return stones[n-1];
         }
         if(dp[i] != LONG_MIN) return dp[i];
+        // remove for loop here by simply take stones and remove the bob's / alice max or skip choosing stone and pick in future as in any position we are just taking ps[i]
         long long ans = max(getAns(stones, i+1, n, dp), stones[i] - getAns(stones, i+1, n, dp));
         return dp[i] = ans;
     }
