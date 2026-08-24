@@ -35,8 +35,6 @@ public:
         int total = mx - mn + 1;
         tree.resize(total * 4, 0);
 
-        vector<int> dp(n, 1);
-
         addNum(0, 0, total - 1, nums[0] - mn, 1);
         for(int i = 1; i < n; i++){
             int val = nums[i] - mn;
