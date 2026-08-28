@@ -1,19 +1,31 @@
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
+        // trying with famous algo of replace and get Value
+        vector<int> ans;
+        ans.push_back(nums[0]);
         int n = nums.size();
-        vector<int> dp(n, 1);
-        int mx = 1;
+        int curr = 0;
         for(int i = 1; i < n; i++){
-            int ans = 0;
-            for(int j = 0; j < i; j++){
-                if(nums[j] < nums[i]){
-                    ans = max(ans, dp[j]);
+            if(nums[i] > ans[curr]){
+                curr++;
+                ans.push_back(nums[i]);
+            }else{
+                int st = 0;
+                int en = curr;
+                int best = 0;
+                while(st <= en){
+                    int mid = (st + en)/2;
+                    if(ans[mid] >= nums[i]){
+                        best = mid;
+                        en = mid - 1;
+                    }else{
+                        st = mid + 1;
+                    }
                 }
+                ans[best] = nums[i];
             }
-            dp[i] = ans + 1;
-            mx = max(mx, dp[i]);
         }
-        return mx;
+        return curr + 1;
     }
 };
