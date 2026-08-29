@@ -1,32 +1,39 @@
 class Solution {
 public:
-    vector<int> lexicographicallySmallestArray(vector<int>& nums, int limit) {
+    vector<int> lexicographicallySmallestArray(vector<int>& nums, int limit) {  
         int n = nums.size();
-        vector<pair<int,int>> gp;
+        vector<int> ans(n);
+        vector<pair<int,int>> check;
         for(int i = 0; i < n; i++){
-            gp.push_back({nums[i],i});
+            check.push_back({nums[i], i});
         }
-        sort(gp.begin(), gp.end());
-        vector<vector<pair<int,int>>> level;
-        level.push_back({gp[0]});
-        for(int i = 1; i < n; i++){
-            if(gp[i].first - level.back().back().first <= limit){
-                level.back().push_back(gp[i]);
-            }else{
-                level.push_back({gp[i]});
+        sort(check.begin(), check.end());
+        int j = 0;
+        while(j < n){
+            int i = j;
+            vector<int> index;
+            index.push_back(check[j].second);
+            j++;
+            while(j < n && check[j].first - check[j-1].first <= limit){
+                index.push_back(check[j].second);
+                j++;
+            }
+            sort(index.begin(), index.end());
+            for(auto &a : index){
+                ans[a] = check[i].first;
+                i++;
             }
         }
-
-        for(auto l : level){
-            vector<int> ind;
-            for(auto p : l){
-                ind.push_back(p.second);
-            }
-            sort(ind.begin(), ind.end());
-            for(int i = 0; i < ind.size(); i++){
-                nums[ind[i]] = l[i].first;
-            }
-        }
-        return nums;
+        return ans;
     }
 };
+
+// first sort the numbers and get their combination
+// then after sorting get their actual index and sort them to their new relative sorted indices
+// then go for next combinations
+
+
+// 1 2 4
+
+// store their actual indices and then sort the indices as well
+// then store the smaller value to smaller indices
