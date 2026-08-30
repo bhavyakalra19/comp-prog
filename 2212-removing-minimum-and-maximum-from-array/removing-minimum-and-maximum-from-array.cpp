@@ -17,7 +17,6 @@ public:
                 mxIdx = i;
             }
         }
-        cout << mnIdx << " " << mxIdx;
 
         int ans = n;
         ans = min(ans, max(mnIdx, mxIdx) + 1);
