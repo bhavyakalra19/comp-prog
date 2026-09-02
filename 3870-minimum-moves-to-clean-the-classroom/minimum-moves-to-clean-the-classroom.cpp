@@ -59,7 +59,6 @@ public:
                         new_energy = energy;
                     }else if(classroom[nx][ny] != '.' && classroom[nx][ny] != 'S'){
                         int b = (int)(classroom[nx][ny] - '0');
-                        cout << b << endl;
                         new_mask = new_mask | (1 << b);
                     }
                    
