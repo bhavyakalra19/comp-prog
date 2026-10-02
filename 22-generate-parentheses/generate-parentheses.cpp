@@ -1,22 +1,21 @@
 class Solution {
 public:
-    void getAns(string s, int p, int c, vector<string> &ans){
-        if(p == 0 && c == 0){
+
+    void getAns(int n, int m, vector<string> &ans, string s){
+        if(n == 0 && m == 0){   
             ans.push_back(s);
-            return;
         }
-        if(p){
-            getAns(s + '(', p-1,c+1,ans);
+        if(n > 0){
+            getAns(n-1, m+1, ans, s + "(");
         }
-        if(c){
-            getAns(s + ')', p, c-1,ans);
+        if(m > 0){
+            getAns(n, m-1, ans, s + ")");
         }
     }
 
-
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
-        getAns("",n,0,ans);
+        getAns(n, 0, ans, "");
         return ans;
     }
 };
