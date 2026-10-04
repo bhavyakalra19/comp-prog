@@ -1,25 +1,27 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int mn = 0;
-        int mx = 0;
-        for(auto &a : s){
-            if(a == '*'){
-                mx++;
-                if(mn > 0){
-                    mn--;
-                }
-            }else if(a == '('){
-                mx++;
-                mn++;
+        // check both sides if open and close can be < 0
+        int n = s.size();
+        int open = 0;
+        for(auto &a: s){
+            if(a == '(' || a == '*'){
+                open++;
             }else{
-                if(mx == 0) return false;
-                mx--;
-                if(mn > 0){
-                    mn--;
-                }
+                open--;
             }
+            if(open < 0) return false;
         }
-        return mn == 0;
+        int close = 0;
+        for(int i = n-1; i >= 0; i--){
+            char a = s[i];
+            if(a == ')' || a == '*'){
+                close++;
+            }else{
+                close--;
+            }
+            if(close < 0) return false;
+        }
+        return true;
     }
 };
