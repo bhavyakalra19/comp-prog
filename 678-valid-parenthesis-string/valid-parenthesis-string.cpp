@@ -1,20 +1,23 @@
 class Solution {
 public:
     bool checkValidString(string s) {
-        int n = s.size();
         int mn = 0;
         int mx = 0;
-        for(int i = 0; i < n; i++){
-            if(s[i] == '('){
+        for(auto &a : s){
+            if(a == '*'){
+                mx++;
+                if(mn > 0){
+                    mn--;
+                }
+            }else if(a == '('){
+                mx++;
                 mn++;
-                mx++;
-            }else if(s[i] == '*'){
-                if(mn > 0) mn--;
-                mx++;
             }else{
-                if(mn > 0) mn--;
+                if(mx == 0) return false;
                 mx--;
-                if(mx < 0) return false;
+                if(mn > 0){
+                    mn--;
+                }
             }
         }
         return mn == 0;
